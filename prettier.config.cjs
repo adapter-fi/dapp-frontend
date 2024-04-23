@@ -1,0 +1,21 @@
+module.exports = {
+  trailingComma: 'es5',
+  tabWidth: 2,
+  semi: false,
+  singleQuote: true,
+  importOrder: [
+    '^react|^next|^@vercel|^@radix-ui|^@mantine',
+    '^@dynamic-labs|wagmi|^viem|^@tanstack',
+    '^@/components/*',
+    '^@/hooks/*',
+    '^@/lib/*',
+    '^@/*',
+    '^@/codegen',
+    '<THIRD_PARTY_MODULES>',
+    '^[./]',
+  ],
+  importOrderGroupNamespaceSpecifiers: true,
+  importOrderSeparation: true,
+  importOrderSortSpecifiers: true,
+  plugins: ['@trivago/prettier-plugin-sort-imports'],
+}
