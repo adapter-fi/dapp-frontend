@@ -45,6 +45,7 @@ export const VaultActions = () => {
               value={amount}
               onChange={(value) => setAmount(value)}
               placeholder="0.00"
+              className='max-w-[250px]'
             />
             <div className="flex flex-col font-light w-[128px]">
               <p className="text-gray">You pay</p>
@@ -86,8 +87,8 @@ export const VaultActions = () => {
         <Image src="/icons/divider.svg" height={136} width={32} alt="divider" />
         <div className="bg-[#1F1F1D] border border-[#3B3B39] rounded-[4px] p-4 flex flex-col w-[467px]">
           <div className="flex justify-between items-center w-full">
-            <p className="text-[64px] font-bold">
-              {formatNumber(fromBigNumber(amount))}
+            <p className="text-[64px] font-bold truncate max-w-[251px]">
+              {formatNumber(fromBigNumber(amount), 0)}
             </p>
             <div className="flex flex-col font-light w-[128px]">
               <p className="text-gray">You receive</p>
