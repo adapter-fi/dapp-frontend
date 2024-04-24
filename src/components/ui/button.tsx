@@ -1,56 +1,48 @@
-import * as React from "react"
-import { Slot } from "@radix-ui/react-slot"
-import { cva, type VariantProps } from "class-variance-authority"
+import * as React from 'react'
 
-import { cn } from "@/lib/utils"
+import { cn } from '@/lib/utils'
 
-const buttonVariants = cva(
-  "inline-flex items-center gap-1 justify-center tracking-[1.6px] hover:tracking-[2.4px] whitespace-nowrap rounded-[3.6px] text-base hover:text-2xl ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
-  {
-    variants: {
-      variant: {
-        default: "bg-[#F9F9F2] text-[#1F1F1D]",
-        destructive:
-          "bg-destructive text-destructive-foreground hover:bg-destructive/90",
-        outline:
-          "border border-[#F9F9F2]",
-        secondary:
-          "bg-secondary text-secondary-foreground hover:bg-secondary/80",
-        ghost: "",
-        link: "text-primary underline-offset-4 hover:underline",
-      },
-      size: {
-        default: "h-10 px-2.5 py-2 hover:px-4",
-        sm: "h-9 rounded-md px-3",
-        lg: "h-11 rounded-md px-8",
-        icon: "h-10 w-10",
-      },
-    },
-    defaultVariants: {
-      variant: "default",
-      size: "default",
-    },
-  }
-)
+import { ArrowUpRight } from 'lucide-react'
 
 export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonVariants> {
-  asChild?: boolean
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  icon?: React.ReactNode
+  variant?: 'default' | 'outline' | 'ghost'
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, asChild = false, ...props }, ref) => {
-    const Comp = asChild ? Slot : "button"
+  ({ className, icon = undefined, variant = 'default', ...props }, ref) => {
     return (
-      <Comp
-        className={cn(buttonVariants({ variant, size, className }))}
+      <button
+        className={cn(
+          'group relative flex h-10 px-2.5 py-2 items-center justify-center gap-1 tracking-[1.6px] rounded-[3.6px] transition-all duration-300 ease-in-out',
+          variant === 'outline' &&
+            'border border-[#F9F9F2] hover:border-transparent hover:shadow-xl hover:px-1',
+          variant === 'default' && 'bg-[#F9F9F2] text-[#1F1F1D]',
+          variant === 'ghost' && 'border-b border-transparent hover:border-b-[#F9F9F2] rounded-none', 
+          className
+        )}
         ref={ref}
         {...props}
-      />
+      >
+        {variant === 'outline' && icon ? (
+          <>
+            <div className="absolute left-1/2 -translate-x-1/2 group-hover:left-2 group-hover:translate-x-0 transition-all duration-300 ease-in-out">
+              {props.children}
+            </div>
+            {icon && (
+              <div className="absolute opacity-0 group-hover:opacity-100 right-2 transition-all duration-300 ease-in-out justify-self-end">
+                {icon}
+              </div>
+            )}
+          </>
+        ) : (
+          props.children
+        )}
+      </button>
     )
   }
 )
-Button.displayName = "Button"
+Button.displayName = 'Button'
 
-export { Button, buttonVariants }
+export { Button }

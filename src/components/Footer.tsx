@@ -4,7 +4,7 @@ import { Copyright } from 'lucide-react'
 
 export const Footer = () => {
   return (
-    <div className="grid grid-cols-3 items-start p-12">
+    <div className="grid grid-cols-3 items-start p-12 border-[#3B3B39] border-t-2">
       <div className="flex items-end">
         <Image src="/brand/logo.png" width={64} height={64} alt="logo" />
         <div className="flex gap-1 items-center">

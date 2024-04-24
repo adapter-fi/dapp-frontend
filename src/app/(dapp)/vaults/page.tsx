@@ -4,6 +4,8 @@ import { Button } from '@/components/ui/button'
 import { Vault, columns } from '@/app/(dapp)/vaults//columns'
 import { DataTable } from '@/app/(dapp)/vaults/data-table'
 
+import { ArrowUpRight } from 'lucide-react'
+
 const fakeData: Vault[] = [
   {
     data: {
@@ -37,7 +39,6 @@ const fakeData: Vault[] = [
     deposits: 0,
   },
 ]
-;('')
 
 export default function VaultHomepage() {
   return (
@@ -49,31 +50,40 @@ export default function VaultHomepage() {
             Deposit, get yield, simple as that.
           </p>
         </div>
-        <div className="grid grid-cols-3 gap-12">
-          <div className="flex flex-col mt-5 text-sm">
-            <p>
-              Adapter.FI ERC-4626 vaults react in real time to interest rate
-              fluctuations across DeFi venues by rebalancing their allocations
-              in a manner that maximizes yield between different whitelisted
-              lending platforms.
-            </p>
-            <p className="text-gray">
-              Our vaults allow anyone to participate in this rebalancing process
-              and encourage the decentralization of it by incentivizing part of
-              the yield that the respective vaults generate from a rebalancing
-              proposal.
-            </p>
-          </div>
+        <div className="grid grid-cols-4 gap-12">
+          <p className="self-end font-light">
+            Adapter vaults allocate tokens to whitelisted partner markets
+            following managed strategies to obtain{' '}
+            <b className="font-bold">best-in-class</b> yields.
+          </p>
           <div className="flex flex-col gap-4">
             <Metric label="Deposits" amount={420} unit="USD" />
-            <Button variant="outline" className="w-[265px]">
+            <Button
+              variant="outline"
+              className="w-[265px]"
+              icon={<ArrowUpRight />}
+            >
               VIEW DETAILS
             </Button>
           </div>
           <div className="flex flex-col gap-4">
             <Metric label="Earnings" amount={69} unit="USD" />
-            <Button variant="outline" className="w-[265px]">
+            <Button
+              variant="outline"
+              className="w-[265px]"
+              icon={<ArrowUpRight />}
+            >
               CLAIM
+            </Button>
+          </div>
+          <div className="flex flex-col gap-4">
+            <Metric label="Points" amount={6900} />
+            <Button
+              variant="outline"
+              className="w-[265px]"
+              icon={<ArrowUpRight />}
+            >
+              LEADERBOARD
             </Button>
           </div>
         </div>

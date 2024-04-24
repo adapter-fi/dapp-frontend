@@ -1,5 +1,7 @@
 'use client'
 
+import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
 import {
@@ -41,6 +43,7 @@ export function DataTable<TData, TValue>({
       sorting,
     },
   })
+  const router = useRouter()
 
   return (
     <div className="rounded-md p-12">
@@ -69,6 +72,8 @@ export function DataTable<TData, TValue>({
               <TableRow
                 key={row.id}
                 data-state={row.getIsSelected() && 'selected'}
+                onClick={() => router.push('/vaults/dai')}
+                className="cursor-pointer"
               >
                 {row.getVisibleCells().map((cell) => (
                   <TableCell key={cell.id}>

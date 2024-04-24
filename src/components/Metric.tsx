@@ -1,33 +1,39 @@
-import Image from 'next/image'
-
-import { formatNumber } from '@/lib/utils'
-
-import { Tooltip, TooltipContent, TooltipTrigger } from './ui/tooltip'
+import { cn, formatNumber } from '@/lib/utils'
 
 export const Metric = ({
   label,
   amount,
   unit,
+  size = 'lg',
 }: {
   label: string
   amount: number | string
-  unit: string
+  unit?: string
+  size?: 'sm' | 'lg'
 }) => {
   return (
     <div className="flex flex-col">
-      <Tooltip>
-        <TooltipTrigger className="flex gap-0.5 text-gray w-fit">
-          <p className="text-md font-light">{label}</p>
-          <Image src="/icons/info.svg" width={12} height={12} alt="info" />
-        </TooltipTrigger>
-        <TooltipContent>Some copy here</TooltipContent>
-      </Tooltip>
       <div className="flex items-end gap-1">
-        <p className="text-[64px] font-bold leading-none">
+        <p
+          className={cn(
+            'font-bold leading-none',
+            size === 'lg' ? 'text-[64px]' : 'text-2xl'
+          )}
+        >
           {formatNumber(amount)}
         </p>
-        <p className="uppercase text-gray font-bold -translate-y-1">{unit}</p>
+        {unit && (
+          <p
+            className={cn(
+              'text-gray font-bold',
+              size === 'lg' && '-translate-y-1'
+            )}
+          >
+            {unit}
+          </p>
+        )}
       </div>
+      <p className="text-gray font-light">{label}</p>
     </div>
   )
 }
