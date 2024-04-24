@@ -1,12 +1,11 @@
 'use client'
 
-import Image from 'next/image'
-
-import { Column, ColumnDef, HeaderContext } from '@tanstack/react-table'
+import { ColumnDef } from '@tanstack/react-table'
 
 import { cn } from '@/lib/utils'
 
-import { ArrowDown, ArrowUp } from 'lucide-react'
+import { ArrowUp } from 'lucide-react'
+import Image from 'next/image'
 
 export type Vault = {
   data: {
@@ -48,10 +47,11 @@ export const columns: ColumnDef<Vault>[] = [
       )
     },
     cell: ({ row }) => {
-      const vaultData = row.getValue('data')
+      const vaultData: Vault['data'] = row.getValue('data')
       return (
-        <div className="flex gap-1">
+        <div className="flex gap-1 relative">
           <img src={vaultData.logoURI} height={48} width={48} alt="logo" />
+          <Image src='/brand/logo.png' height={16} width={16} alt="logo" className='absolute left-[-3px] top-[-3px]' />
           <div className="flex flex-col gap-1">
             <p>{vaultData.name}</p>
             <div className="flex items-center gap-0.5">
@@ -94,6 +94,7 @@ export const columns: ColumnDef<Vault>[] = [
         </button>
       )
     },
+    cell: ({ row }) => `${row.getValue('underlyingAPR')}%`,
   },
   {
     accessorKey: 'autocompoundedAPY',
@@ -119,6 +120,7 @@ export const columns: ColumnDef<Vault>[] = [
         </button>
       )
     },
+    cell: ({ row }) => `${row.getValue('autocompoundedAPY')}%`,
   },
   {
     accessorKey: 'points',
