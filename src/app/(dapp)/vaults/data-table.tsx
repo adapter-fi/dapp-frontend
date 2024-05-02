@@ -1,6 +1,5 @@
 'use client'
 
-import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
@@ -22,14 +21,18 @@ import {
   TableRow,
 } from '@/components/ui/table'
 
+import { cn } from '@/lib/utils'
+
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
+  vaultTable?: boolean
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
+  vaultTable,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([])
 
@@ -72,8 +75,10 @@ export function DataTable<TData, TValue>({
               <TableRow
                 key={row.id}
                 data-state={row.getIsSelected() && 'selected'}
-                onClick={() => router.push('/vaults/dai')}
-                className="cursor-pointer"
+                onClick={
+                  vaultTable ? () => router.push('/vaults/dai') : () => null
+                }
+                className={cn(vaultTable && 'cursor-pointer')}
               >
                 {row.getVisibleCells().map((cell) => (
                   <TableCell key={cell.id}>

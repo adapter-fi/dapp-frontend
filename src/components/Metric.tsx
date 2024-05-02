@@ -16,22 +16,13 @@ export const Metric = ({
       <div className="flex items-end gap-1">
         <p
           className={cn(
-            'font-bold leading-none',
-            size === 'lg' ? 'text-[64px]' : 'text-2xl'
+            'font-bold',
+            size === 'lg' ? 'text-[42px] h-[52px]' : 'text-2xl'
           )}
         >
           {formatNumber(amount)}
         </p>
-        {unit && (
-          <p
-            className={cn(
-              'text-gray font-bold',
-              size === 'lg' && '-translate-y-1'
-            )}
-          >
-            {unit}
-          </p>
-        )}
+        {unit && <p className={cn('text-gray font-bold')}>{unit}</p>}
       </div>
       <p className="text-gray font-light">{label}</p>
     </div>

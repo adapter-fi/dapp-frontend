@@ -27,7 +27,7 @@ export const BigIntInput = forwardRef<HTMLInputElement, BigIntInputProps>(
         thousandSeparator=","
         {...props}
         className={cn(
-          'bg-transparent border-none text-[64px] font-bold',
+          'bg-transparent border-none text-[42px] font-bold',
           className
         )}
         type="text"

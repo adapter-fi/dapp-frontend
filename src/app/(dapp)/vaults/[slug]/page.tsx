@@ -9,10 +9,10 @@ export default function VaultPage({ params }: { params: { slug: string } }) {
           <img
             src="https://cryptologos.cc/logos/multi-collateral-dai-dai-logo.png?v=031"
             alt="dai"
-            height={128}
-            width={128}
+            height={80}
+            width={80}
           />
-          <p className="text-9xl font-bold">DAI</p>
+          <p className="text-[82px] font-bold">DAI</p>
           <div className="p-2 bg-[#20CD7A] text-[#125AFA] rounded-[4px] self-start ml-2">
             BOOSTED
           </div>

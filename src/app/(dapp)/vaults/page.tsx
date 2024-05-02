@@ -1,3 +1,5 @@
+import Link from 'next/link'
+
 import { Metric } from '@/components/Metric'
 import { Button } from '@/components/ui/button'
 
@@ -78,13 +80,15 @@ export default function VaultHomepage() {
           </div>
           <div className="flex flex-col gap-4">
             <Metric label="Points" amount={6900} />
-            <Button
-              variant="outline"
-              className="w-[265px]"
-              icon={<ArrowUpRight />}
-            >
-              LEADERBOARD
-            </Button>
+            <Link href="/leaderboard">
+              <Button
+                variant="outline"
+                className="w-[265px]"
+                icon={<ArrowUpRight />}
+              >
+                LEADERBOARD
+              </Button>
+            </Link>
           </div>
         </div>
       </div>

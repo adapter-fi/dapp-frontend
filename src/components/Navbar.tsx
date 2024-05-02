@@ -15,7 +15,7 @@ export const Navbar = () => {
   const { open } = useWeb3Modal()
   const { isConnected, address } = useAccount()
   const pathname = usePathname()
-  
+
   return (
     <div className="flex p-4 justify-between">
       <div className="flex gap-4 items-center">
@@ -39,7 +39,14 @@ export const Navbar = () => {
           </Button>
         </Link>
         <Link href="/leaderboard">
-          <Button variant="ghost">LEADERBOARD</Button>
+          <Button
+            variant="ghost"
+            className={cn(
+              pathname === '/leaderboard' && 'border-t border-t-[#125AFA]'
+            )}
+          >
+            LEADERBOARD
+          </Button>
         </Link>
       </div>
 

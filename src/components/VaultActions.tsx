@@ -17,7 +17,7 @@ export const VaultActions = () => {
       <div className="flex gap-4 w-full justify-center">
         <button
           className={cn(
-            'text-2xl font-bold px-4',
+            'font-thin tracking-[1.6px] px-4',
             state === 'deposit'
               ? 'border-b-2 border-[#F9F9F2]'
               : 'text-gray hover:text-[#F9F9F2]'
@@ -28,7 +28,7 @@ export const VaultActions = () => {
         </button>
         <button
           className={cn(
-            'text-2xl font-bold px-4',
+            'font-thin tracking-[1.6px] px-4',
             state === 'withdraw'
               ? 'border-b-2 border-[#F9F9F2]'
               : 'text-gray hover:text-[#F9F9F2]'
@@ -39,7 +39,7 @@ export const VaultActions = () => {
         </button>
       </div>
       <div className="flex gap-3">
-        <div className="bg-[#1F1F1D] border border-[#3B3B39] rounded-[4px] p-4 flex flex-col w-[467px]">
+        <div className="bg-[#1F1F1D] border border-[#3B3B39] rounded-[4px] p-4 flex flex-col w-[467px] gap-3">
           <div className="flex justify-between items-center w-full">
             <BigIntInput
               value={amount}
@@ -85,9 +85,9 @@ export const VaultActions = () => {
           </div>
         </div>
         <Image src="/icons/divider.svg" height={136} width={32} alt="divider" />
-        <div className="bg-[#1F1F1D] border border-[#3B3B39] rounded-[4px] p-4 flex flex-col w-[467px]">
+        <div className="bg-[#1F1F1D] border border-[#3B3B39] rounded-[4px] p-4 flex flex-col w-[467px] gap-3">
           <div className="flex justify-between items-center w-full">
-            <p className="text-[64px] font-bold truncate max-w-[251px]">
+            <p className="text-[42px] font-bold truncate max-w-[251px]">
               {formatNumber(fromBigNumber(amount), 0)}
             </p>
             <div className="flex flex-col font-light w-[128px]">
