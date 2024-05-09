@@ -92,7 +92,7 @@ export default function VaultHomepage() {
           </div>
         </div>
       </div>
-      <DataTable columns={columns} data={fakeData} />
+      <DataTable columns={columns} data={fakeData} vaultTable/>
     </div>
   )
 }
