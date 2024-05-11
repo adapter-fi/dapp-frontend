@@ -14,7 +14,7 @@ export const Footer = () => {
       </div>
       <div className="flex flex-col gap-2">
         <p className="text-sm text-gray">COMMUNITY</p>
-        <div className="flex gap-1 items-center">
+        <button className="flex gap-1 items-center opacity-80 hover:opacity-100">
           <Image
             src="/icons/twitter.svg"
             height={24}
@@ -22,8 +22,8 @@ export const Footer = () => {
             alt="twitter"
           />
           <p>TWITTER</p>
-        </div>
-        <div className="flex gap-1 items-center">
+        </button>
+        <button className="flex gap-1 items-center opacity-80 hover:opacity-100">
           <Image
             src="/icons/telegram.svg"
             height={24}
@@ -31,8 +31,8 @@ export const Footer = () => {
             alt="telegram"
           />
           <p>TELEGRAM</p>
-        </div>
-        <div className="flex gap-1 items-center">
+        </button>
+        <button className="flex gap-1 items-center opacity-80 hover:opacity-100">
           <Image
             src="/icons/discord.svg"
             height={24}
@@ -40,8 +40,8 @@ export const Footer = () => {
             alt="discord"
           />
           <p>DISCORD</p>
-        </div>
-        <div className="flex gap-1 items-center">
+        </button>
+        <button className="flex gap-1 items-center opacity-80 hover:opacity-100">
           <Image
             src="/icons/youtube.svg"
             height={24}
@@ -49,22 +49,22 @@ export const Footer = () => {
             alt="youtube"
           />
           <p>YOUTUBE</p>
-        </div>
-        <div className="flex gap-1 items-center">
+        </button>
+        <button className="flex gap-1 items-center opacity-80 hover:opacity-100">
           <Image src="/icons/forum.svg" height={24} width={24} alt="forum" />
           <p>FORUM</p>
-        </div>
+        </button>
       </div>
       <div className="flex flex-col gap-2">
         <p className="text-sm text-gray">DOCUMENTATION</p>
-        <div className="flex gap-1 items-center">
+        <button className="flex gap-1 items-center opacity-80 hover:opacity-100">
           <Image src="/icons/docs.svg" height={24} width={24} alt="docs" />
           <p>GITBOOK</p>
-        </div>
-        <div className="flex gap-1 items-center">
+        </button>
+        <button className="flex gap-1 items-center opacity-80 hover:opacity-100">
           <Image src="/icons/mirror.svg" height={24} width={24} alt="mirror" />
           <p>BLOG</p>
-        </div>
+        </button>
       </div>
     </div>
   )

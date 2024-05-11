@@ -1,11 +1,12 @@
 'use client'
 
+import Image from 'next/image'
+
 import { ColumnDef } from '@tanstack/react-table'
 
 import { cn } from '@/lib/utils'
 
 import { ArrowUp } from 'lucide-react'
-import Image from 'next/image'
 
 export type Vault = {
   data: {
@@ -33,15 +34,14 @@ export const columns: ColumnDef<Vault>[] = [
             !column.getIsSorted() && 'text-gray'
           )}
         >
-          {column.getIsSorted() ? (
-            <ArrowUp
-              size={12}
-              className={cn(
-                'transition duration-300',
-                column.getIsSorted() === 'desc' && 'rotate-180'
-              )}
-            />
-          ) : null}
+          <ArrowUp
+            size={12}
+            className={cn(
+              'transition duration-300',
+              column.getIsSorted() === 'desc' && 'rotate-180',
+              !column.getIsSorted() && 'opacity-0'
+            )}
+          />
           VAULT
         </button>
       )
@@ -51,7 +51,13 @@ export const columns: ColumnDef<Vault>[] = [
       return (
         <div className="flex gap-1 relative">
           <img src={vaultData.logoURI} height={48} width={48} alt="logo" />
-          <Image src='/brand/logo.png' height={16} width={16} alt="logo" className='absolute left-[-3px] top-[-3px]' />
+          <Image
+            src="/brand/logo.png"
+            height={16}
+            width={16}
+            alt="logo"
+            className="absolute left-[-3px] top-[-3px]"
+          />
           <div className="flex flex-col gap-1">
             <p>{vaultData.name}</p>
             <div className="flex items-center gap-0.5">
@@ -77,19 +83,18 @@ export const columns: ColumnDef<Vault>[] = [
         <button
           onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
           className={cn(
-            'flex gap-2 items-center',
+            'flex gap-2 items-center ml-[-25px]',
             !column.getIsSorted() && 'text-gray'
           )}
         >
-          {column.getIsSorted() ? (
-            <ArrowUp
-              size={12}
-              className={cn(
-                'transition duration-300',
-                column.getIsSorted() === 'desc' && 'rotate-180'
-              )}
-            />
-          ) : null}
+          <ArrowUp
+            size={12}
+            className={cn(
+              'transition duration-300',
+              column.getIsSorted() === 'desc' && 'rotate-180',
+              !column.getIsSorted() && 'opacity-0'
+            )}
+          />
           UNDERLYING APR
         </button>
       )
@@ -103,19 +108,18 @@ export const columns: ColumnDef<Vault>[] = [
         <button
           onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
           className={cn(
-            'flex gap-2 items-center',
+            'flex gap-2 items-center ml-[-25px]',
             !column.getIsSorted() && 'text-gray'
           )}
         >
-          {column.getIsSorted() ? (
-            <ArrowUp
-              size={12}
-              className={cn(
-                'transition duration-300',
-                column.getIsSorted() === 'desc' && 'rotate-180'
-              )}
-            />
-          ) : null}
+          <ArrowUp
+            size={12}
+            className={cn(
+              'transition duration-300',
+              column.getIsSorted() === 'desc' && 'rotate-180',
+              !column.getIsSorted() && 'opacity-0'
+            )}
+          />
           AUTOCOMPOUNDED APY
         </button>
       )
@@ -129,19 +133,18 @@ export const columns: ColumnDef<Vault>[] = [
         <button
           onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
           className={cn(
-            'flex gap-2 items-center',
+            'flex gap-2 items-center ml-[-25px]',
             !column.getIsSorted() && 'text-gray'
           )}
         >
-          {column.getIsSorted() ? (
-            <ArrowUp
-              size={12}
-              className={cn(
-                'transition duration-300',
-                column.getIsSorted() === 'desc' && 'rotate-180'
-              )}
-            />
-          ) : null}
+          <ArrowUp
+            size={12}
+            className={cn(
+              'transition duration-300',
+              column.getIsSorted() === 'desc' && 'rotate-180',
+              !column.getIsSorted() && 'opacity-0'
+            )}
+          />
           POINTS
         </button>
       )
@@ -154,19 +157,18 @@ export const columns: ColumnDef<Vault>[] = [
         <button
           onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
           className={cn(
-            'flex gap-2 items-center',
+            'flex gap-2 items-center ml-[-25px]',
             !column.getIsSorted() && 'text-gray'
           )}
         >
-          {column.getIsSorted() ? (
-            <ArrowUp
-              size={12}
-              className={cn(
-                'transition duration-300',
-                column.getIsSorted() === 'desc' && 'rotate-180'
-              )}
-            />
-          ) : null}
+          <ArrowUp
+            size={12}
+            className={cn(
+              'transition duration-300',
+              column.getIsSorted() === 'desc' && 'rotate-180',
+              !column.getIsSorted() && 'opacity-0'
+            )}
+          />
           HOLDINGS
         </button>
       )
@@ -179,19 +181,18 @@ export const columns: ColumnDef<Vault>[] = [
         <button
           onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
           className={cn(
-            'flex gap-2 items-center',
+            'flex gap-2 items-center ml-[-25px]',
             !column.getIsSorted() && 'text-gray'
           )}
         >
-          {column.getIsSorted() ? (
-            <ArrowUp
-              size={12}
-              className={cn(
-                'transition duration-300',
-                column.getIsSorted() === 'desc' && 'rotate-180'
-              )}
-            />
-          ) : null}
+          <ArrowUp
+            size={12}
+            className={cn(
+              'transition duration-300',
+              column.getIsSorted() === 'desc' && 'rotate-180',
+              !column.getIsSorted() && 'opacity-0'
+            )}
+          />
           DEPOSITS
         </button>
       )

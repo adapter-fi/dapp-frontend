@@ -28,15 +28,14 @@ export const columns: ColumnDef<Points>[] = [
             !column.getIsSorted() && 'text-gray'
           )}
         >
-          {column.getIsSorted() ? (
-            <ArrowUp
-              size={12}
-              className={cn(
-                'transition duration-300',
-                column.getIsSorted() === 'desc' && 'rotate-180'
-              )}
-            />
-          ) : null}
+          <ArrowUp
+            size={12}
+            className={cn(
+              'transition duration-300',
+              column.getIsSorted() === 'desc' && 'rotate-180',
+              !column.getIsSorted() && 'opacity-0'
+            )}
+          />
           RANK
         </button>
       )
@@ -86,19 +85,18 @@ export const columns: ColumnDef<Points>[] = [
         <button
           onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
           className={cn(
-            'flex gap-2 items-center',
+            'flex gap-2 items-center ml-[-25px]',
             !column.getIsSorted() && 'text-gray'
           )}
         >
-          {column.getIsSorted() ? (
-            <ArrowUp
-              size={12}
-              className={cn(
-                'transition duration-300',
-                column.getIsSorted() === 'desc' && 'rotate-180'
-              )}
-            />
-          ) : null}
+          <ArrowUp
+            size={12}
+            className={cn(
+              'transition duration-300',
+              column.getIsSorted() === 'desc' && 'rotate-180',
+              !column.getIsSorted() && 'opacity-0'
+            )}
+          />
           NAME
         </button>
       )
@@ -111,19 +109,18 @@ export const columns: ColumnDef<Points>[] = [
         <button
           onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
           className={cn(
-            'flex gap-2 items-center',
+            'flex gap-2 items-center ml-[-25px]',
             !column.getIsSorted() && 'text-gray'
           )}
         >
-          {column.getIsSorted() ? (
-            <ArrowUp
-              size={12}
-              className={cn(
-                'transition duration-300',
-                column.getIsSorted() === 'desc' && 'rotate-180'
-              )}
-            />
-          ) : null}
+          <ArrowUp
+            size={12}
+            className={cn(
+              'transition duration-300',
+              column.getIsSorted() === 'desc' && 'rotate-180',
+              !column.getIsSorted() && 'opacity-0'
+            )}
+          />
           VALUE LOCKED
         </button>
       )
@@ -137,19 +134,18 @@ export const columns: ColumnDef<Points>[] = [
         <button
           onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
           className={cn(
-            'flex gap-2 items-center',
+            'flex gap-2 items-center ml-[-25px]',
             !column.getIsSorted() && 'text-gray'
           )}
         >
-          {column.getIsSorted() ? (
-            <ArrowUp
-              size={12}
-              className={cn(
-                'transition duration-300',
-                column.getIsSorted() === 'desc' && 'rotate-180'
-              )}
-            />
-          ) : null}
+          <ArrowUp
+            size={12}
+            className={cn(
+              'transition duration-300',
+              column.getIsSorted() === 'desc' && 'rotate-180',
+              !column.getIsSorted() && 'opacity-0'
+            )}
+          />
           POINTS
         </button>
       )

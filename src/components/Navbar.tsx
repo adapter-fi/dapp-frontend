@@ -19,7 +19,7 @@ export const Navbar = () => {
   return (
     <div className="flex p-4 justify-between">
       <div className="flex gap-4 items-center">
-        <Link href="/" className="flex gap-1">
+        {/* <Link href="/" className="flex gap-1">
           <Image src="/brand/logo.png" width={40} height={40} alt="logo" />
           <Image
             src="/brand/wordmark.svg"
@@ -27,12 +27,12 @@ export const Navbar = () => {
             height={40}
             alt="wordmark"
           />
-        </Link>
+        </Link> */}
         <Link href="/vaults">
           <Button
             variant="ghost"
             className={cn(
-              pathname === '/vaults' && 'border-t border-t-[#125AFA]'
+              pathname === '/vaults' && 'border-t border-t-[#125AFA] hover:border-t-transparent'
             )}
           >
             VAULTS
@@ -42,7 +42,7 @@ export const Navbar = () => {
           <Button
             variant="ghost"
             className={cn(
-              pathname === '/leaderboard' && 'border-t border-t-[#125AFA]'
+              pathname === '/leaderboard' && 'border-t border-t-[#125AFA] hover:border-t-transparent'
             )}
           >
             LEADERBOARD

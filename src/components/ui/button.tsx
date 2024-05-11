@@ -19,7 +19,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           variant === 'outline' &&
             'border border-[#F9F9F2] hover:border-transparent hover:shadow-xl hover:px-1',
           variant === 'default' && 'bg-[#F9F9F2] text-[#1F1F1D]',
-          variant === 'ghost' && 'border-b border-transparent hover:border-b-[#F9F9F2] rounded-none', 
+          variant === 'ghost' && 'border-transparent rounded-none',
           className
         )}
         ref={ref}
@@ -35,6 +35,11 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
                 {icon}
               </div>
             )}
+          </>
+        ) : variant === 'ghost' ? (
+          <>
+            {props.children}
+            <div className="h-[1px] w-full bg-transparent group-hover:bg-[#F9F9F2] absolute bottom-0 transition-all duration-500 ease-in-out scale-[0] group-hover:scale-100" />
           </>
         ) : (
           props.children
