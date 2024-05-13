@@ -77,11 +77,16 @@ const config = {
             transform: 'rotate(-360deg)',
           },
         },
+        reveal: {
+          from: { transform: 'translateY(200px)', opacity: 0 },
+          to: { transform: 'translateY(0px)', opacity: 1 },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
         'spin-slow': 'spin 10s linear infinite',
+        'reveal': 'reveal 0.6s ease-in'
       },
     },
   },

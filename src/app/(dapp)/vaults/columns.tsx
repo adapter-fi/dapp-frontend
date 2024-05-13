@@ -52,7 +52,7 @@ export const columns: ColumnDef<Vault>[] = [
         <div className="flex gap-1 relative">
           <img src={vaultData.logoURI} height={48} width={48} alt="logo" />
           <Image
-            src="/brand/logo.png"
+            src="/brand/logo.svg"
             height={16}
             width={16}
             alt="logo"

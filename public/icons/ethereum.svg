@@ -1,0 +1,19 @@
+<svg width="28" height="27" viewBox="0 0 28 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Network">
+<g clip-path="url(#clip0_1141_10590)">
+<rect x="0.833496" y="0.333252" width="26.6667" height="26.6667" rx="13.3333" fill="white"/>
+<circle id="Ellipse 791" cx="14.1668" cy="13.6666" r="13.3333" fill="white"/>
+<path id="Vector" d="M14.0654 16.4267L14.1655 16.527L18.7475 13.8056L14.1655 6.1665L14.0654 6.50831V16.4267Z" fill="#343434"/>
+<path id="Vector_2" d="M14.1655 16.5271V6.1665L9.5835 13.8056L14.1655 16.5271Z" fill="#8A8B90"/>
+<path id="Vector_3" d="M14.1089 21.001L14.1653 21.1665L18.75 14.6787L14.1653 17.3987L14.1089 17.4678L14.1089 21.001Z" fill="#3C3C3B"/>
+<path id="Vector_4" d="M9.5835 14.6787L14.1655 21.1665V17.3987L9.5835 14.6787Z" fill="#8A8B90"/>
+<path id="Vector_5" d="M14.1655 11.7131V16.5271L18.7474 13.8058L14.1655 11.7131Z" fill="#141414"/>
+<path id="Vector_6" d="M14.1654 11.7131L9.5835 13.8057L14.1654 16.5271V11.7131Z" fill="#393939"/>
+</g>
+</g>
+<defs>
+<clipPath id="clip0_1141_10590">
+<rect x="0.833496" y="0.333252" width="26.6667" height="26.6667" rx="13.3333" fill="white"/>
+</clipPath>
+</defs>
+</svg>

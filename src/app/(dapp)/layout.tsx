@@ -10,7 +10,7 @@ export default function DappLayout({ children }: { children: ReactNode }) {
         <Navbar />
         {children}
       </div>
-      <Footer />
+      <Footer scheme='light'/>
     </div>
   )
 }

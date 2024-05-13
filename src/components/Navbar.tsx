@@ -20,7 +20,7 @@ export const Navbar = () => {
     <div className="flex p-4 justify-between">
       <div className="flex gap-4 items-center">
         {/* <Link href="/" className="flex gap-1">
-          <Image src="/brand/logo.png" width={40} height={40} alt="logo" />
+          <Image src="/brand/logo.svg" width={40} height={40} alt="logo" />
           <Image
             src="/brand/wordmark.svg"
             width={177}
@@ -32,7 +32,8 @@ export const Navbar = () => {
           <Button
             variant="ghost"
             className={cn(
-              pathname === '/vaults' && 'border-t border-t-[#125AFA] hover:border-t-transparent'
+              pathname === '/vaults' &&
+                'border-t border-t-[#125AFA] hover:border-t-transparent'
             )}
           >
             VAULTS
@@ -42,7 +43,8 @@ export const Navbar = () => {
           <Button
             variant="ghost"
             className={cn(
-              pathname === '/leaderboard' && 'border-t border-t-[#125AFA] hover:border-t-transparent'
+              pathname === '/leaderboard' &&
+                'border-t border-t-[#125AFA] hover:border-t-transparent'
             )}
           >
             LEADERBOARD
@@ -51,25 +53,34 @@ export const Navbar = () => {
       </div>
 
       <div className="flex gap-4">
-        <div className="flex gap-2">
-          <Button variant="ghost">ABOUT</Button>
-          <Button variant="ghost">COMMUNITY</Button>
-          {!isConnected ? (
-            <Button onClick={() => open()}>
-              <Image
-                src="/icons/wallet.svg"
-                height={24}
-                width={24}
-                alt="wallet"
-              />
-              CONNECT
-            </Button>
-          ) : (
-            <Button variant="outline" onClick={() => open({ view: 'Account' })}>
-              {truncateAddress(address)}
-            </Button>
-          )}
-        </div>
+        {pathname === '/' ? (
+          <Link href="/vaults">
+            <Button variant="ghost">LAUNCH APP</Button>
+          </Link>
+        ) : (
+          <div className="flex gap-2">
+            <Button variant="ghost">ABOUT</Button>
+            <Button variant="ghost">COMMUNITY</Button>
+            {!isConnected ? (
+              <Button onClick={() => open()}>
+                <Image
+                  src="/icons/wallet.svg"
+                  height={24}
+                  width={24}
+                  alt="wallet"
+                />
+                CONNECT
+              </Button>
+            ) : (
+              <Button
+                variant="outline"
+                onClick={() => open({ view: 'Account' })}
+              >
+                {truncateAddress(address)}
+              </Button>
+            )}
+          </div>
+        )}
       </div>
     </div>
   )

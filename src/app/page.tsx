@@ -1,13 +1,22 @@
+'use client'
+
+import { useInViewport } from '@mantine/hooks'
 import Image from 'next/image'
 import Link from 'next/link'
 
+import { Footer } from '@/components/Footer'
+import { Navbar } from '@/components/Navbar'
+import { Partners } from '@/components/Partners'
 import { Button } from '@/components/ui/button'
 
+import { cn } from '@/lib/utils'
+
 export default function Home() {
+  const { ref, inViewport } = useInViewport()
   return (
-    <div className="flex flex-col">
-      <div className="h-[982px] px-12 flex gap-4">
-        <img src="/brand/logo-landing.png" alt="hero" width={802} />
+    <div className="flex flex-col relative">
+      <div className="h-[832px] px-12 flex gap-4" ref={ref}>
+        <img src="/brand/logo-landing.svg" alt="hero" width={802} />
         <div className="flex flex-col justify-end py-12 gap-[20%]">
           <div className="flex flex-col text-[88px] font-bold leading-[0.8]">
             <p>YIELDS</p>
@@ -20,6 +29,11 @@ export default function Home() {
             <Button>READ DOCS</Button>
           </div>
         </div>
+      </div>
+      <div
+        className={cn('sticky top-0 bg-[#F9F9F2] z-10', inViewport && 'hidden')}
+      >
+        <Navbar />
       </div>
       <div className="h-[982px] flex px-12 bg-[#0B0B0A]">
         <div className="flex flex-col gap-2 min-w-[662px] justify-end pb-[118px]">
@@ -36,15 +50,15 @@ export default function Home() {
           </p>
           <div className="flex flex-col text-white font-light">
             <div className="flex items-center gap-1">
-              <Image src="/brand/logo.png" alt="logo" width={16} height={16} />
+              <Image src="/brand/logo.svg" alt="logo" width={16} height={16} />
               <p>Increase yield</p>
             </div>
             <div className="flex items-center gap-1">
-              <Image src="/brand/logo.png" alt="logo" width={16} height={16} />
+              <Image src="/brand/logo.svg" alt="logo" width={16} height={16} />
               <p>Reduce expenses</p>
             </div>
             <div className="flex items-center gap-1">
-              <Image src="/brand/logo.png" alt="logo" width={16} height={16} />
+              <Image src="/brand/logo.svg" alt="logo" width={16} height={16} />
               <p>Get an on-chain butler</p>
             </div>
           </div>
@@ -56,7 +70,7 @@ export default function Home() {
             alt="spinner"
             className="animate-spin-slow"
           />
-          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-[#FBFDFD]  flex flex-col">
+          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-3/4 text-[#FBFDFD] flex flex-col">
             <div className="flex items-end gap-1">
               <p className="font-bold text-[82px] leading-[0.8]">69.42</p>
               <p className="text-gray font-bold">%</p>
@@ -67,6 +81,8 @@ export default function Home() {
           </div>
         </div>
       </div>
+      <Partners />
+      <Footer scheme="dark" />
     </div>
   )
 }

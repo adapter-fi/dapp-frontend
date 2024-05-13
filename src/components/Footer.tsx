@@ -1,12 +1,19 @@
 import Image from 'next/image'
 
+import { cn } from '@/lib/utils'
+
 import { Copyright } from 'lucide-react'
 
-export const Footer = () => {
+export const Footer = ({ scheme = 'light' }: { scheme: 'light' | 'dark' }) => {
   return (
-    <div className="grid grid-cols-3 items-start p-12 border-[#3B3B39] border-t-2">
+    <div
+      className={cn(
+        'grid grid-cols-3 items-start p-12',
+        scheme === 'light' ? 'border-[#3B3B39] border-t-2' : 'bg-[#0B0B0A] text-[#FBFDFD]'
+      )}
+    >
       <div className="flex items-end">
-        <Image src="/brand/logo.png" width={64} height={64} alt="logo" />
+        <Image src="/brand/logo.svg" width={64} height={64} alt="logo" />
         <div className="flex gap-1 items-center">
           <Copyright size={16} />
           <p className="text-gray font-light">2024 Adapter.fi</p>
