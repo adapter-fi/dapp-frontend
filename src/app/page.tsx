@@ -31,7 +31,7 @@ export default function Home() {
         </div>
       </div>
       <div
-        className={cn('sticky top-0 bg-[#F9F9F2] z-10', inViewport && 'hidden')}
+        className={cn('sticky top-0 z-10 text-[#F9F9F2] bg-[#0B0B0A]', inViewport && 'hidden')}
       >
         <Navbar />
       </div>
