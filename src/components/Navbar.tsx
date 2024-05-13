@@ -55,7 +55,7 @@ export const Navbar = () => {
       <div className="flex gap-4">
         {pathname === '/' ? (
           <Link href="/vaults">
-            <Button variant="ghost">LAUNCH APP</Button>
+            <Button>LAUNCH APP</Button>
           </Link>
         ) : (
           <div className="flex gap-2">

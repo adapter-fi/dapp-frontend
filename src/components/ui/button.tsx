@@ -2,12 +2,10 @@ import * as React from 'react'
 
 import { cn } from '@/lib/utils'
 
-import { ArrowUpRight } from 'lucide-react'
-
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   icon?: React.ReactNode
-  variant?: 'default' | 'outline' | 'ghost'
+  variant?: 'default' | 'outline' | 'ghost' | 'inverted' | 'secondary'
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
@@ -18,8 +16,13 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           'group relative flex h-10 px-2.5 py-2 items-center justify-center gap-1 tracking-[1.6px] rounded-[3.6px] transition-all duration-300 ease-in-out',
           variant === 'outline' &&
             'border border-[#F9F9F2] hover:border-transparent hover:shadow-xl hover:px-1',
-          variant === 'default' && 'bg-[#F9F9F2] text-[#1F1F1D]',
+          variant === 'default' &&
+            'bg-[#F9F9F2] text-[#1F1F1D] hover:bg-[#125AFA] border border-transparent hover:border-[#F9F9F2] hover:text-[#F9F9F2]',
+          variant === 'inverted' &&
+            'bg-[#1F1F1D] text-[#F9F9F2] hover:bg-[#125AFA]',
           variant === 'ghost' && 'border-transparent rounded-none',
+          variant === 'secondary' &&
+            'bg-transparent border border-[#1F1F1D] text-[#1F1F1D] hover:text-[#125AFA] hover:border-transparent',
           className
         )}
         ref={ref}

@@ -24,9 +24,9 @@ export default function Home() {
           </div>
           <div className="grid grid-cols-2 gap-2">
             <Link href="/vaults">
-              <Button className="w-full">LAUNCH APP</Button>
+              <Button className="w-full h-16" variant='inverted'>LAUNCH APP</Button>
             </Link>
-            <Button>READ DOCS</Button>
+            <Button variant='secondary' className='h-16'>READ DOCS</Button>
           </div>
         </div>
       </div>
@@ -62,7 +62,7 @@ export default function Home() {
               <p>Get an on-chain butler</p>
             </div>
           </div>
-          <Button className="w-[300px]">COMPOUND NOW</Button>
+          <Button className="w-[300px] h-16">COMPOUND NOW</Button>
         </div>
         <div className="w-[802px] bg-[#125AFA] overflow-clip relative">
           <img
