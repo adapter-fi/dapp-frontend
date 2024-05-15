@@ -8,8 +8,10 @@ export const Footer = ({ scheme = 'light' }: { scheme: 'light' | 'dark' }) => {
   return (
     <div
       className={cn(
-        'grid grid-cols-3 items-start p-12',
-        scheme === 'light' ? 'border-[#3B3B39] border-t-2' : 'bg-[#0B0B0A] text-[#FBFDFD]'
+        'grid grid-cols-3 items-start p-12 snap-end',
+        scheme === 'light'
+          ? 'border-[#3B3B39] border-t-2'
+          : 'bg-[#0B0B0A] text-[#FBFDFD]'
       )}
     >
       <div className="flex items-end">

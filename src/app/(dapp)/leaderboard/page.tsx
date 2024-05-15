@@ -41,7 +41,7 @@ export default function LeaderboardPage() {
     <div className="flex flex-col">
       <div className="bg-[#125AFA] border border-[#0E47C5] px-12 pt-12 pb-4 flex flex-col justify-between">
         <div className="flex flex-col">
-          <p className="text-[26px] font-bold">Leaderboard</p>
+          <p className="text-2xl font-bold">LEADERBOARD</p>
           <p className="text-gray font-light mt-[-8px]">
             Use Adapter and earn points
           </p>

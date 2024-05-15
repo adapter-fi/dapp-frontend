@@ -39,10 +39,10 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
               </div>
             )}
           </>
-        ) : variant === 'ghost' ? (
+        ) : variant === 'ghost' ? ( 
           <>
             {props.children}
-            <div className="h-[1px] w-full bg-transparent group-hover:bg-[#F9F9F2] absolute bottom-0 transition-all duration-500 ease-in-out scale-[0] group-hover:scale-100" />
+            <div className="h-[1px] w-full bg-transparent group-hover:bg-[#F9F9F2] absolute bottom-0 transition-all duration-500 ease-in-out scale-[0] group-hover:scale-100 origin-left" />
           </>
         ) : (
           props.children

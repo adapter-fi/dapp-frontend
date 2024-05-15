@@ -17,7 +17,7 @@ export const Navbar = () => {
   const pathname = usePathname()
 
   return (
-    <div className="flex p-4 justify-between">
+    <div className="flex p-4 justify-between relative">
       <div className="flex gap-4 items-center">
         {/* <Link href="/" className="flex gap-1">
           <Image src="/brand/logo.svg" width={40} height={40} alt="logo" />
@@ -29,29 +29,25 @@ export const Navbar = () => {
           />
         </Link> */}
         <Link href="/vaults">
-          <Button
-            variant="ghost"
-            className={cn(
-              pathname === '/vaults' &&
-                'border-t border-t-[#125AFA] hover:border-t-transparent'
+          <Button variant="ghost">
+            {pathname === '/vaults' && (
+              <div className="h-[1px] w-full bg-[#125AFA] absolute top-0 transition-all duration-500 ease-in-out scale-100 group-hover:scale-[0] origin-left" />
             )}
-          >
             VAULTS
           </Button>
         </Link>
         <Link href="/leaderboard">
-          <Button
-            variant="ghost"
-            className={cn(
-              pathname === '/leaderboard' &&
-                'border-t border-t-[#125AFA] hover:border-t-transparent'
+          <Button variant="ghost" className="group">
+            {pathname === '/leaderboard' && (
+              <div className="h-[1px] w-full bg-[#125AFA] absolute top-0 transition-all duration-500 ease-in-out scale-100 group-hover:scale-[0] origin-left" />
             )}
-          >
             LEADERBOARD
           </Button>
         </Link>
       </div>
-
+      <Link href="/" className='absolute left-1/2 -translate-x-1/2'>
+        <Image src="/brand/logo.svg" height={40} width={40} alt="logo" />
+      </Link>
       <div className="flex gap-4">
         {pathname === '/' ? (
           <Link href="/vaults">
