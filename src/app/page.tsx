@@ -20,7 +20,11 @@ export default function Home() {
         ref={ref}
       >
         <div className="col-span-4 h-screen">
-          <img src="/brand/logo-landing.svg" alt="hero" />
+          <img
+            src="/brand/logo-landing.svg"
+            alt="hero"
+            className="object-cover h-screen w-full"
+          />
         </div>
         <div className="flex flex-col justify-end py-12 px-3 gap-4 col-span-3 h-screen">
           <div className="flex flex-col text-[88px] font-bold leading-[0.8]">
@@ -76,13 +80,16 @@ export default function Home() {
           </div>
           <Button className="w-[300px] h-16">COMPOUND NOW</Button>
         </div>
-        <div className="w-[802px] bg-[#125AFA] overflow-clip relative">
-          <img
-            src="/misc/landing-spinner.svg"
-            alt="spinner"
-            className="animate-spin-slow"
-          />
-          <div className="absolute left-1/2 top-1/2 -translate-x-1/2  text-[#FBFDFD] flex flex-col">
+        <div className="w-[802px] bg-[#125AFA] overflow-clip relative h-screen">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[495px] h-[3033px]">
+            <img
+              src="/misc/landing-spinner.svg"
+              alt="spinner"
+              className="animate-spin-slow absolute top-0 left-0"
+            
+            />
+          </div>
+          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2  text-[#FBFDFD] flex flex-col">
             <div className="flex items-end gap-1">
               <p className="font-bold text-[82px] leading-[0.8]">69.42</p>
               <p className="text-gray font-bold">%</p>
