@@ -8,7 +8,7 @@ export const Footer = ({ scheme = 'light' }: { scheme: 'light' | 'dark' }) => {
   return (
     <div
       className={cn(
-        'grid grid-cols-3 items-start p-12 snap-end',
+        'grid md:grid-cols-3 items-start md:p-12 p-4 snap-end md:gap-0 gap-4',
         scheme === 'light'
           ? 'border-[#3B3B39] border-t-2'
           : 'bg-[#0B0B0A] text-[#FBFDFD]'
@@ -21,8 +21,9 @@ export const Footer = ({ scheme = 'light' }: { scheme: 'light' | 'dark' }) => {
           <p className="text-gray font-light">2024 Adapter.fi</p>
         </div>
       </div>
-      <div className="flex flex-col gap-2">
-        <p className="text-sm text-gray">COMMUNITY</p>
+      <p className="text-sm text-gray md:hidden block">COMMUNITY</p>
+      <div className="md:flex md:flex-col gap-2 grid grid-cols-2">
+        <p className="text-sm text-gray hidden md:block">COMMUNITY</p>
         <button className="flex gap-1 items-center opacity-80 hover:opacity-100">
           <Image
             src="/icons/twitter.svg"
@@ -64,8 +65,9 @@ export const Footer = ({ scheme = 'light' }: { scheme: 'light' | 'dark' }) => {
           <p>FORUM</p>
         </button>
       </div>
-      <div className="flex flex-col gap-2">
-        <p className="text-sm text-gray">DOCUMENTATION</p>
+      <p className="text-sm text-gray md:hidden block">DOCUMENTATION</p>
+      <div className="md:flex md:flex-col gap-2 grid grid-cols-2">
+      <p className="text-sm text-gray hidden md:block">DOCUMENTATION</p>
         <button className="flex gap-1 items-center opacity-80 hover:opacity-100">
           <Image src="/icons/docs.svg" height={24} width={24} alt="docs" />
           <p>GITBOOK</p>
