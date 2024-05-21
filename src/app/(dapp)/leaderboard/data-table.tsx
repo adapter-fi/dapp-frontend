@@ -5,16 +5,13 @@ import { useState } from 'react'
 
 import {
   ColumnDef,
-  ColumnFiltersState,
   SortingState,
   flexRender,
   getCoreRowModel,
-  getFilteredRowModel,
   getSortedRowModel,
   useReactTable,
 } from '@tanstack/react-table'
 
-import { Chips } from '@/components/Chips'
 import {
   Table,
   TableBody,
@@ -38,7 +35,6 @@ export function DataTable<TData, TValue>({
   vaultTable,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([])
-  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
 
   const table = useReactTable({
     data,
@@ -46,17 +42,14 @@ export function DataTable<TData, TValue>({
     getCoreRowModel: getCoreRowModel(),
     onSortingChange: setSorting,
     getSortedRowModel: getSortedRowModel(),
-    onColumnFiltersChange: setColumnFilters,
-    getFilteredRowModel: getFilteredRowModel(),
     state: {
       sorting,
-      columnFilters,
     },
   })
   const router = useRouter()
+
   return (
-    <div className="flex flex-col p-12 gap-3">
-      <Chips table={table} />
+    <div className="rounded-md p-12">
       <Table>
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (

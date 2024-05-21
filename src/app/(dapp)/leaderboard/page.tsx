@@ -1,7 +1,7 @@
 import { Metric } from '@/components/Metric'
 
 import { Points, columns } from '@/app/(dapp)/leaderboard/columns'
-import { DataTable } from '@/app/(dapp)/vaults/data-table'
+import { DataTable } from '@/app/(dapp)/leaderboard/data-table'
 
 const fakeData: Points[] = [
   {

@@ -46,6 +46,10 @@ export const columns: ColumnDef<Vault>[] = [
         </button>
       )
     },
+    filterFn: (row, _, filterValue) => {
+      const vaultData: Vault['data'] = row.getValue('data')
+      return vaultData.type.toLowerCase().includes(filterValue.toLowerCase)
+    },
     cell: ({ row }) => {
       const vaultData: Vault['data'] = row.getValue('data')
       return (
