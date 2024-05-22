@@ -1,5 +1,7 @@
 'use server'
 
+import { Address } from 'viem'
+
 import { formSchema } from '@/lib/schema'
 import { supabase } from '@/lib/supabase'
 import { capitalizeFirstLetter, extractBetweenParentheses } from '@/lib/utils'
@@ -8,7 +10,6 @@ export type FormState = {
   description: string
   title: string
   fields?: Record<string, string>
-  issues?: string[]
 }
 
 export const addUser = async (
@@ -17,6 +18,7 @@ export const addUser = async (
 ): Promise<FormState> => {
   const values = Object.fromEntries(data)
   const validatedFields = formSchema.safeParse(values)
+  const newAddresses: Address[] = JSON.parse(validatedFields.data?.address!)
 
   if (!validatedFields.success) {
     const fields: Record<string, string> = {}
@@ -24,36 +26,54 @@ export const addUser = async (
       fields[key] = values[key].toString()
     }
     return {
-      description: 'Invalid Form',
+      description: `Invalid Form: ${validatedFields.error.issues.map((issue) => issue.message).concat(',')}`,
       title: 'Error',
       fields,
-      issues: validatedFields.error.issues.map((issue) => issue.message),
     }
   }
 
   try {
-    const { error } = await supabase.from('waitlist').insert([
-      {
-        email: validatedFields.data.email.toLowerCase(),
-        nickname: validatedFields.data.nickname.toLowerCase(),
-        address: validatedFields.data.address.toLowerCase(),
-      },
-    ])
+    const { data: newId, error: waitlistError } = await supabase
+      .from('waitlist')
+      .insert([
+        {
+          email: validatedFields.data.email.toLowerCase(),
+          nickname: validatedFields.data.nickname.toLowerCase(),
+        },
+      ])
+      .select('id')
+      .single()
+
     if (
-      error &&
-      error.message.includes('duplicate key value violates unique constraint')
+      waitlistError &&
+      waitlistError.message.includes(
+        'duplicate key value violates unique constraint'
+      )
     ) {
-      console.log(error)
+      console.log(waitlistError)
       return {
-        description: `${capitalizeFirstLetter(extractBetweenParentheses(error.details))} already exists`,
+        description: `${capitalizeFirstLetter(extractBetweenParentheses(waitlistError.details))} already exists`,
         title: 'Error',
       }
-    } else if (error) {
+    } else if (waitlistError) {
       return {
         description: 'Please try again',
         title: 'Unknown Error',
       }
     }
+
+    const { error: walletError } = await supabase
+      .from('wallets')
+      .insert(newAddresses.map((address) => ({ user: newId?.id, address })))
+
+    if (walletError) {
+      console.log(walletError)
+      return {
+        description: 'Please try again',
+        title: 'Unknown Error',
+      }
+    }
+
     return { description: 'User added to waitlist!', title: 'Success' }
   } catch (error) {
     console.log(error)

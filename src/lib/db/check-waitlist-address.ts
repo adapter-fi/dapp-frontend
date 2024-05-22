@@ -3,9 +3,10 @@
 import { supabase } from '@/lib/supabase'
 
 export const checkWaitlistAddress = async (address: string) => {
-  const { data, error } = await supabase
-    .from('waitlist')
+  const { data } = await supabase
+    .from('wallets')
     .select('address')
     .ilike('address', `%${address}%`)
-  console.log(data, error)
+
+  return data!.length === 0
 }

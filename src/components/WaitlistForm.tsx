@@ -5,6 +5,7 @@ import { useFormState, useFormStatus } from 'react-dom'
 import { useForm } from 'react-hook-form'
 
 import { useWeb3Modal } from '@web3modal/wagmi/react'
+import { useDisconnect } from 'wagmi'
 
 import { WaitlistSignature } from '@/components/WaitlistSignature'
 import { Button } from '@/components/ui/button'
@@ -18,11 +19,13 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
+import { Separator } from '@/components/ui/separator'
 import { useToast } from '@/components/ui/use-toast'
 
 import { addUser } from '@/lib/db/add-user'
 import { formSchema } from '@/lib/schema'
 import { useStateStore } from '@/lib/store'
+import { truncateAddress } from '@/lib/utils'
 
 import { zodResolver } from '@hookform/resolvers/zod'
 
@@ -31,7 +34,9 @@ import { z } from 'zod'
 export const WaitlistForm = () => {
   const { toast } = useToast()
   const { open } = useWeb3Modal()
-  const { setAllowModalClose } = useStateStore()
+  const { resetSignedAddress, signedAddress, setAllowModalClose } =
+    useStateStore()
+  const { disconnectAsync } = useDisconnect()
   const [state, formAction] = useFormState(addUser, {
     title: '',
     description: '',
@@ -39,7 +44,11 @@ export const WaitlistForm = () => {
 
   useEffect(() => {
     if (state.title && state.description) {
-      toast({ description: state.description, title: state.title })
+      toast({
+        description: state.description,
+        title: state.title,
+        variant: state.title.includes('Error') ? 'destructive' : 'default',
+      })
     }
   }, [state])
 
@@ -50,7 +59,6 @@ export const WaitlistForm = () => {
     defaultValues: {
       nickname: '',
       email: '',
-      address: '',
       ...(state?.fields ?? {}),
     },
   })
@@ -62,14 +70,12 @@ export const WaitlistForm = () => {
         action={formAction}
         onSubmit={(e) => {
           e.preventDefault()
-
-          // Need this since updating in WalletSignature doesn't link this for some reason
           const formData = new FormData(formRef.current!)
-          formData.append('address', form.getValues().address)
-
+          formData.append('address', JSON.stringify(signedAddress!))
           form.handleSubmit(() => {
             formAction(formData)
           })(e)
+          resetSignedAddress()
         }}
         className="space-y-[48px]"
       >
@@ -119,28 +125,61 @@ export const WaitlistForm = () => {
         </div>
         <div className="flex flex-col gap-2">
           <p className="text-[#C4C5C5] text-[26px] font-bold">PROOF OF FUNDS</p>
-          <p className="text-[#FBFDFD]">
-            Prove ownership of wallets to get priority access & benefits. Total
-            assets will be public. Connect more assets to get in first.
-          </p>
-          <Button
-            variant="outline"
-            className="w-full text-[#F9F9F2]"
-            onClick={() => {
-              setAllowModalClose(false)
-              open()
-            }}
-            type="button"
-          >
-            Connect Wallet
-          </Button>
+          {!signedAddress ? (
+            <>
+              <p className="text-[#FBFDFD]">
+                Prove ownership of wallets to get priority access & benefits.
+                Total assets will be public.
+              </p>
+              <Button
+                variant="outline"
+                className="w-full text-[#F9F9F2]"
+                onClick={async () => {
+                  setAllowModalClose(false)
+                  await disconnectAsync()
+                  open()
+                }}
+                type="button"
+              >
+                Connect Wallet
+              </Button>
+            </>
+          ) : (
+            <div className="flex flex-col gap-1 text-[#FBFDFD]">
+              {signedAddress.map((address, i) => (
+                <div className="flex justify-between" key={i}>
+                  <p>{truncateAddress(address)}</p>
+                  <p>50</p>
+                </div>
+              ))}
+              <Separator />
+              <div className="flex justify-between">
+                <p>Total Assets</p>
+                <p>50</p>
+              </div>
+              <Button
+                variant="outline"
+                className="w-full text-[#F9F9F2] mt-2"
+                onClick={async () => {
+                  setAllowModalClose(false)
+                  await disconnectAsync()
+                  open()
+                }}
+                type="button"
+              >
+                Add additional wallets
+              </Button>
+            </div>
+          )}
         </div>
         <div className="flex flex-col gap-2">
           <p className="text-[#C4C5C5] text-[26px] font-bold">EXPECTED SPOT</p>
           <p className="text-[#5AFA12] font-bold text-[42px] leading-[0.9]">
             TBD
           </p>
-          <SubmitButton />
+          <SubmitButton
+            valid={formSchema.safeParse(form.getValues()).success}
+          />
         </div>
         <WaitlistSignature />
       </form>
@@ -148,10 +187,15 @@ export const WaitlistForm = () => {
   )
 }
 
-const SubmitButton = () => {
+const SubmitButton = ({ valid }: { valid: boolean }) => {
   const { pending } = useFormStatus()
+  const { signedAddress } = useStateStore()
   return (
-    <Button type="submit" className="w-full" disabled={pending}>
+    <Button
+      type="submit"
+      className="w-full"
+      disabled={pending || !valid || !signedAddress}
+    >
       Submit
     </Button>
   )
