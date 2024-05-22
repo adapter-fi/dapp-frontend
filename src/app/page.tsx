@@ -1,255 +1,90 @@
 'use client'
 
-import { useInViewport } from '@mantine/hooks'
 import Image from 'next/image'
-import Link from 'next/link'
+import { useEffect, useState } from 'react'
 
-import { Footer } from '@/components/Footer'
-import { Navbar } from '@/components/Navbar'
-import { PartnerLogo } from '@/components/PartnerLogo'
-import { Partners } from '@/components/Partners'
+import { useWeb3ModalState } from '@web3modal/wagmi/react'
+
+import { WaitlistForm } from '@/components/WaitlistForm'
 import { Button } from '@/components/ui/button'
+import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
 
-import { useIsMobile } from '@/hooks/use-is-mobile'
+import { useStateStore } from '@/lib/store'
 
-import { cn } from '@/lib/utils'
+export default function LandingPage() {
+  const [open, setOpen] = useState(false)
+  const { allowModalClose, setAllowModalClose } = useStateStore()
+  const { open: web3modalOpen } = useWeb3ModalState()
 
-export default function Home() {
-  const { ref, inViewport } = useInViewport()
-  const mobile = useIsMobile()
+  useEffect(() => {
+    if (!web3modalOpen) {
+      setAllowModalClose(true)
+    }
+  }, [web3modalOpen])
 
-  if (mobile) {
-    return (
-      <div className="flex flex-col relative snap-y overflow-y-scroll snap-mandatory h-[100dvh]">
-        <div className="max-h-[100dvh] flex flex-col snap-center snap-always">
-          <img
-            src="/brand/logo-landing.svg"
-            alt="hero"
-            className="object-cover h-[500px] w-full"
+  return (
+    <div className="flex flex-col">
+      <div className="bg-[#125AFA] w-screen h-[600px] relative overflow-clip">
+        <img
+          src="/brand/logo.svg"
+          alt="logo"
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10"
+          height={528}
+          width={528}
+        />
+        <img
+          src="/misc/logo-outline.svg"
+          alt="logo"
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 max-w-[1000000px] w-[4674px]"
+        />
+      </div>
+      <div className="py-[48px] flex flex-col gap-2 items-center text-[#125AFA]">
+        <p className="font-bold text-[88px] leading-[72px]">ADAPTER.FI</p>
+        <div className="flex gap-2 items-center">
+          <Image
+            src="/icons/twitter-blue.svg"
+            alt="twitter"
+            width={40}
+            height={40}
           />
-          <div className="flex flex-col p-4 gap-4">
-            <div className="flex flex-col text-5xl font-bold leading-[0.8]">
-              <p>YIELDS</p>
-              <p className="text-[#125AFA]">MAXIMIZED</p>
-            </div>
-            <div className="grid grid-cols-2 gap-2">
-              <Link href="/vaults">
-                <Button className="w-full" variant="inverted">
-                  LAUNCH APP
-                </Button>
-              </Link>
-              <Button variant="secondary">READ DOCS</Button>
-            </div>
-          </div>
         </div>
-        <div className="max-h-[100dvh] flex flex-col snap-center snap-always">
-          <div className="flex flex-col bg-[#0B0B0A] p-4">
-            <div className="flex flex-col leading-[0.8] text-white font-bold text-3xl">
-              <p>
-                THE FIRST <span className="text-[#125AFA]">PENDLE</span>
-              </p>
-              <p>
-                AUTOCOM<span className="text-[#125AFA]">POUNDER</span>
-              </p>
-            </div>
-            <p className="text-gray font-thin text-xl">
-              ZERO FRICTION, EASY YIELD STRATEGIES
-            </p>
-            <div className="flex flex-col text-white font-light">
-              <div className="flex items-center gap-1">
-                <Image
-                  src="/brand/logo.svg"
-                  alt="logo"
-                  width={16}
-                  height={16}
-                />
-                <p>Increase yield</p>
-              </div>
-              <div className="flex items-center gap-1">
-                <Image
-                  src="/brand/logo.svg"
-                  alt="logo"
-                  width={16}
-                  height={16}
-                />
-                <p>Reduce expenses</p>
-              </div>
-              <div className="flex items-center gap-1">
-                <Image
-                  src="/brand/logo.svg"
-                  alt="logo"
-                  width={16}
-                  height={16}
-                />
-                <p>Get an on-chain butler</p>
-              </div>
-            </div>
-            <Button className="w-[300px] mt-4">COMPOUND NOW</Button>
-          </div>
-          <div className="w-screen bg-[#125AFA] overflow-clip relative h-[480px]">
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[416px] h-[506px]">
-              <img
-                src="/misc/landing-spinner-mobile.svg"
-                alt="spinner"
-                className="animate-spin-slow absolute top-0 left-0"
-              />
-            </div>
-            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2  text-[#FBFDFD] flex flex-col">
-              <div className="flex items-end gap-1">
-                <p className="font-bold text-[82px] leading-[0.8]">69.42</p>
-                <p className="text-gray font-bold">%</p>
-              </div>
-              <p className="text-gray font-light text-sm text-center">
-                Current best yield
-              </p>
-            </div>
-          </div>
-        </div>
-        <div className="min-h-[100dvh] max-h-[100dvh] flex flex-col snap-center snap-always p-4">
-          <p className="font-bold text-4xl">PARTNERS</p>
-          <p className="text-[#565151] font-light">
-            Adapter maintains strong relationships with its partners to ensure
-            the best possible services to its users
-          </p>
-          <div className="flex flex-wrap gap-8 justify-center mt-4">
-            <PartnerLogo
-              title="Pendle"
-              src="https://cryptologos.cc/logos/pendle-pendle-logo.svg?v=032"
-            />
-            <PartnerLogo
-              title="Pendle"
-              src="https://cryptologos.cc/logos/pendle-pendle-logo.svg?v=032"
-            />
-            <PartnerLogo
-              title="Pendle"
-              src="https://cryptologos.cc/logos/pendle-pendle-logo.svg?v=032"
-            />
-            <PartnerLogo
-              title="Pendle"
-              src="https://cryptologos.cc/logos/pendle-pendle-logo.svg?v=032"
-            />
-            <PartnerLogo
-              title="Pendle"
-              src="https://cryptologos.cc/logos/pendle-pendle-logo.svg?v=032"
-            />
-            <PartnerLogo
-              title="Pendle"
-              src="https://cryptologos.cc/logos/pendle-pendle-logo.svg?v=032"
-            />
-            <PartnerLogo
-              title="Pendle"
-              src="https://cryptologos.cc/logos/pendle-pendle-logo.svg?v=032"
-            />
-          </div>
-        </div>
-        <Footer scheme="dark" />
       </div>
-    )
-  } else {
-    return (
-      <div className="flex flex-col relative snap-y overflow-y-scroll snap-mandatory h-screen">
-        <div
-          className="h-screen px-12 grid grid-cols-7 snap-center snap-always"
-          ref={ref}
+      <div className="flex flex-col gap-2 items-center">
+        <p className="font-bold text-[42px]">WAITLIST OPEN</p>
+        <p className="font-light text-center">
+          Connect early, get exclusive benefits based on your wallets. <br />{' '}
+          First in first served.
+        </p>
+        <Dialog
+          open={open}
+          onOpenChange={(open) => {
+            if (open || (!open && allowModalClose)) {
+              setOpen(open)
+            }
+          }}
         >
-          <div className="col-span-4 h-screen">
-            <img
-              src="/brand/logo-landing.svg"
-              alt="hero"
-              className="object-cover h-screen w-full"
-            />
-          </div>
-          <div className="flex flex-col justify-end py-12 px-3 gap-4 col-span-3 h-screen">
-            <div className="flex flex-col text-[88px] font-bold leading-[0.8]">
-              <p>YIELDS</p>
-              <p className="text-[#125AFA]">MAXIMIZED</p>
-            </div>
-            <div className="grid grid-cols-2 gap-2">
-              <Link href="/vaults">
-                <Button className="w-full h-16" variant="inverted">
-                  LAUNCH APP
-                </Button>
-              </Link>
-              <Button variant="secondary" className="h-16">
-                READ DOCS
-              </Button>
-            </div>
-          </div>
-        </div>
-        <div
-          className={cn(
-            'sticky top-0 z-10 text-[#F9F9F2] bg-[#0B0B0A] snap-align-none',
-            inViewport && 'hidden'
-          )}
-        >
-          <Navbar />
-        </div>
-        <div className="min-h-screen snap-center snap-always flex px-12 bg-[#0B0B0A]">
-          <div className="flex flex-col gap-2 min-w-[662px] justify-end pb-[118px]">
-            <div className="flex flex-col leading-[0.8] text-white font-bold text-[56px]">
-              <p>
-                THE FIRST <span className="text-[#125AFA]">PENDLE</span>
-              </p>
-              <p>
-                AUTOCOM<span className="text-[#125AFA]">POUNDER</span>
-              </p>
-            </div>
-            <p className="text-gray font-thin text-2xl">
-              ZERO FRICTION, EASY YIELD STRATEGIES
-            </p>
-            <div className="flex flex-col text-white font-light">
-              <div className="flex items-center gap-1">
-                <Image
-                  src="/brand/logo.svg"
-                  alt="logo"
-                  width={16}
-                  height={16}
-                />
-                <p>Increase yield</p>
-              </div>
-              <div className="flex items-center gap-1">
-                <Image
-                  src="/brand/logo.svg"
-                  alt="logo"
-                  width={16}
-                  height={16}
-                />
-                <p>Reduce expenses</p>
-              </div>
-              <div className="flex items-center gap-1">
-                <Image
-                  src="/brand/logo.svg"
-                  alt="logo"
-                  width={16}
-                  height={16}
-                />
-                <p>Get an on-chain butler</p>
-              </div>
-            </div>
-            <Button className="w-[300px] h-16">COMPOUND NOW</Button>
-          </div>
-          <div className="w-[802px] bg-[#125AFA] overflow-clip relative h-screen">
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[495px] h-[3033px]">
+          <DialogTrigger asChild>
+            <Button variant="inverted" className="h-16 w-[330px]">
+              JOIN THE WAITLIST
+            </Button>
+          </DialogTrigger>
+          <DialogContent>
+            <div className="flex items-center gap-1 pt-3.5">
               <img
-                src="/misc/landing-spinner.svg"
-                alt="spinner"
-                className="animate-spin-slow absolute top-0 left-0"
+                src="/brand/logo-inverted.svg"
+                height={24}
+                width={24}
+                alt="logo"
               />
+              <p className="text-white font-bold">JOIN THE WAITLIST</p>
             </div>
-            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2  text-[#FBFDFD] flex flex-col">
-              <div className="flex items-end gap-1">
-                <p className="font-bold text-[82px] leading-[0.8]">69.42</p>
-                <p className="text-gray font-bold">%</p>
-              </div>
-              <p className="text-gray font-light text-sm text-center">
-                Current best yield
-              </p>
+            <div className="flex flex-col px-2">
+              <p className="font-bold text-[#C4C5C5] text-[26px]">USER</p>
+              <WaitlistForm />
             </div>
-          </div>
-        </div>
-        <Partners />
-        <Footer scheme="dark" />
+          </DialogContent>
+        </Dialog>
       </div>
-    )
-  }
+    </div>
+  )
 }

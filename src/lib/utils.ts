@@ -39,7 +39,10 @@ export const formatNumber = (amount: number | string, decimals = 2): string => {
   }).format(numberForm)
 }
 
-export const formatCurrency = (amount: string | number = 0, decimals = 2): string => {
+export const formatCurrency = (
+  amount: string | number = 0,
+  decimals = 2
+): string => {
   const locale = getLocale()
 
   return new Intl.NumberFormat([locale, 'en-US'], {
@@ -56,4 +59,14 @@ export const formatPercentage = (
   decimals = 2
 ): string => {
   return `${formatNumber(amount, decimals)}%`
+}
+
+export function extractBetweenParentheses(input: string) {
+  const regex = /\((.*?)\)/
+  const match = input.match(regex)
+  return match ? match[1] : ''
+}
+
+export function capitalizeFirstLetter(input: string): string {
+  return input.charAt(0).toUpperCase() + input.slice(1)
 }

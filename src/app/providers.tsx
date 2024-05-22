@@ -6,9 +6,11 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { createWeb3Modal } from '@web3modal/wagmi/react'
 import { State, WagmiProvider } from 'wagmi'
 
+import { DisableAutoconnect } from '@/components/DisableAutoconnect'
 import { TooltipProvider } from '@/components/ui/tooltip'
 
 import { config, projectId } from '@/lib/config'
+import { Toaster } from '@/components/ui/toaster'
 
 const queryClient = new QueryClient()
 
@@ -31,7 +33,11 @@ export default function Providers({
   return (
     <WagmiProvider config={config} initialState={initialState}>
       <QueryClientProvider client={queryClient}>
-        <TooltipProvider delayDuration={0}>{children}</TooltipProvider>
+        <TooltipProvider delayDuration={0}>
+          {children}
+          <DisableAutoconnect />
+          <Toaster />
+        </TooltipProvider>
       </QueryClientProvider>
     </WagmiProvider>
   )
