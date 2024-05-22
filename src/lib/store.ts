@@ -8,6 +8,8 @@ interface StateStore {
   signedAddress: Address[] | undefined
   addSignedAddress: (address: Address) => void
   resetSignedAddress: () => void
+  confetti: boolean
+  setConfetti: (confetti: boolean) => void
 }
 
 export const useStateStore = create<StateStore>((set) => ({
@@ -19,4 +21,6 @@ export const useStateStore = create<StateStore>((set) => ({
       signedAddress: [...(signedAddress || []), address],
     })),
   resetSignedAddress: () => set({ signedAddress: undefined }),
+  confetti: false,
+  setConfetti: (confetti) => set({ confetti }),
 }))

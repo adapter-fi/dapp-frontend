@@ -10,6 +10,7 @@ import { Toaster } from '@/components/ui/toaster'
 import { TooltipProvider } from '@/components/ui/tooltip'
 
 import { config, projectId } from '@/lib/config'
+import { Confetti } from '@/components/Confetti'
 
 const queryClient = new QueryClient()
 
@@ -35,6 +36,7 @@ export default function Providers({
         <TooltipProvider delayDuration={0}>
           {children}
           <Toaster />
+          <Confetti />
         </TooltipProvider>
       </QueryClientProvider>
     </WagmiProvider>

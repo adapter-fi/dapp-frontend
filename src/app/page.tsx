@@ -13,7 +13,7 @@ import { useStateStore } from '@/lib/store'
 
 export default function LandingPage() {
   const [open, setOpen] = useState(false)
-  const { allowModalClose, setAllowModalClose } = useStateStore()
+  const { allowModalClose, setAllowModalClose, setConfetti } = useStateStore()
   const { open: web3modalOpen } = useWeb3ModalState()
 
   useEffect(() => {
@@ -60,6 +60,9 @@ export default function LandingPage() {
           onOpenChange={(open) => {
             if (open || (!open && allowModalClose)) {
               setOpen(open)
+              if (!open) {
+                setConfetti(false)
+              }
             }
           }}
         >
@@ -78,10 +81,8 @@ export default function LandingPage() {
               />
               <p className="text-white font-bold">JOIN THE WAITLIST</p>
             </div>
-            <div className="flex flex-col px-2">
-              <p className="font-bold text-[#C4C5C5] text-[26px]">USER</p>
-              <WaitlistForm />
-            </div>
+
+            <WaitlistForm />
           </DialogContent>
         </Dialog>
       </div>
