@@ -8,7 +8,6 @@ import { useForm } from 'react-hook-form'
 import { useWeb3Modal } from '@web3modal/wagmi/react'
 import { useDisconnect } from 'wagmi'
 
-import { WaitlistSignature } from '@/components/WaitlistSignature'
 import { Button } from '@/components/ui/button'
 import {
   Form,
@@ -22,11 +21,12 @@ import {
 import { Input } from '@/components/ui/input'
 import { Separator } from '@/components/ui/separator'
 import { useToast } from '@/components/ui/use-toast'
+import { WaitlistSignature } from '@/components/waitlist/WaitlistSignature'
 
 import { addUser } from '@/lib/db/add-user'
 import { formSchema } from '@/lib/schema'
 import { useStateStore } from '@/lib/store'
-import { truncateAddress } from '@/lib/utils'
+import { formatCurrency, truncateAddress } from '@/lib/utils'
 
 import { zodResolver } from '@hookform/resolvers/zod'
 
@@ -74,7 +74,7 @@ export const WaitlistForm = () => {
     return (
       <div className="flex flex-col px-2 gap-4">
         <p className="text-[#FBFDFD]">
-          Successfully added to the waitlist! You will be notified when your
+          Successfully added to the booster club! You will be notified when your
           time has come.
         </p>
         <Close>
@@ -170,16 +170,20 @@ export const WaitlistForm = () => {
               </>
             ) : (
               <div className="flex flex-col gap-1 text-[#FBFDFD]">
-                {signedAddress.map((address, i) => (
+                {signedAddress.map(({ address, value }, i) => (
                   <div className="flex justify-between" key={i}>
                     <p>{truncateAddress(address)}</p>
-                    <p>50</p>
+                    <p>{formatCurrency(value)}</p>
                   </div>
                 ))}
                 <Separator />
                 <div className="flex justify-between">
                   <p>Total Assets</p>
-                  <p>50</p>
+                  <p>
+                    {formatCurrency(
+                      signedAddress.reduce((a, b) => a + b.value, 0)
+                    )}
+                  </p>
                 </div>
                 <Button
                   variant="outline"
@@ -203,9 +207,7 @@ export const WaitlistForm = () => {
             <p className="text-[#5AFA12] font-bold text-[42px] leading-[0.9]">
               TBD
             </p>
-            <SubmitButton
-              valid={formSchema.safeParse(form.getValues()).success}
-            />
+            <SubmitButton />
           </div>
           <WaitlistSignature />
         </form>
@@ -214,14 +216,15 @@ export const WaitlistForm = () => {
   )
 }
 
-const SubmitButton = ({ valid }: { valid: boolean }) => {
+const SubmitButton = () => {
   const { pending } = useFormStatus()
   const { signedAddress } = useStateStore()
+
   return (
     <Button
       type="submit"
       className="w-full"
-      disabled={pending || !valid || !signedAddress}
+      disabled={pending || !signedAddress}
     >
       Submit
     </Button>

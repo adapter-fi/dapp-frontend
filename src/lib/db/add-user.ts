@@ -18,7 +18,9 @@ export const addUser = async (
 ): Promise<FormState> => {
   const values = Object.fromEntries(data)
   const validatedFields = formSchema.safeParse(values)
-  const newAddresses: Address[] = JSON.parse(validatedFields.data?.address!)
+  const newAddresses: { address: Address; value: number }[] = JSON.parse(
+    validatedFields.data?.address!
+  )
 
   if (!validatedFields.success) {
     const fields: Record<string, string> = {}
@@ -64,7 +66,13 @@ export const addUser = async (
 
     const { error: walletError } = await supabase
       .from('wallets')
-      .insert(newAddresses.map((address) => ({ user: newId?.id, address })))
+      .insert(
+        newAddresses.map((address) => ({
+          user: newId?.id,
+          address: address.address,
+          value: address.value,
+        }))
+      )
 
     if (walletError) {
       console.log(walletError)

@@ -1,26 +1,15 @@
-'use client'
-
 import Image from 'next/image'
-import { useEffect, useState } from 'react'
 
-import { useWeb3ModalState } from '@web3modal/wagmi/react'
+import { WaitlistModal } from '@/components/waitlist/WaitlistModal'
+import { columns } from '@/components/waitlist/columns'
 
-import { WaitlistForm } from '@/components/WaitlistForm'
-import { Button } from '@/components/ui/button'
-import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
+import { getUsers } from '@/lib/db/get-users'
+import { formatCurrency } from '@/lib/utils'
 
-import { useStateStore } from '@/lib/store'
+import { DataTable } from '@/app/(dapp)/vaults/data-table'
 
-export default function LandingPage() {
-  const [open, setOpen] = useState(false)
-  const { allowModalClose, setAllowModalClose, setConfetti } = useStateStore()
-  const { open: web3modalOpen } = useWeb3ModalState()
-
-  useEffect(() => {
-    if (!web3modalOpen) {
-      setAllowModalClose(true)
-    }
-  }, [web3modalOpen])
+export default async function LandingPage() {
+  const users = await getUsers()
 
   return (
     <div className="flex flex-col">
@@ -50,41 +39,38 @@ export default function LandingPage() {
         </div>
       </div>
       <div className="flex flex-col gap-2 items-center">
-        <p className="font-bold text-[42px]">WAITLIST OPEN</p>
+        <p className="font-bold text-[42px]">BOOSTER CLUB OPEN</p>
         <p className="font-light text-center">
           Connect early, get exclusive benefits based on your wallets. <br />{' '}
           First in first served.
         </p>
-        <Dialog
-          open={open}
-          onOpenChange={(open) => {
-            if (open || (!open && allowModalClose)) {
-              setOpen(open)
-              if (!open) {
-                setConfetti(false)
-              }
-            }
-          }}
-        >
-          <DialogTrigger asChild>
-            <Button variant="inverted" className="h-16 w-[330px]">
-              JOIN THE WAITLIST
-            </Button>
-          </DialogTrigger>
-          <DialogContent>
-            <div className="flex items-center gap-1 pt-3.5">
-              <img
-                src="/brand/logo-inverted.svg"
-                height={24}
-                width={24}
-                alt="logo"
-              />
-              <p className="text-white font-bold">JOIN THE WAITLIST</p>
-            </div>
+        <WaitlistModal />
+      </div>
+      <div className="flex flex-col items-center gap-8 mt-12">
+        <div className="flex justify-between items-center w-[1000px] px-12 relative">
+          <div className="flex flex-col items-center">
+            <p className="font-bold text-[42px] leading-[0.8]">
+              {formatCurrency(users?.reduce((a, b) => a + b.networth, 0))}
+            </p>
+            <p className="text-[#565151] font-light text-sm">
+              Users wallet balances
+            </p>
+          </div>
+          <div className="flex flex-col items-center absolute left-1/2 -translate-x-1/2">
+            <p className="font-bold text-[42px] leading-[0.8]">1.5X</p>
+            <p className="text-[#565151] font-light text-sm">Boost</p>
+          </div>
+          <div className="flex flex-col items-center">
+            <p className="font-bold text-[42px] leading-[0.8]">
+              {users?.length}
+            </p>
+            <p className="text-[#565151] font-light text-sm">Users</p>
+          </div>
+        </div>
 
-            <WaitlistForm />
-          </DialogContent>
-        </Dialog>
+        <div className="w-[1000px]">
+          <DataTable columns={columns} data={users as any} />
+        </div>
       </div>
     </div>
   )

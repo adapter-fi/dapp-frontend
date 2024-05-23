@@ -49,7 +49,7 @@ export function DataTable<TData, TValue>({
   const router = useRouter()
 
   return (
-    <div className="rounded-md p-12">
+    <div className="rounded-md">
       <Table>
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (

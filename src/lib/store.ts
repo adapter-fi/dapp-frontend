@@ -5,8 +5,14 @@ import { create } from 'zustand'
 interface StateStore {
   allowModalClose: boolean
   setAllowModalClose: (allow: boolean) => void
-  signedAddress: Address[] | undefined
-  addSignedAddress: (address: Address) => void
+  signedAddress: { address: Address; value: number }[] | undefined
+  addSignedAddress: ({
+    address,
+    value,
+  }: {
+    address: Address
+    value: number
+  }) => void
   resetSignedAddress: () => void
   confetti: boolean
   setConfetti: (confetti: boolean) => void
@@ -16,9 +22,9 @@ export const useStateStore = create<StateStore>((set) => ({
   allowModalClose: true,
   setAllowModalClose: (allow) => set({ allowModalClose: allow }),
   signedAddress: undefined,
-  addSignedAddress: (address) =>
+  addSignedAddress: ({ address, value }) =>
     set(({ signedAddress }) => ({
-      signedAddress: [...(signedAddress || []), address],
+      signedAddress: [...(signedAddress || []), { address, value }],
     })),
   resetSignedAddress: () => set({ signedAddress: undefined }),
   confetti: false,

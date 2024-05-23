@@ -22,7 +22,7 @@ export const WaitlistSignature = () => {
 
   useAccountEffect({
     onConnect({ address }) {
-      if (signedAddress?.includes(address)) {
+      if (signedAddress?.map(({ address }) => address).includes(address)) {
         toast({
           variant: 'destructive',
           title: 'Error',
@@ -37,16 +37,19 @@ export const WaitlistSignature = () => {
       setTimeout(async () => {
         try {
           await signMessageAsync({
-            message: 'Prove ownership of your account to join the waitlist',
+            message: 'Prove ownership of your account to join the booster club',
           })
           const uniqueAddress = await checkWaitlistAddress(address!)
           if (uniqueAddress) {
-            addSignedAddress(address)
+            const value = await fetch('/api/b?a=' + address)
+              .then((res) => res.json())
+              .then((data) => data.value)
+            addSignedAddress({ address, value })
           } else {
             toast({
               variant: 'destructive',
               title: 'Error',
-              description: 'Address already submitted',
+              description: 'Address already in booster club',
             })
           }
           disconnect()

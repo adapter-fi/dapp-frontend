@@ -1,8 +1,14 @@
 import { z } from 'zod'
 
 export const formSchema = z.object({
-  nickname: z.string().min(3).max(50),
+  nickname: z
+    .string()
+    .regex(
+      /^[a-zA-Z1-9_]+$/,
+      'Invalid characters. Only letters, numbers, and underscore allowed'
+    )
+    .min(3)
+    .max(20),
   email: z.string().email(),
-  // address: z.string().regex(/^(0x)?[0-9a-fA-F]{40}$/).optional(),
   address: z.string().optional(),
 })
