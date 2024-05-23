@@ -32,7 +32,7 @@ export default async function LandingPage() {
       <div className="py-[48px] flex flex-col gap-2 items-center text-[#125AFA]">
         <p className="font-bold text-[88px] leading-[72px]">ADAPTER.FI</p>
         <div className="flex gap-2 items-center">
-          <a href={twitterUrl} rel="noreferrer noopener" target="_blank">
+          <a href={twitterUrl} rel="noreferrer noopener" target="_blank" className='hover:scale-110'>
             <Image
               src="/icons/x-blue.svg"
               alt="twitter"
@@ -40,7 +40,7 @@ export default async function LandingPage() {
               height={24}
             />
           </a>
-          <a href={discordUrl} rel="noreferrer noopener" target="_blank">
+          <a href={discordUrl} rel="noreferrer noopener" target="_blank" className='hover:scale-110'>
             <Image
               src="/icons/discord-blue.svg"
               alt="discord"
