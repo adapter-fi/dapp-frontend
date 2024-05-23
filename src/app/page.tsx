@@ -1,8 +1,10 @@
 import Image from 'next/image'
 
+import { Footer } from '@/components/Footer'
 import { WaitlistModal } from '@/components/waitlist/WaitlistModal'
 import { columns } from '@/components/waitlist/columns'
 
+import { discordUrl, twitterUrl } from '@/lib/constants'
 import { getUsers } from '@/lib/db/get-users'
 import { formatCurrency } from '@/lib/utils'
 
@@ -30,23 +32,33 @@ export default async function LandingPage() {
       <div className="py-[48px] flex flex-col gap-2 items-center text-[#125AFA]">
         <p className="font-bold text-[88px] leading-[72px]">ADAPTER.FI</p>
         <div className="flex gap-2 items-center">
-          <Image
-            src="/icons/twitter-blue.svg"
-            alt="twitter"
-            width={40}
-            height={40}
-          />
+          <a href={twitterUrl} rel="noreferrer noopener" target="_blank">
+            <Image
+              src="/icons/x-blue.svg"
+              alt="twitter"
+              width={24}
+              height={24}
+            />
+          </a>
+          <a href={discordUrl} rel="noreferrer noopener" target="_blank">
+            <Image
+              src="/icons/discord-blue.svg"
+              alt="discord"
+              width={40}
+              height={40}
+            />
+          </a>
         </div>
       </div>
       <div className="flex flex-col gap-2 items-center">
         <p className="font-bold text-[42px]">BOOSTER CLUB OPEN</p>
         <p className="font-light text-center">
-          Connect early, get exclusive benefits based on your wallets. <br />{' '}
+          Connect early, get the <b className='font-semibold'>adapter boost</b> for your wallets. <br />{' '}
           First in first served.
         </p>
         <WaitlistModal />
       </div>
-      <div className="flex flex-col items-center gap-8 mt-12">
+      <div className="flex flex-col items-center gap-8 my-12">
         <div className="flex justify-between items-center w-[1000px] px-12 relative">
           <div className="flex flex-col items-center">
             <p className="font-bold text-[42px] leading-[0.8]">
@@ -72,6 +84,7 @@ export default async function LandingPage() {
           <DataTable columns={columns} data={users as any} />
         </div>
       </div>
+      <Footer scheme="dark" />
     </div>
   )
 }

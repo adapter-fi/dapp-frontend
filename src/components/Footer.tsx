@@ -1,8 +1,9 @@
 import Image from 'next/image'
 
+import { discordUrl, githubUrl, telegramUrl, twitterUrl } from '@/lib/constants'
 import { cn } from '@/lib/utils'
 
-import { Copyright } from 'lucide-react'
+import { Copyright, Github } from 'lucide-react'
 
 export const Footer = ({ scheme = 'light' }: { scheme: 'light' | 'dark' }) => {
   return (
@@ -24,16 +25,26 @@ export const Footer = ({ scheme = 'light' }: { scheme: 'light' | 'dark' }) => {
       <p className="text-sm text-gray md:hidden block">COMMUNITY</p>
       <div className="md:flex md:flex-col gap-2 grid grid-cols-2">
         <p className="text-sm text-gray hidden md:block">COMMUNITY</p>
-        <button className="flex gap-1 items-center opacity-80 hover:opacity-100">
+        <a
+          href={twitterUrl}
+          target="_blank"
+          rel="noreferrer noopener"
+          className="flex pl-1 gap-1 items-center opacity-80 hover:opacity-100"
+        >
           <Image
-            src="/icons/twitter.svg"
-            height={24}
-            width={24}
+            src="/icons/x.svg"
+            height={16}
+            width={16}
             alt="twitter"
           />
-          <p>TWITTER</p>
-        </button>
-        <button className="flex gap-1 items-center opacity-80 hover:opacity-100">
+          <p className='pl-1'>X</p>
+        </a>
+        <a
+          href={telegramUrl}
+          target="_blank"
+          rel="noreferrer noopener"
+          className="flex gap-1 items-center opacity-80 hover:opacity-100"
+        >
           <Image
             src="/icons/telegram.svg"
             height={24}
@@ -41,8 +52,13 @@ export const Footer = ({ scheme = 'light' }: { scheme: 'light' | 'dark' }) => {
             alt="telegram"
           />
           <p>TELEGRAM</p>
-        </button>
-        <button className="flex gap-1 items-center opacity-80 hover:opacity-100">
+        </a>
+        <a
+          href={discordUrl}
+          target="_blank"
+          rel="noreferrer noopener"
+          className="flex gap-1 items-center opacity-80 hover:opacity-100"
+        >
           <Image
             src="/icons/discord.svg"
             height={24}
@@ -50,31 +66,23 @@ export const Footer = ({ scheme = 'light' }: { scheme: 'light' | 'dark' }) => {
             alt="discord"
           />
           <p>DISCORD</p>
-        </button>
-        <button className="flex gap-1 items-center opacity-80 hover:opacity-100">
-          <Image
-            src="/icons/youtube.svg"
-            height={24}
-            width={24}
-            alt="youtube"
-          />
-          <p>YOUTUBE</p>
-        </button>
-        <button className="flex gap-1 items-center opacity-80 hover:opacity-100">
-          <Image src="/icons/forum.svg" height={24} width={24} alt="forum" />
-          <p>FORUM</p>
-        </button>
+        </a>
+        <a
+          href={githubUrl}
+          target="_blank"
+          rel="noreferrer noopener"
+          className="flex gap-1 items-center opacity-80 hover:opacity-100"
+        >
+          <Github size={24} />
+          <p>GITHUB</p>
+        </a>
       </div>
       <p className="text-sm text-gray md:hidden block">DOCUMENTATION</p>
       <div className="md:flex md:flex-col gap-2 grid grid-cols-2">
-      <p className="text-sm text-gray hidden md:block">DOCUMENTATION</p>
+        <p className="text-sm text-gray hidden md:block">DOCUMENTATION</p>
         <button className="flex gap-1 items-center opacity-80 hover:opacity-100">
           <Image src="/icons/docs.svg" height={24} width={24} alt="docs" />
           <p>GITBOOK</p>
-        </button>
-        <button className="flex gap-1 items-center opacity-80 hover:opacity-100">
-          <Image src="/icons/mirror.svg" height={24} width={24} alt="mirror" />
-          <p>BLOG</p>
         </button>
       </div>
     </div>
