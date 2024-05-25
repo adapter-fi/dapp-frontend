@@ -4,7 +4,7 @@ export const formSchema = z.object({
   nickname: z
     .string()
     .regex(
-      /^[a-zA-Z1-9_]+$/,
+      /^[a-zA-Z0-9_]+$/,
       'Invalid characters. Only letters, numbers, and underscore allowed'
     )
     .min(3)
