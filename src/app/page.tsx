@@ -15,16 +15,16 @@ export default async function LandingPage() {
 
   return (
     <div className="flex flex-col">
-      <div className="bg-[#125AFA] w-screen md:h-[600px] h-[400px] relative overflow-clip">
+      <div className="bg-[#125AFA] w-screen h-[40dvh] max-h-[600px] relative overflow-clip">
         <img
           src="/brand/logo.svg"
           alt="logo"
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 md:h-[528px] md:w-[528px] h-[300px] w-[300px]"
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 h-[80%] w-[80%]"
         />
         <img
           src="/misc/logo-outline.svg"
           alt="logo"
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 max-w-[1000000px] w-[4674px] scale-[0.65] md:scale-100"
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 max-w-[1000000px] w-[4674px] h-[90%]"
         />
       </div>
       <div className="py-[48px] flex flex-col gap-2 items-center text-[#125AFA]">
