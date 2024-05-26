@@ -4,11 +4,13 @@ import { Footer } from '@/components/Footer'
 import { WaitlistModal } from '@/components/waitlist/WaitlistModal'
 import { columns } from '@/components/waitlist/columns'
 
-import { discordUrl, twitterUrl } from '@/lib/constants'
+import { discordUrl, githubUrl, twitterUrl } from '@/lib/constants'
 import { getUsers } from '@/lib/db/get-users'
 import { formatCurrency } from '@/lib/utils'
 
 import { DataTable } from '@/app/(dapp)/vaults/data-table'
+
+import { Github } from 'lucide-react'
 
 export default async function LandingPage() {
   const users = await getUsers()
@@ -58,6 +60,14 @@ export default async function LandingPage() {
                 width={40}
                 height={40}
               />
+            </a>
+            <a
+              href={githubUrl}
+              rel="noreferrer noopener"
+              target="_blank"
+              className="hover:scale-110"
+            >
+              <Github size={26} className="text-[#125AFA]" />
             </a>
           </div>
         </div>

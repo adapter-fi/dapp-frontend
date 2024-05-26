@@ -1,16 +1,17 @@
 'use client'
 
+import { Analytics } from '@vercel/analytics/react'
 import React, { ReactNode } from 'react'
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { createWeb3Modal } from '@web3modal/wagmi/react'
 import { State, WagmiProvider } from 'wagmi'
 
+import { Confetti } from '@/components/Confetti'
 import { Toaster } from '@/components/ui/toaster'
 import { TooltipProvider } from '@/components/ui/tooltip'
 
 import { config, projectId } from '@/lib/config'
-import { Confetti } from '@/components/Confetti'
 
 const queryClient = new QueryClient()
 
@@ -37,6 +38,7 @@ export default function Providers({
           {children}
           <Toaster />
           <Confetti />
+          <Analytics />
         </TooltipProvider>
       </QueryClientProvider>
     </WagmiProvider>
