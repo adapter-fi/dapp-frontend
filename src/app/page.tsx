@@ -17,7 +17,7 @@ export default async function LandingPage() {
 
   return (
     <div className="flex flex-col min-h-screen justify-between">
-      <div className="flex flex-col">
+      <div className="flex flex-col items-center">
         <div className="bg-[#125AFA] w-screen h-[40dvh] max-h-[600px] relative overflow-clip">
           <img
             src="/brand/booster-logo.svg"
@@ -33,6 +33,9 @@ export default async function LandingPage() {
         <div className="py-[48px] flex flex-col gap-2 items-center text-[#125AFA]">
           <p className="font-bold md:text-[88px] text-6xl md:leading-[72px]">
             ADAPTER.FI
+          </p>
+          <p className="md:text-3xl text-xl font-medium px-4 text-center">
+            Automated Strategies for Blue-Chip DeFi Products
           </p>
           <div className="flex gap-2 items-center">
             <a
@@ -105,6 +108,63 @@ export default async function LandingPage() {
 
           <div className="md:w-[1000px] w-full">
             <DataTable columns={columns} data={users as any} />
+          </div>
+        </div>
+        <div className="flex flex-col items-center pb-4 gap-2 px-4">
+          <p className="text-[42px] font-bold leading-[0.8]">PARTNERS</p>
+          <p className="font-light text-[#565151]">
+            Adapter maintains strong relationship with its partner to ensure the
+            best possible services to its users.
+          </p>
+          <div className="flex flex-wrap gap-8">
+            <div className="flex flex-col items-center">
+              <img
+                src="https://pbs.twimg.com/profile_images/1621033017337843713/loDsYCJr_400x400.jpg"
+                className="rounded-full h-[80px]"
+                alt="pendle"
+              />
+              <p>Pendle</p>
+            </div>
+            <div className="flex flex-col items-center">
+              <img
+                src="https://pbs.twimg.com/profile_images/1628968703911145473/_lB7zEtS_400x400.jpg"
+                className="rounded-full h-[80px]"
+                alt="swell"
+              />
+              <p>Swell</p>
+            </div>
+            <div className="flex flex-col items-center">
+              <img
+                src="https://pbs.twimg.com/profile_images/1774331469122736129/iSCd1rGu_400x400.jpg"
+                className="rounded-full h-[80px]"
+                alt="karak"
+              />
+              <p>Karak</p>
+            </div>
+            <div className="flex flex-col items-center">
+              <img
+                src="https://pbs.twimg.com/profile_images/1748000232783147008/JgHFApFy_400x400.jpg"
+                className="rounded-full h-[80px]"
+                alt="etherfi"
+              />
+              <p>Ether.fi</p>
+            </div>
+            <div className="flex flex-col items-center">
+              <img
+                src="https://pbs.twimg.com/profile_images/1550517197189140481/cUrfy43k_400x400.jpg"
+                className="rounded-full h-[80px]"
+                alt="redacted"
+              />
+              <p>Redacted</p>
+            </div>
+            <div className="flex flex-col items-center">
+              <img
+                src="https://pbs.twimg.com/profile_images/1656222978919784449/eQgwPTaY_400x400.png"
+                className="rounded-full h-[80px]"
+                alt="balancer"
+              />
+              <p>Balancer</p>
+            </div>
           </div>
         </div>
       </div>
