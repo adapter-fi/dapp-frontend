@@ -24,11 +24,11 @@ export default async function LandingPage() {
             alt="logo"
             className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 h-[80%] w-[80%]"
           />
-          <img
+          {/* <img
             src="/misc/logo-outline.svg"
             alt="logo"
             className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 max-w-[1000000px] w-[4674px] h-[90%]"
-          />
+          /> */}
         </div>
         <div className="py-[48px] flex flex-col gap-2 items-center text-[#125AFA]">
           <p className="font-bold md:text-[88px] text-6xl md:leading-[72px]">
@@ -110,7 +110,7 @@ export default async function LandingPage() {
             <DataTable columns={columns} data={users as any} />
           </div>
         </div>
-        <div className="flex flex-col items-center pb-4 gap-2 px-4">
+        <div className="flex flex-col items-center py-12 gap-2 px-4">
           <p className="text-[42px] font-bold leading-[0.8]">PARTNERS</p>
           <p className="font-light text-[#565151]">
             Adapter maintains strong relationship with its partner to ensure the
