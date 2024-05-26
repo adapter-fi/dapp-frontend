@@ -30,7 +30,21 @@ const primary = localFont({
 
 export const metadata: Metadata = {
   title: 'AdapterFi',
-  description: 'TBD',
+  description: 'Automated strategies for blue-chip DeFi protocols',
+  openGraph: {
+    title: 'AdapterFi',
+    description: 'Automated strategies for blue-chip DeFi protocols',
+    url: 'https://adapter.fi',
+    siteName: 'AdapterFi',
+    images: [
+      {
+        url: 'https://adapter.fi/brand/logo.png',
+        width: 1200,
+        height: 630,
+        alt: 'AdapterFi',
+      },
+    ],
+  },
 }
 
 export default function RootLayout({
