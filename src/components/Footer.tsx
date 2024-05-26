@@ -1,6 +1,12 @@
 import Image from 'next/image'
 
-import { discordUrl, githubUrl, telegramUrl, twitterUrl } from '@/lib/constants'
+import {
+  discordUrl,
+  docsUrl,
+  githubUrl,
+  telegramUrl,
+  twitterUrl,
+} from '@/lib/constants'
 import { cn } from '@/lib/utils'
 
 import { Copyright, Github } from 'lucide-react'
@@ -31,13 +37,8 @@ export const Footer = ({ scheme = 'light' }: { scheme: 'light' | 'dark' }) => {
           rel="noreferrer noopener"
           className="flex pl-1 gap-1 items-center opacity-80 hover:opacity-100"
         >
-          <Image
-            src="/icons/x.svg"
-            height={16}
-            width={16}
-            alt="twitter"
-          />
-          <p className='pl-1'>X</p>
+          <Image src="/icons/x.svg" height={16} width={16} alt="twitter" />
+          <p className="pl-1">X</p>
         </a>
         <a
           href={telegramUrl}
@@ -80,10 +81,15 @@ export const Footer = ({ scheme = 'light' }: { scheme: 'light' | 'dark' }) => {
       <p className="text-sm text-gray md:hidden block">DOCUMENTATION</p>
       <div className="md:flex md:flex-col gap-2 grid grid-cols-2">
         <p className="text-sm text-gray hidden md:block">DOCUMENTATION</p>
-        <button className="flex gap-1 items-center opacity-80 hover:opacity-100">
+        <a
+          href={docsUrl}
+          target="_blank"
+          rel="noreferrer noopener"
+          className="flex gap-1 items-center opacity-80 hover:opacity-100"
+        >
           <Image src="/icons/docs.svg" height={24} width={24} alt="docs" />
           <p>GITBOOK</p>
-        </button>
+        </a>
       </div>
     </div>
   )
