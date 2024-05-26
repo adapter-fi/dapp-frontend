@@ -34,7 +34,7 @@ export default async function LandingPage() {
           <p className="font-bold md:text-[88px] text-6xl md:leading-[72px]">
             ADAPTER.FI
           </p>
-          <p className="md:text-3xl text-xl font-medium px-4 text-center">
+          <p className="md:text-3xl text-xl font-medium px-4 text-center text-[#565151]">
             Automated Strategies for Blue-Chip DeFi Products
           </p>
           <div className="flex gap-2 items-center">
