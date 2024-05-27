@@ -113,7 +113,7 @@ export default async function LandingPage() {
         <div className="flex flex-col items-center py-12 gap-2 px-4">
           <p className="text-[42px] font-bold leading-[0.8]">PARTNERS</p>
           <p className="font-light text-[#565151]">
-            Adapter maintains strong relationship with its partner to ensure the
+            Adapter maintains strong relationship with its partners to ensure the
             best possible services to its users.
           </p>
           <div className="flex flex-wrap gap-8">
