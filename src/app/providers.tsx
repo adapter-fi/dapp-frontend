@@ -14,6 +14,7 @@ import { config, projectId } from '@/lib/config'
 
 import posthog from 'posthog-js'
 import { PostHogProvider } from 'posthog-js/react'
+import { mainnet } from 'wagmi/chains'
 
 const queryClient = new QueryClient()
 
@@ -28,8 +29,7 @@ if (typeof window !== 'undefined') {
 createWeb3Modal({
   wagmiConfig: config,
   projectId,
-  enableAnalytics: true,
-  enableOnramp: true,
+  defaultChain: mainnet,
 })
 
 export default function Providers({
