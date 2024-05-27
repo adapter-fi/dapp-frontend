@@ -1,10 +1,12 @@
 'use client'
 
+import { Analytics } from '@vercel/analytics/react'
 import React, { ReactNode } from 'react'
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { createWeb3Modal } from '@web3modal/wagmi/react'
 import { State, WagmiProvider } from 'wagmi'
+import { mainnet } from 'wagmi/chains'
 
 import { Confetti } from '@/components/Confetti'
 import { Toaster } from '@/components/ui/toaster'
@@ -12,19 +14,9 @@ import { TooltipProvider } from '@/components/ui/tooltip'
 
 import { config, projectId } from '@/lib/config'
 
-import posthog from 'posthog-js'
-import { PostHogProvider } from 'posthog-js/react'
-import { mainnet } from 'wagmi/chains'
-
 const queryClient = new QueryClient()
 
 if (!projectId) throw new Error('Project ID is not defined')
-
-if (typeof window !== 'undefined') {
-  posthog.init(process.env.NEXT_PUBLIC_POSTHOG_KEY as string, {
-    api_host: process.env.NEXT_PUBLIC_POSTHOG_HOST,
-  })
-}
 
 createWeb3Modal({
   wagmiConfig: config,
@@ -40,16 +32,15 @@ export default function Providers({
   initialState?: State
 }) {
   return (
-    <PostHogProvider client={posthog}>
-      <WagmiProvider config={config} initialState={initialState}>
-        <QueryClientProvider client={queryClient}>
-          <TooltipProvider delayDuration={0}>
-            {children}
-            <Toaster />
-            <Confetti />
-          </TooltipProvider>
-        </QueryClientProvider>
-      </WagmiProvider>
-    </PostHogProvider>
+    <WagmiProvider config={config} initialState={initialState}>
+      <QueryClientProvider client={queryClient}>
+        <TooltipProvider delayDuration={0}>
+          {children}
+          <Toaster />
+          <Confetti />
+          <Analytics />
+        </TooltipProvider>
+      </QueryClientProvider>
+    </WagmiProvider>
   )
 }
