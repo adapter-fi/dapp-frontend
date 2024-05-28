@@ -82,7 +82,7 @@ export default async function LandingPage() {
             Connect early, get the{' '}
             <b className="font-semibold">adapter boost</b> for your wallets.
           </p>
-          <WaitlistModal />
+          <WaitlistModal users={users}/>
         </div>
         <div className="flex flex-col items-center gap-8 my-12 px-4 md:px-0">
           <div className="md:flex grid grid-cols-2 gap-4 md:gap-0 justify-between items-center md:w-[1000px]  md:px-12 relative">

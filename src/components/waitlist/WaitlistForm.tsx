@@ -24,15 +24,24 @@ import { useToast } from '@/components/ui/use-toast'
 import { WaitlistSignature } from '@/components/waitlist/WaitlistSignature'
 
 import { addUser } from '@/lib/db/add-user'
+import { WaitlistUser } from '@/lib/db/get-users'
 import { formSchema } from '@/lib/schema'
 import { useStateStore } from '@/lib/store'
-import { formatCurrency, truncateAddress } from '@/lib/utils'
+import {
+  findInsertPosition,
+  formatCurrency,
+  truncateAddress,
+} from '@/lib/utils'
 
 import { zodResolver } from '@hookform/resolvers/zod'
 
 import { z } from 'zod'
 
-export const WaitlistForm = () => {
+export const WaitlistForm = ({
+  users,
+}: {
+  users: WaitlistUser[] | undefined
+}) => {
   const { toast } = useToast()
   const { open } = useWeb3Modal()
   const { signedAddress, setAllowModalClose, resetSignedAddress, setConfetti } =
@@ -42,6 +51,8 @@ export const WaitlistForm = () => {
     title: '',
     description: '',
   })
+
+  const totalAssets = signedAddress?.reduce((a, b) => a + b.value, 0)
 
   useEffect(() => {
     if (state.title && state.description) {
@@ -179,11 +190,7 @@ export const WaitlistForm = () => {
                 <Separator />
                 <div className="flex justify-between">
                   <p>Total Assets</p>
-                  <p>
-                    {formatCurrency(
-                      signedAddress.reduce((a, b) => a + b.value, 0)
-                    )}
-                  </p>
+                  <p>{formatCurrency(totalAssets)}</p>
                 </div>
                 <Button
                   variant="outline"
@@ -205,7 +212,12 @@ export const WaitlistForm = () => {
               EXPECTED SPOT
             </p>
             <p className="text-[#5AFA12] font-bold text-[42px] leading-[0.9]">
-              TBD
+              {totalAssets && users
+                ? findInsertPosition(
+                    users.map(({ networth }) => networth),
+                    totalAssets
+                  ) + 1
+                : 'TBD'}
             </p>
             <SubmitButton />
           </div>

@@ -70,3 +70,9 @@ export function extractBetweenParentheses(input: string) {
 export function capitalizeFirstLetter(input: string): string {
   return input.charAt(0).toUpperCase() + input.slice(1)
 }
+
+export function findInsertPosition(arr: number[], num: number) {
+  //For descending arrays
+  const index = arr.findIndex((el) => num >= el)
+  return index === -1 ? arr.length : index
+}

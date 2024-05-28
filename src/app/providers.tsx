@@ -1,7 +1,7 @@
 'use client'
 
 import { Analytics } from '@vercel/analytics/react'
-import React, { ReactNode } from 'react'
+import React, { ReactNode, useEffect, useState } from 'react'
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { createWeb3Modal } from '@web3modal/wagmi/react'
@@ -31,11 +31,14 @@ export default function Providers({
   children: ReactNode
   initialState?: State
 }) {
+  const [mounted, setMounted] = useState(false)
+  useEffect(() => setMounted(true), [])
+
   return (
     <WagmiProvider config={config} initialState={initialState}>
       <QueryClientProvider client={queryClient}>
         <TooltipProvider delayDuration={0}>
-          {children}
+          {mounted && children}
           <Toaster />
           <Confetti />
           <Analytics />

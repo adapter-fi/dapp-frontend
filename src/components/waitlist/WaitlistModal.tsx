@@ -4,13 +4,18 @@ import { useEffect, useState } from 'react'
 
 import { useWeb3ModalState } from '@web3modal/wagmi/react'
 
-import { WaitlistForm } from '@/components/waitlist/WaitlistForm'
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
+import { WaitlistForm } from '@/components/waitlist/WaitlistForm'
 
+import { WaitlistUser } from '@/lib/db/get-users'
 import { useStateStore } from '@/lib/store'
 
-export const WaitlistModal = () => {
+export const WaitlistModal = ({
+  users,
+}: {
+  users: WaitlistUser[] | undefined
+}) => {
   const [open, setOpen] = useState(false)
   const { allowModalClose, setAllowModalClose, setConfetti } = useStateStore()
   const { open: web3modalOpen } = useWeb3ModalState()
@@ -49,7 +54,7 @@ export const WaitlistModal = () => {
           <p className="text-white font-bold">JOIN THE BOOSTER CLUB</p>
         </div>
 
-        <WaitlistForm />
+        <WaitlistForm users={users} />
       </DialogContent>
     </Dialog>
   )
