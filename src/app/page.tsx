@@ -149,14 +149,14 @@ export default async function LandingPage() {
               />
               <p>Ether.fi</p>
             </div>
-            <div className="flex flex-col items-center">
+            {/* <div className="flex flex-col items-center">
               <img
                 src="https://pbs.twimg.com/profile_images/1550517197189140481/cUrfy43k_400x400.jpg"
                 className="rounded-full h-[80px]"
                 alt="redacted"
               />
               <p>Redacted</p>
-            </div>
+            </div> */}
             <div className="flex flex-col items-center">
               <img
                 src="https://pbs.twimg.com/profile_images/1656222978919784449/eQgwPTaY_400x400.png"
@@ -164,6 +164,22 @@ export default async function LandingPage() {
                 alt="balancer"
               />
               <p>Balancer</p>
+            </div>
+            <div className="flex flex-col items-center">
+              <img
+                src="https://pbs.twimg.com/profile_images/1719718670610427904/IwyLpOfL_400x400.jpg"
+                className="rounded-full h-[80px]"
+                alt="kelp"
+              />
+              <p>Kelp</p>
+            </div>
+            <div className="flex flex-col items-center">
+              <img
+                src="https://pbs.twimg.com/profile_images/1715232040319160320/LNbYHlBA_400x400.jpg"
+                className="rounded-full h-[80px]"
+                alt="Renzo"
+              />
+              <p>Renzo</p>
             </div>
           </div>
         </div>
