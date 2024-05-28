@@ -1,7 +1,7 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import {
   ColumnDef,
@@ -35,6 +35,7 @@ export function DataTable<TData, TValue>({
   vaultTable,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([])
+  const [mounted, setMounted] = useState(false)
 
   const table = useReactTable({
     data,
@@ -48,9 +49,13 @@ export function DataTable<TData, TValue>({
   })
   const router = useRouter()
 
+  useEffect(() => setMounted(true), [])
+
+  if (!mounted) return null
+
   return (
     <div className="rounded-md">
-      <Table className='text-[16px]'>
+      <Table className="text-[16px]">
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
             <TableRow key={headerGroup.id}>

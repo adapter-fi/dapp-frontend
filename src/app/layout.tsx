@@ -1,6 +1,10 @@
 import type { Metadata } from 'next'
 import localFont from 'next/font/local'
+import { headers } from 'next/headers'
 
+import { cookieToInitialState } from 'wagmi'
+
+import { config } from '@/lib/config'
 import { cn } from '@/lib/utils'
 
 import '@/app/globals.css'
@@ -48,10 +52,11 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const initialState = cookieToInitialState(config, headers().get('cookie'))
   return (
     <html lang="en">
       <body className={cn(primary.variable, 'font-sans')}>
-        <Providers>{children}</Providers>
+        <Providers initialState={initialState}>{children}</Providers>
       </body>
     </html>
   )
