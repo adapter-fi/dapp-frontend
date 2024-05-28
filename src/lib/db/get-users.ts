@@ -1,5 +1,7 @@
 import { supabase } from '@/lib/supabase'
 
+export type WaitlistUser = { spot: number; name: string; networth: number }
+
 export const getUsers = async () => {
   const { data } = await supabase
     .from('waitlist')

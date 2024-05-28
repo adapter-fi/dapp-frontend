@@ -1,19 +1,28 @@
+'use client'
+
 import Image from 'next/image'
 
+import { useQuery } from '@tanstack/react-query'
+
 import { Footer } from '@/components/Footer'
+import { Skeleton } from '@/components/ui/skeleton'
 import { WaitlistModal } from '@/components/waitlist/WaitlistModal'
 import { columns } from '@/components/waitlist/columns'
 
 import { discordUrl, githubUrl, twitterUrl } from '@/lib/constants'
-import { getUsers } from '@/lib/db/get-users'
+import { WaitlistUser } from '@/lib/db/get-users'
 import { formatCurrency } from '@/lib/utils'
 
 import { DataTable } from '@/app/(dapp)/vaults/data-table'
 
 import { Github } from 'lucide-react'
 
-export default async function LandingPage() {
-  const users = await getUsers()
+export default function LandingPage() {
+  const { data: users, isLoading: usersLoading } = useQuery({
+    queryKey: ['users'],
+    queryFn: () =>
+      fetch('/api/users').then((res) => res.json().then(res => res.users)) as Promise<WaitlistUser[]>,
+  })
 
   return (
     <div className="flex flex-col min-h-screen justify-between">
@@ -107,14 +116,18 @@ export default async function LandingPage() {
           </div>
 
           <div className="md:w-[1000px] w-full">
-            <DataTable columns={columns} data={users as any} />
+            {usersLoading ? (
+              <Skeleton className='h-[400px] w-full' />
+            ) : (
+              <DataTable columns={columns} data={users as any} />
+            )}
           </div>
         </div>
         <div className="flex flex-col items-center py-12 gap-2 px-4">
           <p className="text-[42px] font-bold leading-[0.8]">PARTNERS</p>
           <p className="font-light text-[#565151]">
-            Adapter maintains strong relationship with its partners to ensure the
-            best possible services to its users.
+            Adapter maintains strong relationship with its partners to ensure
+            the best possible services to its users.
           </p>
           <div className="flex flex-wrap gap-8">
             <div className="flex flex-col items-center">
