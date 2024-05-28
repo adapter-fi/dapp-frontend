@@ -8,10 +8,12 @@ import {
   SortingState,
   flexRender,
   getCoreRowModel,
+  getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
 } from '@tanstack/react-table'
 
+import { Button } from '@/components/ui/button'
 import {
   Table,
   TableBody,
@@ -22,6 +24,8 @@ import {
 } from '@/components/ui/table'
 
 import { cn } from '@/lib/utils'
+
+import { ChevronLeft, ChevronRight } from 'lucide-react'
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -42,6 +46,7 @@ export function DataTable<TData, TValue>({
     getCoreRowModel: getCoreRowModel(),
     onSortingChange: setSorting,
     getSortedRowModel: getSortedRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
     state: {
       sorting,
     },
@@ -49,7 +54,7 @@ export function DataTable<TData, TValue>({
   const router = useRouter()
 
   return (
-    <div className="rounded-md">
+    <div className="flex flex-col">
       <Table className="text-[16px]">
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
@@ -96,6 +101,24 @@ export function DataTable<TData, TValue>({
           )}
         </TableBody>
       </Table>
+      <div className="flex gap-2 justify-end items-center">
+        <Button
+          onClick={() => table.previousPage()}
+          disabled={!table.getCanPreviousPage()}
+        >
+          <ChevronLeft />
+        </Button>
+        <p>
+          Page {table.getState().pagination.pageIndex + 1} of{' '}
+          {table.getPageCount()}
+        </p>
+        <Button
+          onClick={() => table.nextPage()}
+          disabled={!table.getCanNextPage()}
+        >
+          <ChevronRight />
+        </Button>
+      </div>
     </div>
   )
 }
