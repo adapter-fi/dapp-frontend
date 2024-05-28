@@ -22,13 +22,24 @@ export const Footer = ({ scheme = 'light' }: { scheme: 'light' | 'dark' }) => {
       )}
     >
       <div className="grid md:grid-cols-3 items-start md:p-12 p-4 snap-end md:gap-0 gap-4 w-screen max-w-[1280px] ">
-        <div className="flex items-end">
-          <Image src="/brand/logo.svg" width={64} height={64} alt="logo" />
-          <div className="flex gap-1 items-center">
-            <Copyright size={16} />
-            <p className="text-gray font-light">2024 Adapter.fi</p>
+        <div className="flex flex-col justify-between h-full">
+          <div className="flex items-end">
+            <Image src="/brand/logo.svg" width={64} height={64} alt="logo" />
+            <div className="flex gap-1 items-center">
+              <Copyright size={16} />
+              <p className="text-gray font-light">2024 Adapter.fi</p>
+            </div>
+          </div>
+          <div className="md:flex flex-col text-gray text-sm hidden">
+            <a target="_blank" href="/Adapter.Fi-Privacy-Policy.pdf">
+              Privacy Policy
+            </a>
+            <a target="_blank" href="/Adapter.Fi-TOS.pdf">
+              Terms of Service
+            </a>
           </div>
         </div>
+
         <p className="text-sm text-gray md:hidden block">COMMUNITY</p>
         <div className="md:flex md:flex-col gap-2 grid grid-cols-2">
           <p className="text-sm text-gray hidden md:block">COMMUNITY</p>
@@ -90,6 +101,14 @@ export const Footer = ({ scheme = 'light' }: { scheme: 'light' | 'dark' }) => {
           >
             <Image src="/icons/docs.svg" height={24} width={24} alt="docs" />
             <p>GITBOOK</p>
+          </a>
+        </div>
+        <div className="flex flex-col text-gray text-sm md:hidden">
+          <a target="_blank" href="/Adapter.Fi-Privacy-Policy.pdf">
+            Privacy Policy
+          </a>
+          <a target="_blank" href="/Adapter.Fi-TOS.pdf">
+            Terms of Service
           </a>
         </div>
       </div>
