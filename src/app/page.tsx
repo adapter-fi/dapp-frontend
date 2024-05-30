@@ -11,6 +11,7 @@ import { formatCurrency } from '@/lib/utils'
 import { DataTable } from '@/app/(dapp)/vaults/data-table'
 
 import { Github } from 'lucide-react'
+import { Timer } from '@/components/Timer'
 
 export default async function LandingPage() {
   const users = await getUsers()
@@ -85,7 +86,7 @@ export default async function LandingPage() {
           <WaitlistModal users={users}/>
         </div>
         <div className="flex flex-col items-center gap-8 my-12 px-4 md:px-0">
-          <div className="md:flex grid grid-cols-2 gap-4 md:gap-0 justify-between items-center md:w-[1000px]  md:px-12 relative">
+          <div className="md:flex grid grid-cols-4 gap-4 md:gap-0 justify-between items-center md:w-[1000px]  md:px-12 relative">
             <div className="flex flex-col items-center">
               <p className="font-bold text-[42px] leading-[0.8]">
                 {formatCurrency(users?.reduce((a, b) => a + b.networth, 0))}
@@ -94,7 +95,7 @@ export default async function LandingPage() {
                 Users wallet balances
               </p>
             </div>
-            <div className="flex flex-col items-center md:absolute md:left-1/2 md:-translate-x-1/2">
+            <div className="flex flex-col items-center">
               <p className="font-bold text-[42px] leading-[0.8]">1.5X</p>
               <p className="text-[#565151] font-light text-sm">Boost</p>
             </div>
@@ -103,6 +104,10 @@ export default async function LandingPage() {
                 {users?.length}
               </p>
               <p className="text-[#565151] font-light text-sm">Users</p>
+            </div>
+            <div className="flex flex-col items-center">
+              <Timer />
+              <p className="text-[#565151] font-light text-sm">Time left to join</p>
             </div>
           </div>
 
