@@ -86,7 +86,7 @@ export default async function LandingPage() {
           <WaitlistModal users={users}/>
         </div>
         <div className="flex flex-col items-center gap-8 my-12 px-4 md:px-0">
-          <div className="md:flex grid grid-cols-4 gap-4 md:gap-0 justify-between items-center md:w-[1000px]  md:px-12 relative">
+          <div className="md:flex grid md:grid-cols-4 gap-4 md:gap-0 justify-between items-center md:w-[1000px]  md:px-12 relative">
             <div className="flex flex-col items-center">
               <p className="font-bold text-[42px] leading-[0.8]">
                 {formatCurrency(users?.reduce((a, b) => a + b.networth, 0))}
