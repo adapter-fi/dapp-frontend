@@ -1,196 +1,262 @@
+'use client'
+
+import { useInViewport } from '@mantine/hooks'
 import Image from 'next/image'
+import Link from 'next/link'
 
 import { Footer } from '@/components/Footer'
-import { WaitlistModal } from '@/components/waitlist/WaitlistModal'
-import { columns } from '@/components/waitlist/columns'
+import { Navbar } from '@/components/Navbar'
+import { PartnerLogo } from '@/components/PartnerLogo'
+import { Partners } from '@/components/Partners'
+import { Button } from '@/components/ui/button'
 
-import { discordUrl, githubUrl, twitterUrl } from '@/lib/constants'
-import { getUsers } from '@/lib/db/get-users'
-import { formatCurrency } from '@/lib/utils'
+import { useIsMobile } from '@/hooks/use-is-mobile'
 
-import { DataTable } from '@/app/(dapp)/vaults/data-table'
+import { cn } from '@/lib/utils'
 
-import { Github } from 'lucide-react'
-import { Timer } from '@/components/Timer'
+export default function Home() {
+  const { ref, inViewport } = useInViewport()
+  const mobile = useIsMobile()
 
-export default async function LandingPage() {
-  const users = await getUsers()
-
-  return (
-    <div className="flex flex-col min-h-screen justify-between">
-      <div className="flex flex-col items-center">
-        <div className="bg-[#125AFA] w-screen h-[40dvh] max-h-[600px] relative overflow-clip">
+  if (mobile) {
+    return (
+      <div className="flex flex-col relative snap-y overflow-y-scroll snap-mandatory h-[100dvh]">
+        <div className="max-h-[100dvh] flex flex-col snap-center snap-always">
           <img
-            src="/brand/booster-logo.svg"
-            alt="logo"
-            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 h-[80%] w-[80%]"
+            src="/brand/logo-landing.svg"
+            alt="hero"
+            className="object-cover h-[500px] w-full"
           />
-          {/* <img
-            src="/misc/logo-outline.svg"
-            alt="logo"
-            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 max-w-[1000000px] w-[4674px] h-[90%]"
-          /> */}
-        </div>
-        <div className="py-[48px] flex flex-col gap-2 items-center text-[#125AFA]">
-          <p className="font-bold md:text-[88px] text-6xl md:leading-[72px]">
-            ADAPTER.FI
-          </p>
-          <p className="md:text-3xl text-xl font-medium px-4 text-center text-[#565151]">
-            Automated Strategies for Blue-Chip DeFi Products
-          </p>
-          <div className="flex gap-2 items-center">
-            <a
-              href={twitterUrl}
-              rel="noreferrer noopener"
-              target="_blank"
-              className="hover:scale-110"
-            >
-              <Image
-                src="/icons/x-blue.svg"
-                alt="twitter"
-                width={24}
-                height={24}
-              />
-            </a>
-            <a
-              href={discordUrl}
-              rel="noreferrer noopener"
-              target="_blank"
-              className="hover:scale-110"
-            >
-              <Image
-                src="/icons/discord-blue.svg"
-                alt="discord"
-                width={40}
-                height={40}
-              />
-            </a>
-            <a
-              href={githubUrl}
-              rel="noreferrer noopener"
-              target="_blank"
-              className="hover:scale-110"
-            >
-              <Github size={26} className="text-[#125AFA]" />
-            </a>
+          <div className="flex flex-col p-4 gap-4">
+            <div className="flex flex-col text-5xl font-bold leading-[0.8]">
+              <p>YIELDS</p>
+              <p className="text-[#125AFA]">MAXIMIZED</p>
+            </div>
+            <div className="grid grid-cols-2 gap-2">
+              {/* <Link href="/vaults">
+                <Button className="w-full"
+                 variant="inverted" 
+                >
+                  LAUNCH APP
+                </Button>
+              </Link> */}
+              <Button variant="secondary">READ DOCS</Button>
+            </div>
           </div>
         </div>
-        <div className="flex flex-col gap-2 items-center px-4 md:px-0">
-          <p className="font-bold md:text-[42px] text-3xl leading-[0.8] md:leading-none">
-            BOOSTER CLUB OPEN
-          </p>
-          <p className="font-light text-center">
-            Connect early, get the{' '}
-            <b className="font-semibold">adapter boost</b> for your wallets.
-          </p>
-          <WaitlistModal users={users}/>
-        </div>
-        <div className="flex flex-col items-center gap-8 my-12 px-4 md:px-0">
-          <div className="md:flex grid md:grid-cols-4 gap-4 md:gap-0 justify-between items-center md:w-[1000px]  md:px-12 relative">
-            <div className="flex flex-col items-center">
-              <p className="font-bold text-[42px] leading-[0.8]">
-                {formatCurrency(users?.reduce((a, b) => a + b.networth, 0))}
+        <div className="max-h-[100dvh] flex flex-col snap-center snap-always">
+          <div className="flex flex-col bg-[#0B0B0A] p-4">
+            <div className="flex flex-col leading-[0.8] text-white font-bold text-3xl">
+              <p>
+                THE FIRST <span className="text-[#125AFA]">PENDLE</span>
               </p>
-              <p className="text-[#565151] font-light text-sm">
-                Users wallet balances
+              <p>
+                AUTOCOM<span className="text-[#125AFA]">POUNDER</span>
               </p>
             </div>
-            <div className="flex flex-col items-center">
-              <p className="font-bold text-[42px] leading-[0.8]">1.5X</p>
-              <p className="text-[#565151] font-light text-sm">Boost</p>
+            <p className="text-gray font-thin text-xl">
+              ZERO FRICTION, EASY YIELD STRATEGIES
+            </p>
+            <div className="flex flex-col text-white font-light">
+              <div className="flex items-center gap-1">
+                <Image
+                  src="/brand/logo.svg"
+                  alt="logo"
+                  width={16}
+                  height={16}
+                />
+                <p>Increase yield</p>
+              </div>
+              <div className="flex items-center gap-1">
+                <Image
+                  src="/brand/logo.svg"
+                  alt="logo"
+                  width={16}
+                  height={16}
+                />
+                <p>Reduce expenses</p>
+              </div>
+              <div className="flex items-center gap-1">
+                <Image
+                  src="/brand/logo.svg"
+                  alt="logo"
+                  width={16}
+                  height={16}
+                />
+                <p>Get an on-chain butler</p>
+              </div>
             </div>
-            <div className="flex flex-col items-center">
-              <p className="font-bold text-[42px] leading-[0.8]">
-                {users?.length}
+            <Button className="w-[300px] mt-4" disabled>
+              {/* Compound Now */}
+              COMING SOON
+            </Button>
+          </div>
+          <div className="w-screen bg-[#125AFA] overflow-clip relative h-[480px]">
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[416px] h-[506px]">
+              <img
+                src="/misc/landing-spinner-mobile.svg"
+                alt="spinner"
+                className="animate-spin-slow absolute top-0 left-0"
+              />
+            </div>
+            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2  text-[#FBFDFD] flex flex-col">
+              <div className="flex items-end gap-1">
+                <p className="font-bold text-[82px] leading-[0.8]">TBD</p>
+                <p className="text-gray font-bold">%</p>
+              </div>
+              <p className="text-gray font-light text-sm text-center">
+                Current best yield
               </p>
-              <p className="text-[#565151] font-light text-sm">Users</p>
             </div>
-            <div className="flex flex-col items-center">
-              <Timer />
-              <p className="text-[#565151] font-light text-sm">Time left to join</p>
-            </div>
-          </div>
-
-          <div className="md:w-[1000px] w-full">
-            <DataTable columns={columns} data={users as any} />
           </div>
         </div>
-        <div className="flex flex-col items-center py-12 gap-2 px-4">
-          <p className="text-[42px] font-bold leading-[0.8]">PARTNERS</p>
-          <p className="font-light text-[#565151]">
-            Adapter maintains strong relationship with its partners to ensure the
-            best possible services to its users.
+        <div className="min-h-[100dvh] max-h-[100dvh] flex flex-col snap-center snap-always p-4">
+          <p className="font-bold text-4xl">PARTNERS</p>
+          <p className="text-[#565151] font-light">
+            Adapter maintains strong relationships with its partners to ensure
+            the best possible services to its users
           </p>
-          <div className="flex flex-wrap gap-8">
-            <div className="flex flex-col items-center">
-              <img
-                src="https://pbs.twimg.com/profile_images/1621033017337843713/loDsYCJr_400x400.jpg"
-                className="rounded-full h-[80px]"
-                alt="pendle"
-              />
-              <p>Pendle</p>
-            </div>
-            <div className="flex flex-col items-center">
-              <img
-                src="https://pbs.twimg.com/profile_images/1628968703911145473/_lB7zEtS_400x400.jpg"
-                className="rounded-full h-[80px]"
-                alt="swell"
-              />
-              <p>Swell</p>
-            </div>
-            <div className="flex flex-col items-center">
-              <img
-                src="https://pbs.twimg.com/profile_images/1774331469122736129/iSCd1rGu_400x400.jpg"
-                className="rounded-full h-[80px]"
-                alt="karak"
-              />
-              <p>Karak</p>
-            </div>
-            <div className="flex flex-col items-center">
-              <img
-                src="https://pbs.twimg.com/profile_images/1748000232783147008/JgHFApFy_400x400.jpg"
-                className="rounded-full h-[80px]"
-                alt="etherfi"
-              />
-              <p>Ether.fi</p>
-            </div>
-            {/* <div className="flex flex-col items-center">
-              <img
-                src="https://pbs.twimg.com/profile_images/1550517197189140481/cUrfy43k_400x400.jpg"
-                className="rounded-full h-[80px]"
-                alt="redacted"
-              />
-              <p>Redacted</p>
-            </div> */}
-            <div className="flex flex-col items-center">
-              <img
-                src="https://pbs.twimg.com/profile_images/1656222978919784449/eQgwPTaY_400x400.png"
-                className="rounded-full h-[80px]"
-                alt="balancer"
-              />
-              <p>Balancer</p>
-            </div>
-            <div className="flex flex-col items-center">
-              <img
-                src="https://pbs.twimg.com/profile_images/1719718670610427904/IwyLpOfL_400x400.jpg"
-                className="rounded-full h-[80px]"
-                alt="kelp"
-              />
-              <p>Kelp</p>
-            </div>
-            <div className="flex flex-col items-center">
-              <img
-                src="https://pbs.twimg.com/profile_images/1715232040319160320/LNbYHlBA_400x400.jpg"
-                className="rounded-full h-[80px]"
-                alt="Renzo"
-              />
-              <p>Renzo</p>
-            </div>
+          <div className="flex flex-wrap gap-8 justify-center mt-4">
+            <PartnerLogo
+              title="Pendle"
+              src="https://cryptologos.cc/logos/pendle-pendle-logo.svg?v=032"
+            />
+            <PartnerLogo
+              title="Swell"
+              src="https://pbs.twimg.com/profile_images/1628968703911145473/_lB7zEtS_400x400.jpg"
+            />
+            <PartnerLogo
+              title="Karak"
+              src="https://pbs.twimg.com/profile_images/1774331469122736129/iSCd1rGu_400x400.jpg"
+            />
+            <PartnerLogo
+              title="Ether.fi"
+              src="https://pbs.twimg.com/profile_images/1748000232783147008/JgHFApFy_400x400.jpg"
+            />
+            <PartnerLogo
+              title="Balancer"
+              src="https://pbs.twimg.com/profile_images/1656222978919784449/eQgwPTaY_400x400.png"
+            />
+            <PartnerLogo
+              title="Kelp"
+              src="https://pbs.twimg.com/profile_images/1719718670610427904/IwyLpOfL_400x400.jpg"
+            />
+            <PartnerLogo
+              title="Renzo"
+              src="https://pbs.twimg.com/profile_images/1715232040319160320/LNbYHlBA_400x400.jpg"
+            />
           </div>
         </div>
+        <Footer scheme="dark" />
       </div>
-
-      <Footer scheme="dark" />
-    </div>
-  )
+    )
+  } else {
+    return (
+      <div className="flex flex-col relative snap-y overflow-y-scroll snap-mandatory h-screen">
+        <div
+          className="h-screen px-12 grid grid-cols-7 snap-center snap-always"
+          ref={ref}
+        >
+          <div className="col-span-4 h-screen">
+            <img
+              src="/brand/logo-landing.svg"
+              alt="hero"
+              className="object-cover h-screen w-full"
+            />
+          </div>
+          <div className="flex flex-col justify-end py-12 px-3 gap-4 col-span-3 h-screen">
+            <div className="flex flex-col text-[88px] font-bold leading-[0.8]">
+              <p>YIELDS</p>
+              <p className="text-[#125AFA]">MAXIMIZED</p>
+            </div>
+            <div className="grid grid-cols-2 gap-2">
+              {/* <Link href="/vaults">
+                <Button className="w-full h-16" variant="inverted" disabled>
+                  LAUNCH APP
+                </Button>
+              </Link> */}
+              <Button variant="secondary" className="h-16">
+                READ DOCS
+              </Button>
+            </div>
+          </div>
+        </div>
+        {/* <div
+          className={cn(
+            'sticky top-0 z-10 text-[#F9F9F2] bg-[#0B0B0A] snap-align-none',
+            inViewport && 'hidden'
+          )}
+        >
+          <Navbar />
+        </div> */}
+        <div className="min-h-screen snap-center snap-always flex px-12 bg-[#0B0B0A]">
+          <div className="flex flex-col gap-2 min-w-[662px] justify-end pb-[118px]">
+            <div className="flex flex-col leading-[0.8] text-white font-bold text-[56px]">
+              <p>
+                THE FIRST <span className="text-[#125AFA]">PENDLE</span>
+              </p>
+              <p>
+                AUTOCOM<span className="text-[#125AFA]">POUNDER</span>
+              </p>
+            </div>
+            <p className="text-gray font-thin text-2xl">
+              ZERO FRICTION, EASY YIELD STRATEGIES
+            </p>
+            <div className="flex flex-col text-white font-light">
+              <div className="flex items-center gap-1">
+                <Image
+                  src="/brand/logo.svg"
+                  alt="logo"
+                  width={16}
+                  height={16}
+                />
+                <p>Increase yield</p>
+              </div>
+              <div className="flex items-center gap-1">
+                <Image
+                  src="/brand/logo.svg"
+                  alt="logo"
+                  width={16}
+                  height={16}
+                />
+                <p>Reduce expenses</p>
+              </div>
+              <div className="flex items-center gap-1">
+                <Image
+                  src="/brand/logo.svg"
+                  alt="logo"
+                  width={16}
+                  height={16}
+                />
+                <p>Get an on-chain butler</p>
+              </div>
+            </div>
+            <Button className="w-[300px] h-16" disabled>
+              COMPOUND SOON
+            </Button>
+          </div>
+          <div className="w-[802px] bg-[#125AFA] overflow-clip relative h-screen">
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[495px] h-[3033px]">
+              <img
+                src="/misc/landing-spinner.svg"
+                alt="spinner"
+                className="animate-spin-slow absolute top-0 left-0"
+              />
+            </div>
+            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2  text-[#FBFDFD] flex flex-col">
+              <div className="flex items-end gap-1">
+                <p className="font-bold text-[82px] leading-[0.8]">TBD</p>
+                <p className="text-gray font-bold">%</p>
+              </div>
+              <p className="text-gray font-light text-sm text-center">
+                Current best yield
+              </p>
+            </div>
+          </div>
+        </div>
+        <Partners />
+        <Footer scheme="dark" />
+      </div>
+    )
+  }
 }
