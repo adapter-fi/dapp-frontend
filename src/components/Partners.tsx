@@ -22,36 +22,28 @@ export const Partners = () => {
             src="https://cryptologos.cc/logos/pendle-pendle-logo.svg?v=032"
           />
           <PartnerLogo
-            title="Pendle"
-            src="https://cryptologos.cc/logos/pendle-pendle-logo.svg?v=032"
+            title="Swell"
+            src="https://pbs.twimg.com/profile_images/1628968703911145473/_lB7zEtS_400x400.jpg"
           />
           <PartnerLogo
-            title="Pendle"
-            src="https://cryptologos.cc/logos/pendle-pendle-logo.svg?v=032"
+            title="Karak"
+            src="https://pbs.twimg.com/profile_images/1774331469122736129/iSCd1rGu_400x400.jpg"
           />
           <PartnerLogo
-            title="Pendle"
-            src="https://cryptologos.cc/logos/pendle-pendle-logo.svg?v=032"
+            title="Ether.fi"
+            src="https://pbs.twimg.com/profile_images/1748000232783147008/JgHFApFy_400x400.jpg"
           />
           <PartnerLogo
-            title="Pendle"
-            src="https://cryptologos.cc/logos/pendle-pendle-logo.svg?v=032"
+            title="Balancer"
+            src="https://pbs.twimg.com/profile_images/1656222978919784449/eQgwPTaY_400x400.png"
           />
           <PartnerLogo
-            title="Pendle"
-            src="https://cryptologos.cc/logos/pendle-pendle-logo.svg?v=032"
+            title="Kelp"
+            src="https://pbs.twimg.com/profile_images/1719718670610427904/IwyLpOfL_400x400.jpg"
           />
           <PartnerLogo
-            title="Pendle"
-            src="https://cryptologos.cc/logos/pendle-pendle-logo.svg?v=032"
-          />
-          <PartnerLogo
-            title="Pendle"
-            src="https://cryptologos.cc/logos/pendle-pendle-logo.svg?v=032"
-          />
-          <PartnerLogo
-            title="Pendle"
-            src="https://cryptologos.cc/logos/pendle-pendle-logo.svg?v=032"
+            title="Renzo"
+            src="https://pbs.twimg.com/profile_images/1715232040319160320/LNbYHlBA_400x400.jpg"
           />
         </div>
       </div>
