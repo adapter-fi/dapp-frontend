@@ -39,7 +39,7 @@ export const WaitlistModal = ({
       }}
     >
       <DialogTrigger asChild>
-        <Button variant="inverted" className="h-16 w-[330px]">
+        <Button variant="inverted" className="h-16 w-[330px" disabled>
           JOIN THE BOOSTER CLUB
         </Button>
       </DialogTrigger>

@@ -12,6 +12,7 @@ import { Button } from '@/components/ui/button'
 
 import { useIsMobile } from '@/hooks/use-is-mobile'
 
+import { docsUrl } from '@/lib/constants'
 import { cn } from '@/lib/utils'
 
 export default function Home() {
@@ -170,14 +171,16 @@ export default function Home() {
               <p className="text-[#125AFA]">MAXIMIZED</p>
             </div>
             <div className="grid grid-cols-2 gap-2">
-              {/* <Link href="/vaults">
-                <Button className="w-full h-16" variant="inverted" disabled>
-                  LAUNCH APP
-                </Button>
-              </Link> */}
-              <Button variant="secondary" className="h-16">
-                READ DOCS
+              {/* <Link href="/vaults"> */}
+              <Button className="w-full h-16" variant="inverted" disabled>
+                LAUNCH APP
               </Button>
+              {/* </Link> */}
+              <a href={docsUrl} target="_blank" rel="noreferrer noopener" className='w-full'>
+                <Button variant="secondary" className="h-16 w-full">
+                  READ DOCS
+                </Button>
+              </a>
             </div>
           </div>
         </div>
@@ -232,7 +235,7 @@ export default function Home() {
               </div>
             </div>
             <Button className="w-[300px] h-16" disabled>
-              COMPOUND SOON
+              COMING SOON
             </Button>
           </div>
           <div className="w-[802px] bg-[#125AFA] overflow-clip relative h-screen">

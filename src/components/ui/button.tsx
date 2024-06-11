@@ -31,7 +31,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           variant === 'default' &&
             'bg-[#F9F9F2] text-[#1F1F1D] hover:bg-[#125AFA] border border-transparent hover:border-[#F9F9F2] hover:text-[#F9F9F2]',
           variant === 'inverted' &&
-            'bg-[#1F1F1D] text-[#F9F9F2] hover:bg-[#125AFA]',
+            'bg-[#1F1F1D] text-[#F9F9F2] hover:bg-[#125AFA] disabled:bg-black/20',
           variant === 'ghost' && 'border-transparent rounded-none',
           variant === 'secondary' &&
             'bg-transparent border border-[#1F1F1D] text-[#1F1F1D] hover:text-[#125AFA] hover:border-transparent',
