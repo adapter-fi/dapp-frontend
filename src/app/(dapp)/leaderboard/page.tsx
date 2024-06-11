@@ -46,14 +46,17 @@ export default function LeaderboardPage() {
             Use Adapter and earn points
           </p>
         </div>
-        <div className="grid grid-cols-4 w-full">
+        {/* <div className="grid grid-cols-4 w-full">
           <Metric label="Your Points" amount={420} />
           <Metric label="Your Rank" amount={420} />
           <Metric label="Loyalty Boost" amount={'4.1X'} />
           <Metric label="Total Points" amount={'100M'} />
-        </div>
+        </div> */}
       </div>
-      <DataTable columns={columns} data={fakeData} />
+      <p className='p-12 text-[69px] font-bold'>COMING SOON</p>
+      {/* <div className="p-12">
+        <DataTable columns={columns} data={fakeData} />
+      </div> */}
     </div>
   )
 }

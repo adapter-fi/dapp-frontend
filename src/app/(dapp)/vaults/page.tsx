@@ -59,16 +59,16 @@ export default function VaultHomepage() {
             <b className="font-bold">best-in-class</b> yields.
           </p>
           <div className="flex flex-col gap-4">
-            <Metric label="Deposits" amount={420} unit="USD" />
-            <Button
+            <Metric label="Total Deposits" amount={0} unit="USD" />
+            {/* <Button
               variant="outline"
               className="w-[265px]"
               icon={<ArrowUpRight />}
             >
               VIEW DETAILS
-            </Button>
+            </Button> */}
           </div>
-          <div className="flex flex-col gap-4">
+          {/* <div className="flex flex-col gap-4">
             <Metric label="Earnings" amount={69} unit="USD" />
             <Button
               variant="outline"
@@ -89,10 +89,12 @@ export default function VaultHomepage() {
                 LEADERBOARD
               </Button>
             </Link>
-          </div>
+          </div> */}
         </div>
       </div>
-      <DataTable columns={columns} data={fakeData} vaultTable/>
+      <div className="p-12">
+        <DataTable columns={columns} data={fakeData} vaultTable />
+      </div>
     </div>
   )
 }

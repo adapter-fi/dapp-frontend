@@ -83,7 +83,9 @@ export function DataTable<TData, TValue>({
                 onClick={
                   vaultTable ? () => router.push('/vaults/dai') : () => null
                 }
-                className={cn(vaultTable && 'cursor-pointer')}
+                className={cn(
+                  vaultTable && 'cursor-pointer hover:bg-[#3B3B39]'
+                )}
               >
                 {row.getVisibleCells().map((cell) => (
                   <TableCell key={cell.id}>
@@ -101,24 +103,26 @@ export function DataTable<TData, TValue>({
           )}
         </TableBody>
       </Table>
-      <div className="flex gap-2 justify-end items-center">
-        <Button
-          onClick={() => table.previousPage()}
-          disabled={!table.getCanPreviousPage()}
-        >
-          <ChevronLeft />
-        </Button>
-        <p>
-          Page {table.getState().pagination.pageIndex + 1} of{' '}
-          {table.getPageCount()}
-        </p>
-        <Button
-          onClick={() => table.nextPage()}
-          disabled={!table.getCanNextPage()}
-        >
-          <ChevronRight />
-        </Button>
-      </div>
+      {table.getPageCount() > 1 && (
+        <div className="flex gap-2 justify-end items-center">
+          <Button
+            onClick={() => table.previousPage()}
+            disabled={!table.getCanPreviousPage()}
+          >
+            <ChevronLeft />
+          </Button>
+          <p>
+            Page {table.getState().pagination.pageIndex + 1} of{' '}
+            {table.getPageCount()}
+          </p>
+          <Button
+            onClick={() => table.nextPage()}
+            disabled={!table.getCanNextPage()}
+          >
+            <ChevronRight />
+          </Button>
+        </div>
+      )}
     </div>
   )
 }

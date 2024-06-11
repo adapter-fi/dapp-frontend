@@ -5,29 +5,21 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
 import { useWeb3Modal } from '@web3modal/wagmi/react'
-import { useAccount } from 'wagmi'
+import { useAccount, useEnsName } from 'wagmi'
 
 import { Button } from '@/components/ui/button'
 
-import { cn, truncateAddress } from '@/lib/utils'
+import { truncateAddress } from '@/lib/utils'
 
 export const Navbar = () => {
   const { open } = useWeb3Modal()
   const { isConnected, address } = useAccount()
+  const { data: ens } = useEnsName({ address })
   const pathname = usePathname()
 
   return (
     <div className="flex p-4 justify-between relative">
       <div className="flex gap-4 items-center">
-        {/* <Link href="/" className="flex gap-1">
-          <Image src="/brand/logo.svg" width={40} height={40} alt="logo" />
-          <Image
-            src="/brand/wordmark.svg"
-            width={177}
-            height={40}
-            alt="wordmark"
-          />
-        </Link> */}
         <Link href="/vaults">
           <Button variant="ghost">
             {pathname === '/vaults' && (
@@ -45,7 +37,7 @@ export const Navbar = () => {
           </Button>
         </Link>
       </div>
-      <Link href="/" className='absolute left-1/2 -translate-x-1/2'>
+      <Link href="/" className="absolute left-1/2 -translate-x-1/2">
         <Image src="/brand/logo.svg" height={40} width={40} alt="logo" />
       </Link>
       <div className="flex gap-4">
@@ -72,7 +64,7 @@ export const Navbar = () => {
                 variant="outline"
                 onClick={() => open({ view: 'Account' })}
               >
-                {truncateAddress(address)}
+                {ens || truncateAddress(address)}
               </Button>
             )}
           </div>
