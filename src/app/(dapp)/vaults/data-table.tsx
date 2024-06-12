@@ -81,7 +81,19 @@ export function DataTable<TData, TValue>({
                 key={row.id}
                 data-state={row.getIsSelected() && 'selected'}
                 onClick={
-                  vaultTable ? () => router.push('/vaults/dai') : () => null
+                  vaultTable
+                    ? () =>
+                        router.push(
+                          `/vaults/${(
+                            row.getValue('data') as {
+                              name: string
+                              type: string
+                              protocolURI: string
+                              logoURI: string
+                            }
+                          ).name.toLocaleLowerCase()}`
+                        )
+                    : () => null
                 }
                 className={cn(
                   vaultTable && 'cursor-pointer hover:bg-[#3B3B39]'
