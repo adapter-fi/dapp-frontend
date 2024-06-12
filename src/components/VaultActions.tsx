@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { erc20Abi, maxUint256 } from 'viem'
 import { useAccount, useReadContract } from 'wagmi'
@@ -63,6 +63,10 @@ export const VaultActions = ({ slug }: { slug: keyof typeof vaultMap }) => {
     chainId: sepolia.id,
   })
   const isApproved = allowance && allowance >= BigInt(amount)
+
+  useEffect(() => {
+    setAmount('')
+  }, [state])
 
   return (
     <div className="flex flex-col gap-6 py-6 items-center">

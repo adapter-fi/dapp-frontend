@@ -3,7 +3,7 @@
 import { ReactNode, useEffect, useState } from 'react'
 
 import { useQueryClient } from '@tanstack/react-query'
-import { Address } from 'viem'
+import { Address, BaseError } from 'viem'
 import {
   useSimulateContract,
   useWaitForTransactionReceipt,
@@ -12,9 +12,10 @@ import {
 import { sepolia } from 'wagmi/chains'
 
 import { Button } from '@/components/ui/button'
-import { useToast } from '@/components/ui/use-toast'
 
 import { useStateStore } from '@/lib/store'
+
+import { toast } from 'sonner'
 
 interface TransactionConfig {
   abi: any
@@ -32,7 +33,6 @@ export const TransactionButton = ({
   disabled?: boolean
   children: ReactNode
 }) => {
-  const { toast } = useToast()
   const [txHash, setTxHash] = useState<Address | undefined>()
   const queryClient = useQueryClient()
   const { setAmount } = useStateStore()
@@ -54,9 +54,14 @@ export const TransactionButton = ({
 
   useEffect(() => {
     if (txSuccess) {
-      toast({
-        title: 'Success',
-        description: 'Transaction success!',
+      toast.success('Transaction Success!', {
+        action: {
+          label: 'View on Etherscan',
+          onClick: (e) => {
+            e.preventDefault()
+            window.open(`${sepolia.blockExplorers.default.url}/tx/${txHash}`, '_blank')
+          },
+        },
       })
       queryClient.invalidateQueries()
       setAmount('')
@@ -66,11 +71,7 @@ export const TransactionButton = ({
 
   const handleConfirm = () => {
     if (simulateError) {
-      toast({
-        variant: 'destructive',
-        title: 'Error',
-        description: simulateError.message,
-      })
+      toast.error((simulateError as BaseError).shortMessage || simulateError.message)
       return
     }
 
@@ -79,11 +80,7 @@ export const TransactionButton = ({
         setTxHash(hash)
       },
       onError(error) {
-        toast({
-          variant: 'destructive',
-          title: 'Error',
-          description: error.message,
-        })
+        toast.error((error as BaseError).shortMessage || error.message)
       },
     })
   }

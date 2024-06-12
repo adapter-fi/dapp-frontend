@@ -10,11 +10,12 @@ import { useAccount, useEnsName } from 'wagmi'
 import { Button } from '@/components/ui/button'
 
 import { truncateAddress } from '@/lib/utils'
+import { mainnet } from 'wagmi/chains'
 
 export const Navbar = () => {
   const { open } = useWeb3Modal()
   const { isConnected, address } = useAccount()
-  const { data: ens } = useEnsName({ address })
+  const { data: ens } = useEnsName({ address, chainId: mainnet.id })
   const pathname = usePathname()
 
   return (
