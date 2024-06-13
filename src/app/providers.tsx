@@ -39,7 +39,7 @@ export default function Providers({
       <QueryClientProvider client={queryClient}>
         <TooltipProvider delayDuration={0}>
           {mounted && children}
-          <Toaster richColors toastOptions={{ duration: 10000 }} />
+          <Toaster richColors toastOptions={{ duration: 7000 }} />
           <Confetti />
           <Analytics />
         </TooltipProvider>

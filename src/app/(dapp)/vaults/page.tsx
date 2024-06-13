@@ -1,46 +1,5 @@
-import Link from 'next/link'
-
 import { Metric } from '@/components/Metric'
-import { Button } from '@/components/ui/button'
-
-import { Vault, columns } from '@/app/(dapp)/vaults//columns'
-import { DataTable } from '@/app/(dapp)/vaults/data-table'
-
-import { ArrowUpRight } from 'lucide-react'
-
-const fakeData: Vault[] = [
-  {
-    data: {
-      name: 'DAI',
-      type: 'Stable',
-      protocolURI:
-        'https://www.pendle.finance/uploads/wp-content/uploads/2022/brandguide/logos/light-png/blue.png',
-      logoURI:
-        'https://cryptologos.cc/logos/multi-collateral-dai-dai-logo.png?v=031',
-    },
-    underlyingAPR: 10,
-    autocompoundedAPY: 20,
-    points: 0,
-    holdings: 0,
-    deposits: 0,
-  },
-  {
-    data: {
-      name: 'stETH',
-      type: 'LST',
-      logoURI:
-        'https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/9a411426-3711-47d4-9c1a-dcf72973ddfc/dfj383a-9b60ef9a-e2f5-4efb-8f0c-3b37c292d240.png/v1/fill/w_1280,h_1280/lido_steth_logo_by_saphyl_dfj383a-fullview.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MTI4MCIsInBhdGgiOiJcL2ZcLzlhNDExNDI2LTM3MTEtNDdkNC05YzFhLWRjZjcyOTczZGRmY1wvZGZqMzgzYS05YjYwZWY5YS1lMmY1LTRlZmItOGYwYy0zYjM3YzI5MmQyNDAucG5nIiwid2lkdGgiOiI8PTEyODAifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.1wZEWvUnDhC9W4r_4wGEXrLFVYD5h7yBXT8tm9DVqvI',
-      protocolURI:
-        'https://www.pendle.finance/uploads/wp-content/uploads/2022/brandguide/logos/light-png/blue.png',
-    },
-
-    underlyingAPR: 4,
-    autocompoundedAPY: 8,
-    points: 0,
-    holdings: 0,
-    deposits: 0,
-  },
-]
+import { VaultsChart } from '@/components/VaultsChart'
 
 export default function VaultHomepage() {
   return (
@@ -60,41 +19,10 @@ export default function VaultHomepage() {
           </p>
           <div className="flex flex-col gap-4">
             <Metric label="Total Deposits" amount={0} unit="USD" />
-            {/* <Button
-              variant="outline"
-              className="w-[265px]"
-              icon={<ArrowUpRight />}
-            >
-              VIEW DETAILS
-            </Button> */}
           </div>
-          {/* <div className="flex flex-col gap-4">
-            <Metric label="Earnings" amount={69} unit="USD" />
-            <Button
-              variant="outline"
-              className="w-[265px]"
-              icon={<ArrowUpRight />}
-            >
-              CLAIM
-            </Button>
-          </div>
-          <div className="flex flex-col gap-4">
-            <Metric label="Points" amount={6900} />
-            <Link href="/leaderboard">
-              <Button
-                variant="outline"
-                className="w-[265px]"
-                icon={<ArrowUpRight />}
-              >
-                LEADERBOARD
-              </Button>
-            </Link>
-          </div> */}
         </div>
       </div>
-      <div className="p-12">
-        <DataTable columns={columns} data={fakeData} vaultTable />
-      </div>
+      <VaultsChart />
     </div>
   )
 }

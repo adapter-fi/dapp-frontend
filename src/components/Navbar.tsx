@@ -48,8 +48,8 @@ export const Navbar = () => {
           </Link>
         ) : (
           <div className="flex gap-2">
-            <Button variant="ghost">ABOUT</Button>
-            <Button variant="ghost">COMMUNITY</Button>
+            {/* <Button variant="ghost">ABOUT</Button>
+            <Button variant="ghost">COMMUNITY</Button> */}
             {!isConnected ? (
               <Button onClick={() => open()}>
                 <Image

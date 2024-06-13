@@ -4,9 +4,10 @@ import Image from 'next/image'
 
 import { ColumnDef } from '@tanstack/react-table'
 
-import { cn } from '@/lib/utils'
+import { cn, formatPercentage } from '@/lib/utils'
 
 import { ArrowUp } from 'lucide-react'
+import { format } from 'path'
 
 export type Vault = {
   data: {
@@ -17,8 +18,7 @@ export type Vault = {
   }
   underlyingAPR: number
   autocompoundedAPY: number
-  points: any
-  holdings: any
+  holdings?: any
   deposits: any
 }
 
@@ -99,7 +99,7 @@ export const columns: ColumnDef<Vault>[] = [
         </button>
       )
     },
-    cell: ({ row }) => `${row.getValue('underlyingAPR')}%`,
+    cell: ({ row }) => formatPercentage(row.getValue('underlyingAPR')),
   },
   {
     accessorKey: 'autocompoundedAPY',
@@ -124,7 +124,7 @@ export const columns: ColumnDef<Vault>[] = [
         </button>
       )
     },
-    cell: ({ row }) => `${row.getValue('autocompoundedAPY')}%`,
+    cell: ({ row }) => formatPercentage(row.getValue('autocompoundedAPY')),
   },
   // {
   //   accessorKey: 'points',
