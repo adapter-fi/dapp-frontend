@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { readContract } from '@wagmi/core'
+import { zeroAddress } from 'viem'
 import { useAccount } from 'wagmi'
 
 import { config } from '@/lib/config'
@@ -19,26 +20,28 @@ export const useVaultBalances = () => {
           async ({ vaultAddress, chain, depositAddress }, i) => {
             const underlyingPrice = await getSpotPrice(depositAddress)
             return {
-              balance: await readContract(config as any, {
-                address: vaultAddress,
-                abi: vaultBaseAbi,
-                functionName: 'balanceOf',
-                chainId: chain.id,
-                args: [walletAddress!],
-              })
-                .then((balance) =>
-                  readContract(config as any, {
+              balance: walletAddress
+                ? await readContract(config as any, {
                     address: vaultAddress,
                     abi: vaultBaseAbi,
-                    functionName: 'previewRedeem',
+                    functionName: 'balanceOf',
                     chainId: chain.id,
-                    args: [balance],
+                    args: [walletAddress],
                   })
-                )
-                .then(
-                  (underlyingBalance) =>
-                    fromBigNumber(underlyingBalance) * underlyingPrice
-                ),
+                    .then((balance) =>
+                      readContract(config as any, {
+                        address: vaultAddress,
+                        abi: vaultBaseAbi,
+                        functionName: 'previewRedeem',
+                        chainId: chain.id,
+                        args: [balance],
+                      })
+                    )
+                    .then(
+                      (underlyingBalance) =>
+                        fromBigNumber(underlyingBalance) * underlyingPrice
+                    )
+                : 0,
               tvl: await readContract(config as any, {
                 address: vaultAddress,
                 abi: vaultBaseAbi,
