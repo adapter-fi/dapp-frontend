@@ -16,6 +16,7 @@ import { Input } from '@/components/ui/input'
 import { useSpotPrice } from '@/hooks/use-spot-price'
 import { useTokenBalance } from '@/hooks/use-token-balance'
 
+import { adapterVaultAbi } from '@/lib/abi/AdapterVault'
 import { vaultMap } from '@/lib/constants'
 import { getPendleSwap } from '@/lib/queries/get-pendle-swap'
 import { useStateStore } from '@/lib/store'
@@ -28,7 +29,12 @@ import {
 } from '@/lib/utils'
 
 import {
+  pendleAdapterAbi,
+  pendleMigratorAbi,
+  pendleMigratorAddress,
+  useReadEEthKarakVault,
   useReadPendleAdapterGeneratePregenInfo,
+  useReadVaultBaseAdapters,
   useReadVaultBasePreviewDeposit,
   useReadVaultBasePreviewRedeem,
   useSimulatePendleMigratorMigrate,
@@ -87,17 +93,30 @@ export const VaultActions = ({ slug }: { slug: keyof typeof vaultMap }) => {
   const depositTokenPrice = useSpotPrice(depositAddress)
 
   const { data: allowance } = useReadContract({
-    address: depositAddress,
+    address: state === 'migrate' ? migrationAddress : depositAddress,
     abi: erc20Abi,
     functionName: 'allowance',
-    args: [walletAddress!, vaultAddress],
+    args: [
+      walletAddress!,
+      //@ts-ignore
+      state === 'migrate' ? pendleMigratorAddress[chain.id] : vaultAddress,
+    ],
     chainId: chain.id,
   })
+
   const isApproved = allowance && allowance >= BigInt(amount)
 
   // This needs to be in another component eventually
   const { data: pendleSwapData } = useQuery({
-    queryKey: ['pendleSwap', amount, chain, walletAddress, pendleMarketAddress, depositAddress, slippage],
+    queryKey: [
+      'pendleSwap',
+      amount,
+      chain,
+      walletAddress,
+      pendleMarketAddress,
+      depositAddress,
+      slippage,
+    ],
     queryFn: () =>
       getPendleSwap({
         chainId: chain.id,
@@ -107,15 +126,24 @@ export const VaultActions = ({ slug }: { slug: keyof typeof vaultMap }) => {
         tokenOut: depositAddress,
         slippage: parseFloat(slippage) / 100,
       }),
-      enabled: !!walletAddress && !!amount && !!pendleMarketAddress,
+    enabled: !!walletAddress && !!amount && !!pendleMarketAddress,
   })
 
-  const { data: pregenInfo } = useReadPendleAdapterGeneratePregenInfo({
+  const { data: vaultAdapter } = useReadVaultBaseAdapters({
+    address: vaultAddress,
+    args: [0n],
+    chainId: chain.id,
+  })
+
+  const { data: pregenInfo } = useReadContract({
+    address: vaultAdapter,
+    abi: pendleAdapterAbi,
+    functionName: 'generate_pregen_info',
     args: [BigInt(pendleSwapData?.minTokenOut || 0)],
     chainId: chain.id as any,
     query: {
-      enabled: !!pendleSwapData,
-    }
+      enabled: !!pendleSwapData && !!vaultAdapter,
+    },
   })
 
   const { data: migrateMinOut } = useSimulatePendleMigratorMigrate({
@@ -127,12 +155,12 @@ export const VaultActions = ({ slug }: { slug: keyof typeof vaultMap }) => {
       pendleSwapData?.limit,
       vaultAddress,
       0n,
-      [pregenInfo!],
+      // [pregenInfo!],
     ],
     chainId: chain.id as any,
     query: {
       enabled: !!pendleSwapData,
-    }
+    },
   })
 
   useEffect(() => {
@@ -164,7 +192,7 @@ export const VaultActions = ({ slug }: { slug: keyof typeof vaultMap }) => {
         >
           WITHDRAW
         </button>
-        {/* <button
+        <button
           className={cn(
             'font-thin tracking-[1.6px] px-4',
             state === 'migrate'
@@ -174,7 +202,7 @@ export const VaultActions = ({ slug }: { slug: keyof typeof vaultMap }) => {
           onClick={() => setState('migrate')}
         >
           MIGRATE
-        </button> */}
+        </button>
       </div>
       {state === 'migrate' ? (
         <div className="flex flex-col gap-4">
@@ -381,10 +409,30 @@ export const VaultActions = ({ slug }: { slug: keyof typeof vaultMap }) => {
               args:
                 state === 'deposit'
                   ? [amount, walletAddress]
-                  : [amount, walletAddress, walletAddress],
-              abi: vaultBaseAbi,
-              functionName: state === 'deposit' ? 'deposit' : 'redeem',
-              address: vaultAddress,
+                  : state === 'migrate'
+                    ? [
+                        pendleMarketAddress!,
+                        BigInt(amount),
+                        depositAddress,
+                        BigInt(pendleSwapData?.minTokenOut || 0),
+                        pendleSwapData?.limit,
+                        vaultAddress,
+                        migrateMinOut?.result || 0n,
+                        // [pregenInfo!]
+                      ]
+                    : [amount, walletAddress, walletAddress],
+              abi: state === 'migrate' ? pendleMigratorAbi : vaultBaseAbi,
+              functionName:
+                state === 'deposit'
+                  ? 'deposit'
+                  : state === 'migrate'
+                    ? 'migrate'
+                    : 'redeem',
+              address:
+                state === 'migrate'
+                  ? //@ts-ignore
+                    pendleMigratorAddress[chain.id]
+                  : vaultAddress,
               chain: chain,
             }}
           >
@@ -396,9 +444,15 @@ export const VaultActions = ({ slug }: { slug: keyof typeof vaultMap }) => {
           <TransactionButton
             config={{
               abi: erc20Abi,
-              address: depositAddress,
+              address: state === 'migrate' ? migrationAddress : depositAddress,
               functionName: 'approve',
-              args: [vaultAddress, maxUint256],
+              args: [
+                state === 'migrate'
+                  ? //@ts-ignore
+                    pendleMigratorAddress[chain.id]
+                  : vaultAddress,
+                maxUint256,
+              ],
               chain: chain,
             }}
           >

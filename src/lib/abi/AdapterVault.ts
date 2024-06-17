@@ -345,40 +345,6 @@ export const adapterVaultAbi = [
   {
     inputs: [
       {
-        name: '_name',
-        type: 'string',
-      },
-      {
-        name: '_symbol',
-        type: 'string',
-      },
-      {
-        name: '_decimals',
-        type: 'uint8',
-      },
-      {
-        name: '_erc20asset',
-        type: 'address',
-      },
-      {
-        name: '_governance',
-        type: 'address',
-      },
-      {
-        name: '_funds_allocator',
-        type: 'address',
-      },
-      {
-        name: '_max_slippage_percent',
-        type: 'fixed168x10',
-      },
-    ],
-    stateMutability: 'nonpayable',
-    type: 'constructor',
-  },
-  {
-    inputs: [
-      {
         name: '_new_owner',
         type: 'address',
       },
