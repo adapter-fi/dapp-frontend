@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { Slot } from '@radix-ui/react-slot'
+import ClipLoader from 'react-spinners/ClipLoader'
 
 import { cn } from '@/lib/utils'
 
@@ -8,6 +9,7 @@ export interface ButtonProps
   icon?: React.ReactNode
   variant?: 'default' | 'outline' | 'ghost' | 'inverted' | 'secondary'
   asChild?: boolean
+  loading?: boolean
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
@@ -17,6 +19,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       icon = undefined,
       variant = 'default',
       asChild = false,
+      loading = false,
       ...props
     },
     ref
@@ -57,7 +60,10 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
             <div className="h-[1px] w-full bg-transparent group-hover:bg-[#F9F9F2] absolute bottom-0 transition-all duration-500 ease-in-out scale-[0] group-hover:scale-100 origin-left" />
           </>
         ) : (
-          props.children
+          <>
+            {loading && <ClipLoader loading size={16} className='mr-1' />}
+            {props.children}
+          </>
         )}
       </Comp>
     )

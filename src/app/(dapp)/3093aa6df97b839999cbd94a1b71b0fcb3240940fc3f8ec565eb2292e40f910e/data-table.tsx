@@ -81,9 +81,23 @@ export function DataTable<TData, TValue>({
                 key={row.id}
                 data-state={row.getIsSelected() && 'selected'}
                 onClick={
-                  vaultTable ? () => router.push('/vaults/dai') : () => null
+                  vaultTable
+                    ? () =>
+                        router.push(
+                          `/3093aa6df97b839999cbd94a1b71b0fcb3240940fc3f8ec565eb2292e40f910e/${(
+                            row.getValue('data') as {
+                              name: string
+                              type: string
+                              protocolURI: string
+                              logoURI: string
+                            }
+                          ).name.replace(' (', '(').toLocaleLowerCase()}`
+                        )
+                    : () => null
                 }
-                className={cn(vaultTable && 'cursor-pointer')}
+                className={cn(
+                  vaultTable && 'cursor-pointer hover:bg-[#3B3B39]'
+                )}
               >
                 {row.getVisibleCells().map((cell) => (
                   <TableCell key={cell.id}>
@@ -101,24 +115,26 @@ export function DataTable<TData, TValue>({
           )}
         </TableBody>
       </Table>
-      <div className="flex gap-2 justify-end items-center">
-        <Button
-          onClick={() => table.previousPage()}
-          disabled={!table.getCanPreviousPage()}
-        >
-          <ChevronLeft />
-        </Button>
-        <p>
-          Page {table.getState().pagination.pageIndex + 1} of{' '}
-          {table.getPageCount()}
-        </p>
-        <Button
-          onClick={() => table.nextPage()}
-          disabled={!table.getCanNextPage()}
-        >
-          <ChevronRight />
-        </Button>
-      </div>
+      {table.getPageCount() > 1 && (
+        <div className="flex gap-2 justify-end items-center">
+          <Button
+            onClick={() => table.previousPage()}
+            disabled={!table.getCanPreviousPage()}
+          >
+            <ChevronLeft />
+          </Button>
+          <p>
+            Page {table.getState().pagination.pageIndex + 1} of{' '}
+            {table.getPageCount()}
+          </p>
+          <Button
+            onClick={() => table.nextPage()}
+            disabled={!table.getCanNextPage()}
+          >
+            <ChevronRight />
+          </Button>
+        </div>
+      )}
     </div>
   )
 }

@@ -34,14 +34,21 @@ export default function Home() {
               <p className="text-[#125AFA]">MAXIMIZED</p>
             </div>
             <div className="grid grid-cols-2 gap-2">
-              {/* <Link href="/vaults">
-                <Button className="w-full"
-                 variant="inverted" 
-                >
+              {/* <Link href="/vaults"> */}
+                <Button className="w-full" variant="inverted" disabled>
                   LAUNCH APP
                 </Button>
-              </Link> */}
-              <Button variant="secondary">READ DOCS</Button>
+              {/* </Link> */}
+              <a
+                href={docsUrl}
+                target="_blank"
+                rel="noreferrer noopener"
+                className="w-full"
+              >
+                <Button variant="secondary" className="w-full">
+                  READ DOCS
+                </Button>
+              </a>
             </div>
           </div>
         </div>
@@ -87,10 +94,9 @@ export default function Home() {
                 <p>Get an on-chain butler</p>
               </div>
             </div>
-            <Button className="w-[300px] mt-4" disabled>
-              {/* Compound Now */}
-              COMING SOON
-            </Button>
+            {/* <Link href="/vaults"> */}
+              <Button className="w-[300px] mt-4" disabled>COMPOUND NOW</Button>
+            {/* </Link> */}
           </div>
           <div className="w-screen bg-[#125AFA] overflow-clip relative h-[480px]">
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[416px] h-[506px]">
@@ -172,11 +178,16 @@ export default function Home() {
             </div>
             <div className="grid grid-cols-2 gap-2">
               {/* <Link href="/vaults"> */}
-              <Button className="w-full h-16" variant="inverted" disabled>
-                LAUNCH APP
-              </Button>
+                <Button className="w-full h-16" variant="inverted" disabled>
+                  LAUNCH APP
+                </Button>
               {/* </Link> */}
-              <a href={docsUrl} target="_blank" rel="noreferrer noopener" className='w-full'>
+              <a
+                href={docsUrl}
+                target="_blank"
+                rel="noreferrer noopener"
+                className="w-full"
+              >
                 <Button variant="secondary" className="h-16 w-full">
                   READ DOCS
                 </Button>
@@ -234,9 +245,9 @@ export default function Home() {
                 <p>Get an on-chain butler</p>
               </div>
             </div>
-            <Button className="w-[300px] h-16" disabled>
-              COMING SOON
-            </Button>
+            {/* <Link href="/vaults"> */}
+              <Button className="w-[300px] h-16" disabled>COMPOUND NOW</Button>
+            {/* </Link> */}
           </div>
           <div className="w-[802px] bg-[#125AFA] overflow-clip relative h-screen">
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[495px] h-[3033px]">
