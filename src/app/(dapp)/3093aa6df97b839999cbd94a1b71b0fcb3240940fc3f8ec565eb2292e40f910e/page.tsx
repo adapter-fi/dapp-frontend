@@ -1,4 +1,4 @@
-import { Metric } from '@/components/Metric'
+import { TVL } from '@/components/TVL'
 import { VaultsChart } from '@/components/VaultsChart'
 
 export default function VaultHomepage() {
@@ -17,9 +17,7 @@ export default function VaultHomepage() {
             following managed strategies to obtain{' '}
             <b className="font-bold">best-in-class</b> yields.
           </p>
-          <div className="flex flex-col gap-4">
-            <Metric label="Total Deposits" amount={0} unit="USD" />
-          </div>
+          <TVL />
         </div>
       </div>
       <VaultsChart />

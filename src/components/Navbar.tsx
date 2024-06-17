@@ -21,7 +21,7 @@ export const Navbar = () => {
   return (
     <div className="flex p-4 justify-between relative">
       <div className="flex gap-4 items-center">
-        <Link href="/vaults">
+        <Link href="/3093aa6df97b839999cbd94a1b71b0fcb3240940fc3f8ec565eb2292e40f910e">
           <Button variant="ghost">
             {pathname === '/vaults' && (
               <div className="h-[1px] w-full bg-[#125AFA] absolute top-0 transition-all duration-500 ease-in-out scale-100 group-hover:scale-[0] origin-left" />

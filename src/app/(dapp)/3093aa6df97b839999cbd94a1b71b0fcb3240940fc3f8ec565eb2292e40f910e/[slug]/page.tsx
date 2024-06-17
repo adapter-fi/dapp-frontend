@@ -1,5 +1,5 @@
-import { Metric } from '@/components/Metric'
 import { VaultActions } from '@/components/VaultActions'
+import { VaultMetrics } from '@/components/VaultMetrics'
 
 import { SupportedVaults, vaultMap } from '@/lib/constants'
 import { removeSpaces } from '@/lib/utils'
@@ -14,7 +14,7 @@ export default function VaultPage({
     (key) => key.toLocaleLowerCase() === normalizedSlug
   )[0] as SupportedVaults
 
-  const { logoURI } = vaultMap[vaultSlug]
+  const { logoURI, vaultAddress } = vaultMap[vaultSlug]
   const vaultName = vaultSlug.slice(0, normalizedSlug.indexOf('-'))
 
   return (
@@ -29,22 +29,7 @@ export default function VaultPage({
         </div>
       </div>
       <div className="flex flex-col items-center">
-        <div className="grid grid-cols-4 gap-32 p-6">
-          <Metric label="TVL" amount="0" unit="USD" size="sm" />
-          <Metric
-            label={'a' + vaultName + ' Balance'}
-            amount="0"
-            unit={'a' + vaultName}
-            size="sm"
-          />
-          <Metric label="Yield" amount="0" unit="%" size="sm" />
-          <Metric
-            label="Rewards Earned"
-            amount="0"
-            unit={'a' + vaultName}
-            size="sm"
-          />
-        </div>
+        <VaultMetrics vaultName={vaultName} slug={vaultSlug} vaultAddress={vaultAddress}/>
         <VaultActions slug={vaultSlug} />
       </div>
     </div>

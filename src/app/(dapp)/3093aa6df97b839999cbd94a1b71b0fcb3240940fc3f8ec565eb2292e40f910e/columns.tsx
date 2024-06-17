@@ -4,7 +4,7 @@ import Image from 'next/image'
 
 import { ColumnDef } from '@tanstack/react-table'
 
-import { cn, formatPercentage } from '@/lib/utils'
+import { cn, formatCurrency, formatPercentage } from '@/lib/utils'
 
 import { ArrowUp } from 'lucide-react'
 import { format } from 'path'
@@ -198,6 +198,7 @@ export const columns: ColumnDef<Vault>[] = [
         </button>
       )
     },
+    cell: ({ row }) => formatCurrency(row.getValue('holdings')),
   },
   {
     accessorKey: 'deposits',
@@ -222,5 +223,6 @@ export const columns: ColumnDef<Vault>[] = [
         </button>
       )
     },
+    cell: ({ row }) => formatCurrency(row.getValue('deposits')),
   },
 ]

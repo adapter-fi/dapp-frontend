@@ -126,7 +126,7 @@ export const VaultActions = ({ slug }: { slug: keyof typeof vaultMap }) => {
         tokenOut: depositAddress,
         slippage: parseFloat(slippage) / 100,
       }),
-    enabled: !!walletAddress && !!amount && !!pendleMarketAddress,
+    enabled: !!walletAddress && !!amount && !!pendleMarketAddress && state === 'migrate',
   })
 
   const { data: vaultAdapter } = useReadVaultBaseAdapters({
@@ -315,7 +315,7 @@ export const VaultActions = ({ slug }: { slug: keyof typeof vaultMap }) => {
                 <p className="text-gray">You pay</p>
                 <div className="border border-[#3B3B39] rounded-[4px] py-2 px-3 flex items-center gap-2">
                   <img src={logoURI} alt={name} height={20} width={20} />
-                  <p>{state === 'deposit' ? name : 'a' + name}</p>
+                  <p>{state === 'deposit' ? name : 'aPT-' + name}</p>
                 </div>
               </div>
             </div>
@@ -324,7 +324,7 @@ export const VaultActions = ({ slug }: { slug: keyof typeof vaultMap }) => {
                 <p className="text-gray">Balance: </p>
                 <p>
                   {formatNumber(fromBigNumber(inputBalance))}{' '}
-                  {state === 'deposit' ? name : 'a' + name}
+                  {state === 'deposit' ? name : 'aPT-' + name}
                 </p>
                 <p className="text-gray">
                   /{' '}
@@ -386,14 +386,14 @@ export const VaultActions = ({ slug }: { slug: keyof typeof vaultMap }) => {
                 <p className="text-gray">You receive</p>
                 <div className="border border-[#3B3B39] rounded-[4px] py-2 px-3 flex items-center gap-2">
                   <img src={logoURI} alt={name} height={20} width={20} />
-                  <p>{state === 'deposit' ? 'a' + name : name}</p>
+                  <p>{state === 'deposit' ? 'aPT-' + name : name}</p>
                 </div>
               </div>
             </div>
             {state === 'deposit' && (
               <div className="flex justify-between items-center">
                 <p className="text-sm font-light text-gray">
-                  a{name} is the receipt token for your staked {name}
+                  aPT-{name} is the receipt token for your staked {name}
                 </p>
               </div>
             )}
