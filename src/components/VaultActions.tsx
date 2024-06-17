@@ -45,7 +45,7 @@ import { Settings } from 'lucide-react'
 
 export const VaultActions = ({ slug }: { slug: keyof typeof vaultMap }) => {
   const [state, setState] = useState<'deposit' | 'withdraw' | 'migrate'>(
-    'deposit'
+    'migrate'
   )
   const { amount, setAmount } = useStateStore()
   const { address: walletAddress } = useAccount()
@@ -126,7 +126,11 @@ export const VaultActions = ({ slug }: { slug: keyof typeof vaultMap }) => {
         tokenOut: depositAddress,
         slippage: parseFloat(slippage) / 100,
       }),
-    enabled: !!walletAddress && !!amount && !!pendleMarketAddress && state === 'migrate',
+    enabled:
+      !!walletAddress &&
+      !!amount &&
+      !!pendleMarketAddress &&
+      state === 'migrate',
   })
 
   const { data: vaultAdapter } = useReadVaultBaseAdapters({
@@ -173,6 +177,17 @@ export const VaultActions = ({ slug }: { slug: keyof typeof vaultMap }) => {
         <button
           className={cn(
             'font-thin tracking-[1.6px] px-4',
+            state === 'migrate'
+              ? 'border-b-2 border-[#F9F9F2]'
+              : 'text-gray hover:text-[#F9F9F2]'
+          )}
+          onClick={() => setState('migrate')}
+        >
+          MIGRATE
+        </button>
+        <button
+          className={cn(
+            'font-thin tracking-[1.6px] px-4',
             state === 'deposit'
               ? 'border-b-2 border-[#F9F9F2]'
               : 'text-gray hover:text-[#F9F9F2]'
@@ -191,17 +206,6 @@ export const VaultActions = ({ slug }: { slug: keyof typeof vaultMap }) => {
           onClick={() => setState('withdraw')}
         >
           WITHDRAW
-        </button>
-        <button
-          className={cn(
-            'font-thin tracking-[1.6px] px-4',
-            state === 'migrate'
-              ? 'border-b-2 border-[#F9F9F2]'
-              : 'text-gray hover:text-[#F9F9F2]'
-          )}
-          onClick={() => setState('migrate')}
-        >
-          MIGRATE
         </button>
       </div>
       {state === 'migrate' ? (

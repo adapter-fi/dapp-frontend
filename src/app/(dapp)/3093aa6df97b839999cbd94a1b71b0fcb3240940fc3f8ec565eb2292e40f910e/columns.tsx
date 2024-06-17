@@ -65,6 +65,9 @@ export const columns: ColumnDef<Vault>[] = [
               <p className="px-1 rounded-[4px] bg-[#F9F9F2] text-[#125AFA]">
                 {vaultData.type}
               </p>
+              <p className="px-1 rounded-[4px] bg-[#20CD7A] text-[#060606] ml-1">
+                BOOSTED
+              </p>
               <img
                 src={vaultData.protocolURI}
                 height={24}

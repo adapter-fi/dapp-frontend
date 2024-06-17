@@ -1,5 +1,10 @@
 import { VaultActions } from '@/components/VaultActions'
 import { VaultMetrics } from '@/components/VaultMetrics'
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '@/components/ui/tooltip'
 
 import { SupportedVaults, vaultMap } from '@/lib/constants'
 import { removeSpaces } from '@/lib/utils'
@@ -23,13 +28,22 @@ export default function VaultPage({
         <div className="flex gap-1 items-center">
           <img src={logoURI} alt={vaultName} height={80} width={80} />
           <p className="text-[82px] font-bold">{vaultName}</p>
-          <div className="p-2 bg-[#20CD7A] text-[#125AFA] rounded-[4px] self-start ml-2">
-            BOOSTED
-          </div>
+          <Tooltip>
+            <TooltipTrigger className="p-2 bg-[#20CD7A] text-[#125AFA] rounded-[4px] self-start ml-2">
+              BOOSTED
+            </TooltipTrigger>
+            <TooltipContent>
+              Boosted vaults provide additional yield through Adapter points
+            </TooltipContent>
+          </Tooltip>
         </div>
       </div>
       <div className="flex flex-col items-center">
-        <VaultMetrics vaultName={vaultName} slug={vaultSlug} vaultAddress={vaultAddress}/>
+        <VaultMetrics
+          vaultName={vaultName}
+          slug={vaultSlug}
+          vaultAddress={vaultAddress}
+        />
         <VaultActions slug={vaultSlug} />
       </div>
     </div>

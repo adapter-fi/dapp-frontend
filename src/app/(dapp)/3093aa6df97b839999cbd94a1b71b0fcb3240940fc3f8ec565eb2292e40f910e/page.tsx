@@ -8,7 +8,7 @@ export default function VaultHomepage() {
         <div className="flex flex-col">
           <p className="text-2xl font-bold mb-[-8px]">ADAPTER VAULTS</p>
           <p className="text-gray font-light">
-            Deposit, get yield, simple as that.
+            Perpetual yield, perpetual returns.
           </p>
         </div>
         <div className="grid grid-cols-4 gap-12">
