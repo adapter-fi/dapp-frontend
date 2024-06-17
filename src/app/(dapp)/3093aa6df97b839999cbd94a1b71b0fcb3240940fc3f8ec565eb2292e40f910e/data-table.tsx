@@ -84,7 +84,7 @@ export function DataTable<TData, TValue>({
                   vaultTable
                     ? () =>
                         router.push(
-                          `/vaults/${(
+                          `/3093aa6df97b839999cbd94a1b71b0fcb3240940fc3f8ec565eb2292e40f910e/${(
                             row.getValue('data') as {
                               name: string
                               type: string
