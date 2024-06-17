@@ -20,7 +20,7 @@ export const VaultsChart = () => {
   const { address: walletAddress } = useAccount()
 
   const chartData = pendleData?.map(
-    ({ logoURI, protocolURI, name, underlyingApy, impliedApy, type }) => ({
+    ({ logoURI, protocolURI, name, underlyingApy, impliedApy, type, chain }) => ({
       data: {
         name,
         logoURI,
@@ -31,6 +31,7 @@ export const VaultsChart = () => {
       autocompoundedAPY: impliedApy * 100,
       deposits: 0,
       holdings: 0,
+      network: chain.name
     })
   )
 

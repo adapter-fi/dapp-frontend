@@ -91,7 +91,7 @@ export function DataTable<TData, TValue>({
                               protocolURI: string
                               logoURI: string
                             }
-                          ).name.toLocaleLowerCase()}`
+                          ).name.replace(' (', '(').toLocaleLowerCase()}`
                         )
                     : () => null
                 }

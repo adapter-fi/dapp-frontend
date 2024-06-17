@@ -14,8 +14,8 @@ export const getPendleMarketData = async () => {
   }))
 
   const marketData: PendleMarketResponse[] = await Promise.all(
-    markets.map(({ chainId, pendleMarketAddress }) =>
-      fetch(`${apiBaseUrl}/v1/${chainId}/markets/${pendleMarketAddress}`).then(
+    markets.map(({ chain, pendleMarketAddress }) =>
+      fetch(`${apiBaseUrl}/v1/${chain.id}/markets/${pendleMarketAddress}`).then(
         (res) => res.json()
       )
     )

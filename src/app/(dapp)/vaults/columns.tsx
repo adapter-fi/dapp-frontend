@@ -20,6 +20,7 @@ export type Vault = {
   autocompoundedAPY: number
   holdings?: any
   deposits: any
+  network: string
 }
 
 export const columns: ColumnDef<Vault>[] = [
@@ -59,7 +60,7 @@ export const columns: ColumnDef<Vault>[] = [
             className="absolute left-[-3px] top-[-3px]"
           />
           <div className="flex flex-col gap-1">
-            <p>{vaultData.name}</p>
+            <p>{vaultData.name.slice(0, vaultData.name.indexOf('-'))}</p>
             <div className="flex items-center gap-0.5">
               <p className="px-1 rounded-[4px] bg-[#F9F9F2] text-[#125AFA]">
                 {vaultData.type}
@@ -73,6 +74,30 @@ export const columns: ColumnDef<Vault>[] = [
             </div>
           </div>
         </div>
+      )
+    },
+  },
+  {
+    accessorKey: 'network',
+    header: ({ column }) => {
+      return (
+        <button
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+          className={cn(
+            'flex gap-2 items-center ml-[-25px]',
+            !column.getIsSorted() && 'text-gray'
+          )}
+        >
+          <ArrowUp
+            size={12}
+            className={cn(
+              'transition duration-300',
+              column.getIsSorted() === 'desc' && 'rotate-180',
+              !column.getIsSorted() && 'opacity-0'
+            )}
+          />
+          NETWORK
+        </button>
       )
     },
   },
@@ -95,7 +120,7 @@ export const columns: ColumnDef<Vault>[] = [
               !column.getIsSorted() && 'opacity-0'
             )}
           />
-          UNDERLYING APR
+          UNDERLYING APY
         </button>
       )
     },

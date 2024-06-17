@@ -4,7 +4,7 @@ import { erc20Abi, erc4626Abi } from 'viem'
 import { arbitrum, mainnet } from 'viem/chains'
 import { sepolia } from 'wagmi/chains'
 
-import { adapterVaultAbi } from '@/lib/abi/AdapterVault'
+import { pendleAdapterAbi } from '@/lib/abi/PendleAdapter'
 import { pendleMigratorAbi } from '@/lib/abi/PendleMigrator'
 
 export default defineConfig({
@@ -26,7 +26,15 @@ export default defineConfig({
     },
     {
       name: 'VaultBase',
-      abi: adapterVaultAbi,
+      abi: erc4626Abi,
+    },
+    {
+      name: 'PendleAdapter',
+      abi: pendleAdapterAbi,
+      address: {
+        [mainnet.id]: '0x7D87e88aA7000fe8c2C3B450844A2dc3A2312919',
+        [arbitrum.id]: '0x7D87e88aA7000fe8c2C3B450844A2dc3A2312919',
+      },
     },
     {
       name: 'PendleMigrator',
@@ -38,7 +46,7 @@ export default defineConfig({
     },
     {
       name: 'EZEthVault',
-      abi: adapterVaultAbi,
+      abi: erc4626Abi,
       address: {
         [arbitrum.id]: '0xB8D5D36A40019f79b6B70a1932805476B2aCa6eF',
         [mainnet.id]: '0x1099ac45b80059733F719C7Dedf5a8ffCf02aAa8',
@@ -46,57 +54,51 @@ export default defineConfig({
     },
     {
       name: 'RSEthVault',
-      abi: adapterVaultAbi,
+      abi: erc4626Abi,
       address: {
         [arbitrum.id]: '0x4521B903d65103Cd6265F898fE4ac3243884273f',
         [mainnet.id]: '0xB8D5D36A40019f79b6B70a1932805476B2aCa6eF',
       },
     },
     {
-      name: 'WEEthVault',
-      abi: adapterVaultAbi,
-      address: {
-        [arbitrum.id]: '0xd1Ea80934222a21e330DAe9ad0354B4C139ae49F',
-      },
-    },
-    {
       name: 'RSWethVault',
-      abi: adapterVaultAbi,
+      abi: erc4626Abi,
       address: {
         [mainnet.id]: '0x4521B903d65103Cd6265F898fE4ac3243884273f',
       },
     },
     {
       name: 'eEthVault',
-      abi: adapterVaultAbi,
+      abi: erc4626Abi,
       address: {
         [mainnet.id]: '0xd1Ea80934222a21e330DAe9ad0354B4C139ae49F',
+        [arbitrum.id]: '0xd1Ea80934222a21e330DAe9ad0354B4C139ae49F',
       },
     },
     {
       name: 'USDe',
-      abi: adapterVaultAbi,
+      abi: erc4626Abi,
       address: {
         [mainnet.id]: '0xE0229dCFa4D84998484a27Ba01B4c2e78B1F02D3',
       },
     },
     {
       name: 'sUSDe',
-      abi: adapterVaultAbi,
+      abi: erc4626Abi,
       address: {
         [mainnet.id]: '0x10Efb86d59eB8Ae3d4a7966B4ab9Ceb97e96D212',
       },
     },
     {
       name: 'eEthKarakVault',
-      abi: adapterVaultAbi,
+      abi: erc4626Abi,
       address: {
         [mainnet.id]: '0x3af0b7d4691c4bcf2e3f9daf8ea5a24960fc30eb',
       },
     },
     {
       name: 'USDeKarakVault',
-      abi: adapterVaultAbi,
+      abi: erc4626Abi,
       address: {
         [mainnet.id]: '0xA63B7542C546Ee2258010C44a5B94dbD80cA038f',
       },

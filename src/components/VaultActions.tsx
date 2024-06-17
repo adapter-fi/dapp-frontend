@@ -1,11 +1,11 @@
 'use client'
 
 import Image from 'next/image'
-import { use, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
-import { erc20Abi, maxUint256 } from 'viem'
+import { useQuery } from '@tanstack/react-query'
+import { erc20Abi, maxUint256, zeroAddress } from 'viem'
 import { useAccount, useReadContract } from 'wagmi'
-import { sepolia } from 'wagmi/chains'
 
 import { BigIntInput } from '@/components/BigIntInput'
 import { NetworkGate } from '@/components/NetworkGate'
@@ -17,6 +17,7 @@ import { useSpotPrice } from '@/hooks/use-spot-price'
 import { useTokenBalance } from '@/hooks/use-token-balance'
 
 import { vaultMap } from '@/lib/constants'
+import { getPendleSwap } from '@/lib/queries/get-pendle-swap'
 import { useStateStore } from '@/lib/store'
 import {
   cn,
@@ -27,8 +28,10 @@ import {
 } from '@/lib/utils'
 
 import {
+  useReadPendleAdapterGeneratePregenInfo,
   useReadVaultBasePreviewDeposit,
   useReadVaultBasePreviewRedeem,
+  useSimulatePendleMigratorMigrate,
   vaultBaseAbi,
 } from '@/codegen'
 
@@ -43,8 +46,15 @@ export const VaultActions = ({ slug }: { slug: keyof typeof vaultMap }) => {
 
   const [slippage, setSlippage] = useState('0.3')
 
-  const { depositAddress, vaultAddress, migrationAddress, logoURI } =
-    vaultMap[slug]
+  const {
+    depositAddress,
+    vaultAddress,
+    migrationAddress,
+    logoURI,
+    chain,
+    pendleMarketAddress,
+  } = vaultMap[slug]
+  const name = slug.slice(0, slug.indexOf('-'))
 
   const depositBalance = useTokenBalance(depositAddress)
   const vaultBalance = useTokenBalance(vaultAddress)
@@ -59,19 +69,19 @@ export const VaultActions = ({ slug }: { slug: keyof typeof vaultMap }) => {
   const { data: previewDeposit } = useReadVaultBasePreviewDeposit({
     address: vaultAddress,
     args: [BigInt(amount)],
-    chainId: sepolia.id,
+    chainId: chain.id,
   })
 
   const { data: previewRedeem } = useReadVaultBasePreviewRedeem({
     address: vaultAddress,
     args: [BigInt(amount)],
-    chainId: sepolia.id,
+    chainId: chain.id,
   })
 
   const { data: totalRedeem } = useReadVaultBasePreviewRedeem({
     address: vaultAddress,
     args: [vaultBalance],
-    chainId: sepolia.id,
+    chainId: chain.id,
   })
 
   const depositTokenPrice = useSpotPrice(depositAddress)
@@ -81,9 +91,49 @@ export const VaultActions = ({ slug }: { slug: keyof typeof vaultMap }) => {
     abi: erc20Abi,
     functionName: 'allowance',
     args: [walletAddress!, vaultAddress],
-    chainId: sepolia.id,
+    chainId: chain.id,
   })
   const isApproved = allowance && allowance >= BigInt(amount)
+
+  // This needs to be in another component eventually
+  const { data: pendleSwapData } = useQuery({
+    queryKey: ['pendleSwap', amount, chain, walletAddress, pendleMarketAddress, depositAddress, slippage],
+    queryFn: () =>
+      getPendleSwap({
+        chainId: chain.id,
+        receiver: walletAddress!,
+        amount: amount,
+        market: pendleMarketAddress!,
+        tokenOut: depositAddress,
+        slippage: parseFloat(slippage) / 100,
+      }),
+      enabled: !!walletAddress && !!amount && !!pendleMarketAddress,
+  })
+
+  const { data: pregenInfo } = useReadPendleAdapterGeneratePregenInfo({
+    args: [BigInt(pendleSwapData?.minTokenOut || 0)],
+    chainId: chain.id as any,
+    query: {
+      enabled: !!pendleSwapData,
+    }
+  })
+
+  const { data: migrateMinOut } = useSimulatePendleMigratorMigrate({
+    args: [
+      pendleMarketAddress!,
+      BigInt(amount),
+      depositAddress,
+      BigInt(pendleSwapData?.minTokenOut || 0),
+      pendleSwapData?.limit,
+      vaultAddress,
+      0n,
+      [pregenInfo!],
+    ],
+    chainId: chain.id as any,
+    query: {
+      enabled: !!pendleSwapData,
+    }
+  })
 
   useEffect(() => {
     setAmount('')
@@ -114,7 +164,7 @@ export const VaultActions = ({ slug }: { slug: keyof typeof vaultMap }) => {
         >
           WITHDRAW
         </button>
-        <button
+        {/* <button
           className={cn(
             'font-thin tracking-[1.6px] px-4',
             state === 'migrate'
@@ -124,7 +174,7 @@ export const VaultActions = ({ slug }: { slug: keyof typeof vaultMap }) => {
           onClick={() => setState('migrate')}
         >
           MIGRATE
-        </button>
+        </button> */}
       </div>
       {state === 'migrate' ? (
         <div className="flex flex-col gap-4">
@@ -139,8 +189,8 @@ export const VaultActions = ({ slug }: { slug: keyof typeof vaultMap }) => {
               <div className="flex flex-col font-light w-[128px]">
                 <p className="text-gray">Amount to Migrate</p>
                 <div className="border border-[#3B3B39] rounded-[4px] py-2 px-3 flex items-center gap-2">
-                  <img src={logoURI} alt={slug} height={20} width={20} />
-                  <p>{'PT-' + slug}</p>
+                  <img src={logoURI} alt={name} height={20} width={20} />
+                  <p>{'PT-' + name}</p>
                 </div>
               </div>
             </div>
@@ -148,7 +198,7 @@ export const VaultActions = ({ slug }: { slug: keyof typeof vaultMap }) => {
               <div className="text-sm flex items-center gap-1 font-light">
                 <p className="text-gray">Balance: </p>
                 <p>
-                  {formatNumber(fromBigNumber(inputBalance))} {'PT-' + slug}
+                  {formatNumber(fromBigNumber(inputBalance))} {'PT-' + name}
                 </p>
               </div>
               <div className="flex gap-0.5 text-sm font-light">
@@ -236,8 +286,8 @@ export const VaultActions = ({ slug }: { slug: keyof typeof vaultMap }) => {
               <div className="flex flex-col font-light w-[128px]">
                 <p className="text-gray">You pay</p>
                 <div className="border border-[#3B3B39] rounded-[4px] py-2 px-3 flex items-center gap-2">
-                  <img src={logoURI} alt={slug} height={20} width={20} />
-                  <p>{state === 'deposit' ? slug : 'a' + slug}</p>
+                  <img src={logoURI} alt={name} height={20} width={20} />
+                  <p>{state === 'deposit' ? name : 'a' + name}</p>
                 </div>
               </div>
             </div>
@@ -246,7 +296,7 @@ export const VaultActions = ({ slug }: { slug: keyof typeof vaultMap }) => {
                 <p className="text-gray">Balance: </p>
                 <p>
                   {formatNumber(fromBigNumber(inputBalance))}{' '}
-                  {state === 'deposit' ? slug : 'a' + slug}
+                  {state === 'deposit' ? name : 'a' + name}
                 </p>
                 <p className="text-gray">
                   /{' '}
@@ -307,15 +357,15 @@ export const VaultActions = ({ slug }: { slug: keyof typeof vaultMap }) => {
               <div className="flex flex-col font-light w-[128px]">
                 <p className="text-gray">You receive</p>
                 <div className="border border-[#3B3B39] rounded-[4px] py-2 px-3 flex items-center gap-2">
-                  <img src={logoURI} alt={slug} height={20} width={20} />
-                  <p>{state === 'deposit' ? 'a' + slug : slug}</p>
+                  <img src={logoURI} alt={name} height={20} width={20} />
+                  <p>{state === 'deposit' ? 'a' + name : name}</p>
                 </div>
               </div>
             </div>
             {state === 'deposit' && (
               <div className="flex justify-between items-center">
                 <p className="text-sm font-light text-gray">
-                  a{slug} is the receipt token for your staked {slug}
+                  a{name} is the receipt token for your staked {name}
                 </p>
               </div>
             )}
@@ -324,7 +374,7 @@ export const VaultActions = ({ slug }: { slug: keyof typeof vaultMap }) => {
       )}
 
       {isApproved ? (
-        <NetworkGate>
+        <NetworkGate supportedChain={chain}>
           <TransactionButton
             disabled={!amount || BigInt(amount) === 0n}
             config={{
@@ -335,19 +385,21 @@ export const VaultActions = ({ slug }: { slug: keyof typeof vaultMap }) => {
               abi: vaultBaseAbi,
               functionName: state === 'deposit' ? 'deposit' : 'redeem',
               address: vaultAddress,
+              chain: chain,
             }}
           >
             {state.toUpperCase()}
           </TransactionButton>
         </NetworkGate>
       ) : (
-        <NetworkGate>
+        <NetworkGate supportedChain={chain}>
           <TransactionButton
             config={{
               abi: erc20Abi,
               address: depositAddress,
               functionName: 'approve',
               args: [vaultAddress, maxUint256],
+              chain: chain,
             }}
           >
             Approve

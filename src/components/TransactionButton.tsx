@@ -4,12 +4,12 @@ import { ReactNode, useEffect, useState } from 'react'
 
 import { useQueryClient } from '@tanstack/react-query'
 import { Address, BaseError } from 'viem'
+import { Chain } from 'viem'
 import {
   useSimulateContract,
   useWaitForTransactionReceipt,
   useWriteContract,
 } from 'wagmi'
-import { sepolia } from 'wagmi/chains'
 
 import { Button } from '@/components/ui/button'
 
@@ -22,6 +22,7 @@ interface TransactionConfig {
   address: Address
   functionName: string
   args: any[]
+  chain: Chain
 }
 
 export const TransactionButton = ({
@@ -36,14 +37,18 @@ export const TransactionButton = ({
   const [txHash, setTxHash] = useState<Address | undefined>()
   const queryClient = useQueryClient()
   const { setAmount } = useStateStore()
+  const { abi, args, address, functionName, chain } = config
 
   const {
     data: contractConfig,
     error: simulateError,
     isLoading: simulateLoading,
   } = useSimulateContract({
-    ...config,
-    chainId: sepolia.id,
+    abi,
+    args,
+    address,
+    functionName,
+    chainId: chain.id,
   })
   const { writeContract, isPending: userConfirming } = useWriteContract()
 
@@ -59,7 +64,10 @@ export const TransactionButton = ({
           label: 'View on Etherscan',
           onClick: (e) => {
             e.preventDefault()
-            window.open(`${sepolia.blockExplorers.default.url}/tx/${txHash}`, '_blank')
+            window.open(
+              `${chain?.blockExplorers?.default.url}/tx/${txHash}`,
+              '_blank'
+            )
           },
         },
       })
@@ -71,7 +79,9 @@ export const TransactionButton = ({
 
   const handleConfirm = () => {
     if (simulateError) {
-      toast.error((simulateError as BaseError).shortMessage || simulateError.message)
+      toast.error(
+        (simulateError as BaseError).shortMessage || simulateError.message
+      )
       return
     }
 

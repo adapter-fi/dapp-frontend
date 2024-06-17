@@ -76,3 +76,7 @@ export function findInsertPosition(arr: number[], num: number) {
   const index = arr.findIndex((el) => num >= el)
   return index === -1 ? arr.length : index
 }
+
+export const removeSpaces: (s: string) => string = (s) => {
+  return s.replace(/\s/g, '');
+}
