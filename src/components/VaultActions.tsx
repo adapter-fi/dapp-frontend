@@ -43,6 +43,8 @@ import {
 
 import { Settings } from 'lucide-react'
 
+import { Skeleton } from './ui/skeleton'
+
 export const VaultActions = ({ slug }: { slug: keyof typeof vaultMap }) => {
   const [state, setState] = useState<'deposit' | 'withdraw' | 'migrate'>(
     'migrate'
@@ -50,7 +52,7 @@ export const VaultActions = ({ slug }: { slug: keyof typeof vaultMap }) => {
   const { amount, setAmount } = useStateStore()
   const { address: walletAddress } = useAccount()
 
-  const [slippage, setSlippage] = useState('0.3')
+  const [slippage, setSlippage] = useState('1')
 
   const {
     depositAddress,
@@ -150,22 +152,28 @@ export const VaultActions = ({ slug }: { slug: keyof typeof vaultMap }) => {
     },
   })
 
-  const { data: migrateMinOut } = useSimulatePendleMigratorMigrate({
-    args: [
-      pendleMarketAddress!,
-      BigInt(amount),
-      depositAddress,
-      BigInt(pendleSwapData?.minTokenOut || 0),
-      pendleSwapData?.limit,
-      vaultAddress,
-      0n,
-      // [pregenInfo!],
-    ],
-    chainId: chain.id as any,
-    query: {
-      enabled: !!pendleSwapData,
-    },
-  })
+  const { data: migrateOut, isLoading: migrateLoading } =
+    useSimulatePendleMigratorMigrate({
+      args: [
+        pendleMarketAddress!,
+        BigInt(amount),
+        depositAddress,
+        BigInt(pendleSwapData?.minTokenOut || 0),
+        pendleSwapData?.limit,
+        vaultAddress,
+        0n,
+        // [pregenInfo!],
+      ],
+      chainId: chain.id as any,
+      query: {
+        enabled: !!pendleSwapData && !!amount,
+      },
+    })
+
+  const migrateEstimatedOut = migrateOut?.result || 0n
+  const migrateMinOut =
+    (migrateEstimatedOut * BigInt((1 - parseFloat(slippage) / 100) * 10000)) /
+    10000n
 
   useEffect(() => {
     setAmount('')
@@ -264,7 +272,7 @@ export const VaultActions = ({ slug }: { slug: keyof typeof vaultMap }) => {
             </div>
           </div>
           <div className="flex flex-col gap-1">
-            <div className="flex justify-between mb-2">
+            <div className="flex justify-between">
               <p className="text-gray font-light">Slippage</p>
               <Dialog>
                 <DialogTrigger className="flex items-center gap-1">
@@ -295,6 +303,26 @@ export const VaultActions = ({ slug }: { slug: keyof typeof vaultMap }) => {
                   </p>
                 </DialogContent>
               </Dialog>
+            </div>
+            <div className="flex justify-between items-center">
+              <p className="text-gray font-light">Estimated Output</p>
+              {migrateLoading ? (
+                <Skeleton className="h-[24px] w-[49px]" />
+              ) : (
+                <p className="text-[#FBFDFD]">
+                  {formatNumber(fromBigNumber(migrateEstimatedOut), 4)}
+                </p>
+              )}
+            </div>
+            <div className="flex justify-between items-center mb-2">
+              <p className="text-gray font-light">Minimum Received</p>
+              {migrateLoading ? (
+                <Skeleton className="h-[24px] w-[49px]" />
+              ) : (
+                <p className="text-[#FBFDFD]">
+                  {formatNumber(fromBigNumber(migrateMinOut), 4)}
+                </p>
+              )}
             </div>
             <p className="text-[#FBFDFD] text-sm font-light">ROUTE</p>
             <Image
@@ -421,7 +449,7 @@ export const VaultActions = ({ slug }: { slug: keyof typeof vaultMap }) => {
                         BigInt(pendleSwapData?.minTokenOut || 0),
                         pendleSwapData?.limit,
                         vaultAddress,
-                        migrateMinOut?.result || 0n,
+                        migrateMinOut,
                         // [pregenInfo!]
                       ]
                     : [amount, walletAddress, walletAddress],
