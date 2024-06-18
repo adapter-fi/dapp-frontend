@@ -273,7 +273,7 @@ export const VaultActions = ({ slug }: { slug: keyof typeof vaultMap }) => {
           </div>
           <div className="flex flex-col gap-1">
             <div className="flex justify-between">
-              <p className="text-gray font-light">Slippage</p>
+              <p className="text-gray font-light">Max Slippage</p>
               <Dialog>
                 <DialogTrigger className="flex items-center gap-1">
                   <p className="text-[#FBFDFD]">{formatPercentage(slippage)}</p>
