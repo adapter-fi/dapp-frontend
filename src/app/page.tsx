@@ -4,6 +4,8 @@ import { useInViewport } from '@mantine/hooks'
 import Image from 'next/image'
 import Link from 'next/link'
 
+import { useQuery } from '@tanstack/react-query'
+
 import { Footer } from '@/components/Footer'
 import { Navbar } from '@/components/Navbar'
 import { PartnerLogo } from '@/components/PartnerLogo'
@@ -13,11 +15,18 @@ import { Button } from '@/components/ui/button'
 import { useIsMobile } from '@/hooks/use-is-mobile'
 
 import { docsUrl } from '@/lib/constants'
-import { cn } from '@/lib/utils'
+import { getPendleMarketData } from '@/lib/queries/get-pendle-market-data'
+import { cn, formatNumber } from '@/lib/utils'
 
 export default function Home() {
   const { ref, inViewport } = useInViewport()
   const mobile = useIsMobile()
+
+  const { data: pendleData } = useQuery({
+    queryKey: ['pendleData'],
+    queryFn: () => getPendleMarketData(),
+  })
+  const highestApy = (pendleData?.map(({ impliedApy }) => impliedApy).sort((a, b) => b - a)[0] || 0) * 100
 
   if (mobile) {
     return (
@@ -108,7 +117,7 @@ export default function Home() {
             </div>
             <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2  text-[#FBFDFD] flex flex-col">
               <div className="flex items-end gap-1">
-                <p className="font-bold text-[82px] leading-[0.8]">TBD</p>
+                <p className="font-bold text-[82px] leading-[0.8]">{formatNumber(highestApy)}</p>
                 <p className="text-gray font-bold">%</p>
               </div>
               <p className="text-gray font-light text-sm text-center">
@@ -259,7 +268,7 @@ export default function Home() {
             </div>
             <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2  text-[#FBFDFD] flex flex-col">
               <div className="flex items-end gap-1">
-                <p className="font-bold text-[82px] leading-[0.8]">TBD</p>
+                <p className="font-bold text-[82px] leading-[0.8]">{formatNumber(highestApy)}</p>
                 <p className="text-gray font-bold">%</p>
               </div>
               <p className="text-gray font-light text-sm text-center">
