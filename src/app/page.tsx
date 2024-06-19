@@ -34,11 +34,11 @@ export default function Home() {
               <p className="text-[#125AFA]">MAXIMIZED</p>
             </div>
             <div className="grid grid-cols-2 gap-2">
-              {/* <Link href="/vaults"> */}
-                <Button className="w-full" variant="inverted" disabled>
+              <Link href="/vaults">
+                <Button className="w-full" variant="inverted">
                   LAUNCH APP
                 </Button>
-              {/* </Link> */}
+              </Link>
               <a
                 href={docsUrl}
                 target="_blank"
@@ -94,9 +94,9 @@ export default function Home() {
                 <p>Get an on-chain butler</p>
               </div>
             </div>
-            {/* <Link href="/vaults"> */}
-              <Button className="w-[300px] mt-4" disabled>COMPOUND NOW</Button>
-            {/* </Link> */}
+            <Link href="/vaults">
+              <Button className="w-[300px] mt-4">COMPOUND NOW</Button>
+            </Link>
           </div>
           <div className="w-screen bg-[#125AFA] overflow-clip relative h-[480px]">
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[416px] h-[506px]">
@@ -177,11 +177,11 @@ export default function Home() {
               <p className="text-[#125AFA]">MAXIMIZED</p>
             </div>
             <div className="grid grid-cols-2 gap-2">
-              {/* <Link href="/vaults"> */}
-                <Button className="w-full h-16" variant="inverted" disabled>
+              <Link href="/vaults">
+                <Button className="w-full h-16" variant="inverted">
                   LAUNCH APP
                 </Button>
-              {/* </Link> */}
+              </Link>
               <a
                 href={docsUrl}
                 target="_blank"
@@ -195,14 +195,14 @@ export default function Home() {
             </div>
           </div>
         </div>
-        {/* <div
+        <div
           className={cn(
             'sticky top-0 z-10 text-[#F9F9F2] bg-[#0B0B0A] snap-align-none',
             inViewport && 'hidden'
           )}
         >
           <Navbar />
-        </div> */}
+        </div>
         <div className="min-h-screen snap-center snap-always flex px-12 bg-[#0B0B0A]">
           <div className="flex flex-col gap-2 min-w-[662px] justify-end pb-[118px]">
             <div className="flex flex-col leading-[0.8] text-white font-bold text-[56px]">
@@ -245,9 +245,9 @@ export default function Home() {
                 <p>Get an on-chain butler</p>
               </div>
             </div>
-            {/* <Link href="/vaults"> */}
-              <Button className="w-[300px] h-16" disabled>COMPOUND NOW</Button>
-            {/* </Link> */}
+            <Link href="/vaults">
+              <Button className="w-[300px] h-16">COMPOUND NOW</Button>
+            </Link>
           </div>
           <div className="w-[802px] bg-[#125AFA] overflow-clip relative h-screen">
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[495px] h-[3033px]">

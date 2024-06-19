@@ -8,7 +8,7 @@ import { discordUrl, githubUrl, twitterUrl } from '@/lib/constants'
 import { getUsers } from '@/lib/db/get-users'
 import { formatCurrency } from '@/lib/utils'
 
-import { DataTable } from '@/app/(dapp)/3093aa6df97b839999cbd94a1b71b0fcb3240940fc3f8ec565eb2292e40f910e/data-table'
+import { DataTable } from '@/app/(dapp)/vaults/data-table'
 
 import { Github } from 'lucide-react'
 import { Timer } from '@/components/Timer'

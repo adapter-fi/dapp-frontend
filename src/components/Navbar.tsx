@@ -6,11 +6,11 @@ import { usePathname } from 'next/navigation'
 
 import { useWeb3Modal } from '@web3modal/wagmi/react'
 import { useAccount, useEnsName } from 'wagmi'
+import { mainnet } from 'wagmi/chains'
 
 import { Button } from '@/components/ui/button'
 
 import { truncateAddress } from '@/lib/utils'
-import { mainnet } from 'wagmi/chains'
 
 export const Navbar = () => {
   const { open } = useWeb3Modal()
@@ -21,7 +21,7 @@ export const Navbar = () => {
   return (
     <div className="flex p-4 justify-between relative">
       <div className="flex gap-4 items-center">
-        <Link href="/3093aa6df97b839999cbd94a1b71b0fcb3240940fc3f8ec565eb2292e40f910e">
+        <Link href="/vaults">
           <Button variant="ghost">
             {pathname === '/vaults' && (
               <div className="h-[1px] w-full bg-[#125AFA] absolute top-0 transition-all duration-500 ease-in-out scale-100 group-hover:scale-[0] origin-left" />
