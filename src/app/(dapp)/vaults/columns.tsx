@@ -51,7 +51,7 @@ export const columns: ColumnDef<Vault>[] = [
       const vaultData: Vault['data'] = row.getValue('data')
       return (
         <div className="flex gap-1 relative">
-          <img src={vaultData.logoURI} height={48} width={48} alt="logo" />
+          <img src={vaultData.logoURI} alt="logo" className='h-[48px] w-[48px]' />
           <Image
             src="/brand/logo.svg"
             height={16}

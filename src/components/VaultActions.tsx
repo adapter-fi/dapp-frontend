@@ -226,7 +226,7 @@ export const VaultActions = ({ slug }: { slug: keyof typeof vaultMap }) => {
                 placeholder="0.00"
                 className="max-w-[250px]"
               />
-              <div className="flex flex-col font-light w-[128px]">
+              <div className="flex flex-col font-light min-w-[128px]">
                 <p className="text-gray">Amount to Migrate</p>
                 <div className="border border-[#3B3B39] rounded-[4px] py-2 px-3 flex items-center gap-2">
                   <img src={logoURI} alt={name} height={20} width={20} />
@@ -343,7 +343,7 @@ export const VaultActions = ({ slug }: { slug: keyof typeof vaultMap }) => {
                 placeholder="0.00"
                 className="max-w-[250px]"
               />
-              <div className="flex flex-col font-light w-[128px]">
+              <div className="flex flex-col font-light min-w-[128px]">
                 <p className="text-gray">You pay</p>
                 <div className="border border-[#3B3B39] rounded-[4px] py-2 px-3 flex items-center gap-2">
                   <img src={logoURI} alt={name} height={20} width={20} />
