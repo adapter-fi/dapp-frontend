@@ -18,8 +18,10 @@ export const useVaultBalances = () => {
       Promise.all(
         Object.values(vaultMap).map(
           async ({ vaultAddress, chain, depositAddress }, i) => {
-            const underlyingPrice = await getSpotPrice(depositAddress, chain.id as any)
-            console.log(underlyingPrice, (Object.keys(vaultMap))[i] )
+            const underlyingPrice = await getSpotPrice(
+              depositAddress,
+              chain.id as any
+            )
             return {
               balance: walletAddress
                 ? await readContract(config as any, {
