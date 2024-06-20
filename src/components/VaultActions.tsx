@@ -434,23 +434,26 @@ export const VaultActions = ({ slug }: { slug: keyof typeof vaultMap }) => {
           </div>
         </div>
       )}
-      <Tooltip>
-        <TooltipTrigger>
-          <Button disabled>{state.toLocaleUpperCase()}</Button>
-        </TooltipTrigger>
-        <TooltipContent>
-          Vault deposits and withdrawals temporarily disabled
-        </TooltipContent>
-      </Tooltip>
-      {/* {isApproved ? (
+      {state !== 'withdraw' ? (
+        <Tooltip>
+          <TooltipTrigger>
+            <Button disabled>{state.toLocaleUpperCase()}</Button>
+          </TooltipTrigger>
+          <TooltipContent>
+            Vault deposits and migrations temporarily disabled
+          </TooltipContent>
+        </Tooltip>
+      ) : isApproved ? (
         <NetworkGate supportedChain={chain}>
           <TransactionButton
             disabled={!amount || BigInt(amount) === 0n}
             config={{
               args:
+                // @ts-ignore
                 state === 'deposit'
                   ? [amount, walletAddress]
-                  : state === 'migrate'
+                  : // @ts-ignore
+                    state === 'migrate'
                     ? [
                         pendleMarketAddress!,
                         BigInt(amount),
@@ -462,14 +465,18 @@ export const VaultActions = ({ slug }: { slug: keyof typeof vaultMap }) => {
                         // [pregenInfo!]
                       ]
                     : [amount, walletAddress, walletAddress],
+              // @ts-ignore
               abi: state === 'migrate' ? pendleMigratorAbi : vaultBaseAbi,
               functionName:
+                // @ts-ignore
                 state === 'deposit'
                   ? 'deposit'
-                  : state === 'migrate'
+                  : // @ts-ignore
+                    state === 'migrate'
                     ? 'migrate'
                     : 'redeem',
               address:
+                // @ts-ignore
                 state === 'migrate'
                   ? //@ts-ignore
                     pendleMigratorAddress[chain.id]
@@ -485,9 +492,11 @@ export const VaultActions = ({ slug }: { slug: keyof typeof vaultMap }) => {
           <TransactionButton
             config={{
               abi: erc20Abi,
+              // @ts-ignore 
               address: state === 'migrate' ? migrationAddress : depositAddress,
               functionName: 'approve',
               args: [
+                // @ts-ignore 
                 state === 'migrate'
                   ? //@ts-ignore
                     pendleMigratorAddress[chain.id]
@@ -500,7 +509,7 @@ export const VaultActions = ({ slug }: { slug: keyof typeof vaultMap }) => {
             Approve
           </TransactionButton>
         </NetworkGate>
-      )} */}
+      )}
     </div>
   )
 }
