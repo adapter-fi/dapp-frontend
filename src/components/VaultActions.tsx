@@ -43,7 +43,9 @@ import {
 
 import { Settings } from 'lucide-react'
 
+import { Button } from './ui/button'
 import { Skeleton } from './ui/skeleton'
+import { Tooltip, TooltipContent, TooltipTrigger } from './ui/tooltip'
 
 export const VaultActions = ({ slug }: { slug: keyof typeof vaultMap }) => {
   const [state, setState] = useState<'deposit' | 'withdraw' | 'migrate'>(
@@ -432,8 +434,15 @@ export const VaultActions = ({ slug }: { slug: keyof typeof vaultMap }) => {
           </div>
         </div>
       )}
-
-      {isApproved ? (
+      <Tooltip>
+        <TooltipTrigger>
+          <Button disabled>{state.toLocaleUpperCase()}</Button>
+        </TooltipTrigger>
+        <TooltipContent>
+          Vault deposits and withdrawals temporarily disabled
+        </TooltipContent>
+      </Tooltip>
+      {/* {isApproved ? (
         <NetworkGate supportedChain={chain}>
           <TransactionButton
             disabled={!amount || BigInt(amount) === 0n}
@@ -491,7 +500,7 @@ export const VaultActions = ({ slug }: { slug: keyof typeof vaultMap }) => {
             Approve
           </TransactionButton>
         </NetworkGate>
-      )}
+      )} */}
     </div>
   )
 }
