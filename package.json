@@ -2,6 +2,7 @@
   "name": "adapter-fi",
   "version": "0.1.0",
   "private": true,
+  "license": "MIT",
   "scripts": {
     "dev": "next dev",
     "build": "wagmi generate && next build",
