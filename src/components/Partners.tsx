@@ -43,7 +43,7 @@ export const Partners = () => {
           />
           <PartnerLogo
             title="Renzo"
-            src="https://pbs.twimg.com/profile_images/1715232040319160320/LNbYHlBA_400x400.jpg"
+            src="https://pbs.twimg.com/profile_images/1802973846485471232/vbDX8MdB_400x400.jpg"
           />
         </div>
       </div>
