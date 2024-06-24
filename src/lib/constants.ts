@@ -4,8 +4,11 @@ import { arbitrum, mainnet } from 'viem/chains'
 import {
   eEthKarakVaultAddress,
   eEthVaultAddress,
+  eEthVaultDeprecatedAddress,
   ezEthVaultAddress,
+  ezEthVaultDeprecatedAddress,
   rsEthVaultAddress,
+  rsEthVaultDeprecatedAddress,
   rsWethVaultAddress,
   sUsDeAddress,
   usDeAddress,
@@ -29,6 +32,9 @@ export type SupportedVaults =
   | 'ezETH-42161'
   | 'rsETH-42161'
   | 'eETH-42161'
+  | 'ezETH (Deprecated)-42161'
+  | 'rsETH (Deprecated)-42161'
+  | 'eETH (Deprecated)-42161'
 
 interface VaultInfo {
   depositAddress: Address
@@ -39,6 +45,7 @@ interface VaultInfo {
   protocolURI: string
   chain: Chain
   type: string
+  deprecated?: boolean
 }
 
 // For Pendle migrationAddress is PT and depositAddress is underlying
@@ -174,5 +181,44 @@ export const vaultMap: Record<SupportedVaults, VaultInfo> = {
     protocolURI:
       'https://www.pendle.finance/uploads/wp-content/uploads/2022/brandguide/logos/light-png/blue.png',
     type: 'LRT',
+  },
+  'ezETH (Deprecated)-42161': {
+    depositAddress: '0x2416092f143378750bb29b79ed961ab195cceea5',
+    migrationAddress: '0x8ea5040d423410f1fdc363379af88e1db5ea1c34',
+    vaultAddress: ezEthVaultDeprecatedAddress[arbitrum.id],
+    pendleMarketAddress: '0x5e03c94fc5fb2e21882000a96df0b63d2c4312e2',
+    chain: arbitrum,
+    logoURI:
+      'https://assets.coingecko.com/coins/images/34753/standard/Ezeth_logo_circle.png?1713496404',
+    protocolURI:
+      'https://www.pendle.finance/uploads/wp-content/uploads/2022/brandguide/logos/light-png/blue.png',
+    type: 'LRT',
+    deprecated: true,
+  },
+  'rsETH (Deprecated)-42161': {
+    depositAddress: '0x4186bfc76e2e237523cbc30fd220fe055156b41f',
+    migrationAddress: '0xafd22f824d51fb7eed4778d303d4388ac644b026',
+    vaultAddress: rsEthVaultDeprecatedAddress[arbitrum.id],
+    pendleMarketAddress: '0x6ae79089b2cf4be441480801bb741a531d94312b',
+    chain: arbitrum,
+    logoURI:
+      'https://assets.coingecko.com/coins/images/33800/standard/Icon___Dark.png?1702991855',
+    protocolURI:
+      'https://www.pendle.finance/uploads/wp-content/uploads/2022/brandguide/logos/light-png/blue.png',
+    type: 'LRT',
+    deprecated: true,
+  },
+  'eETH (Deprecated)-42161': {
+    depositAddress: '0x35751007a407ca6feffe80b3cb397736d2cf4dbe',
+    migrationAddress: '0x1c27ad8a19ba026adabd615f6bc77158130cfbe4',
+    vaultAddress: eEthVaultDeprecatedAddress[arbitrum.id],
+    pendleMarketAddress: '0x952083cde7aaa11ab8449057f7de23a970aa8472',
+    chain: arbitrum,
+    logoURI:
+      'https://assets.coingecko.com/coins/images/33049/standard/ether.fi_eETH.png?1700473063',
+    protocolURI:
+      'https://www.pendle.finance/uploads/wp-content/uploads/2022/brandguide/logos/light-png/blue.png',
+    type: 'LRT',
+    deprecated: true,
   },
 }

@@ -63,6 +63,7 @@ export const VaultActions = ({ slug }: { slug: keyof typeof vaultMap }) => {
     logoURI,
     chain,
     pendleMarketAddress,
+    deprecated,
   } = vaultMap[slug]
   const name = slug.slice(0, slug.indexOf('-'))
 
@@ -434,13 +435,13 @@ export const VaultActions = ({ slug }: { slug: keyof typeof vaultMap }) => {
           </div>
         </div>
       )}
-      {state !== 'withdraw' ? (
+      {deprecated && state !== 'withdraw' ? (
         <Tooltip>
           <TooltipTrigger>
             <Button disabled>{state.toLocaleUpperCase()}</Button>
           </TooltipTrigger>
           <TooltipContent>
-            Vault deposits and migrations temporarily disabled
+            Vault deposits and migrations disabled for deprecated vaults
           </TooltipContent>
         </Tooltip>
       ) : isApproved ? (
@@ -449,11 +450,9 @@ export const VaultActions = ({ slug }: { slug: keyof typeof vaultMap }) => {
             disabled={!amount || BigInt(amount) === 0n}
             config={{
               args:
-                // @ts-ignore
                 state === 'deposit'
                   ? [amount, walletAddress]
-                  : // @ts-ignore
-                    state === 'migrate'
+                  : state === 'migrate'
                     ? [
                         pendleMarketAddress!,
                         BigInt(amount),
@@ -465,18 +464,15 @@ export const VaultActions = ({ slug }: { slug: keyof typeof vaultMap }) => {
                         // [pregenInfo!]
                       ]
                     : [amount, walletAddress, walletAddress],
-              // @ts-ignore
+
               abi: state === 'migrate' ? pendleMigratorAbi : vaultBaseAbi,
               functionName:
-                // @ts-ignore
                 state === 'deposit'
                   ? 'deposit'
-                  : // @ts-ignore
-                    state === 'migrate'
+                  : state === 'migrate'
                     ? 'migrate'
                     : 'redeem',
               address:
-                // @ts-ignore
                 state === 'migrate'
                   ? //@ts-ignore
                     pendleMigratorAddress[chain.id]
@@ -492,11 +488,10 @@ export const VaultActions = ({ slug }: { slug: keyof typeof vaultMap }) => {
           <TransactionButton
             config={{
               abi: erc20Abi,
-              // @ts-ignore 
+
               address: state === 'migrate' ? migrationAddress : depositAddress,
               functionName: 'approve',
               args: [
-                // @ts-ignore 
                 state === 'migrate'
                   ? //@ts-ignore
                     pendleMigratorAddress[chain.id]
