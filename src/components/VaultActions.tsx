@@ -10,13 +10,19 @@ import { useAccount, useReadContract } from 'wagmi'
 import { BigIntInput } from '@/components/BigIntInput'
 import { NetworkGate } from '@/components/NetworkGate'
 import { TransactionButton } from '@/components/TransactionButton'
+import { Button } from '@/components/ui/button'
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
+import { Skeleton } from '@/components/ui/skeleton'
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '@/components/ui/tooltip'
 
 import { useSpotPrice } from '@/hooks/use-spot-price'
 import { useTokenBalance } from '@/hooks/use-token-balance'
 
-import { adapterVaultAbi } from '@/lib/abi/AdapterVault'
 import { vaultMap } from '@/lib/constants'
 import { getPendleSwap } from '@/lib/queries/get-pendle-swap'
 import { useStateStore } from '@/lib/store'
@@ -32,7 +38,6 @@ import {
   pendleAdapterAbi,
   pendleMigratorAbi,
   pendleMigratorAddress,
-  useReadEEthKarakVault,
   useReadPendleAdapterGeneratePregenInfo,
   useReadVaultBaseAdapters,
   useReadVaultBasePreviewDeposit,
@@ -42,10 +47,6 @@ import {
 } from '@/codegen'
 
 import { Settings } from 'lucide-react'
-
-import { Button } from './ui/button'
-import { Skeleton } from './ui/skeleton'
-import { Tooltip, TooltipContent, TooltipTrigger } from './ui/tooltip'
 
 export const VaultActions = ({ slug }: { slug: keyof typeof vaultMap }) => {
   const [state, setState] = useState<'deposit' | 'withdraw' | 'migrate'>(
@@ -64,6 +65,7 @@ export const VaultActions = ({ slug }: { slug: keyof typeof vaultMap }) => {
     chain,
     pendleMarketAddress,
     deprecated,
+    vaultSymbol,
   } = vaultMap[slug]
   const name = slug.slice(0, slug.indexOf('-'))
 
@@ -364,7 +366,7 @@ export const VaultActions = ({ slug }: { slug: keyof typeof vaultMap }) => {
                     width={20}
                     className="rounded-full"
                   />
-                  <p>{state === 'deposit' ? name : 'aPT-' + name}</p>
+                  <p>{state === 'deposit' ? name : vaultSymbol}</p>
                 </div>
               </div>
             </div>
@@ -373,7 +375,7 @@ export const VaultActions = ({ slug }: { slug: keyof typeof vaultMap }) => {
                 <p className="text-gray">Balance: </p>
                 <p>
                   {formatNumber(fromBigNumber(inputBalance))}{' '}
-                  {state === 'deposit' ? name : 'aPT-' + name}
+                  {state === 'deposit' ? name : vaultSymbol}
                 </p>
                 <p className="text-gray">
                   /{' '}
@@ -431,7 +433,7 @@ export const VaultActions = ({ slug }: { slug: keyof typeof vaultMap }) => {
                   0
                 )}
               </p>
-              <div className="flex flex-col font-light w-[128px]">
+              <div className="flex flex-col font-light min-w-[128px]">
                 <p className="text-gray">You receive</p>
                 <div className="border border-[#3B3B39] rounded-[4px] py-2 px-3 flex items-center gap-2">
                   <img
@@ -441,14 +443,14 @@ export const VaultActions = ({ slug }: { slug: keyof typeof vaultMap }) => {
                     width={20}
                     className="rounded-full"
                   />
-                  <p>{state === 'deposit' ? 'aPT-' + name : name}</p>
+                  <p>{state === 'deposit' ? vaultSymbol : name}</p>
                 </div>
               </div>
             </div>
             {state === 'deposit' && (
               <div className="flex justify-between items-center">
                 <p className="text-sm font-light text-gray">
-                  aPT-{name} is the receipt token for your staked {name}
+                  {vaultSymbol} is the receipt token for your staked {name}
                 </p>
               </div>
             )}

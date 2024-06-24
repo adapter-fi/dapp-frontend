@@ -19,7 +19,7 @@ export default function VaultPage({
     (key) => key.toLocaleLowerCase() === normalizedSlug
   )[0] as SupportedVaults
 
-  const { logoURI, vaultAddress, deprecated } = vaultMap[vaultSlug]
+  const { logoURI, vaultAddress, deprecated, vaultSymbol } = vaultMap[vaultSlug]
   const vaultName = vaultSlug.slice(0, normalizedSlug.indexOf('-'))
 
   return (
@@ -48,6 +48,7 @@ export default function VaultPage({
       </div>
       <div className="flex flex-col items-center">
         <VaultMetrics
+          vaultSymbol={vaultSymbol}
           vaultName={vaultName}
           slug={vaultSlug}
           vaultAddress={vaultAddress}

@@ -14,9 +14,11 @@ import { formatNumber, fromBigNumber } from '@/lib/utils'
 export const VaultMetrics = ({
   vaultName,
   vaultAddress,
+  vaultSymbol,
   slug,
 }: {
   vaultName: string
+  vaultSymbol: string
   vaultAddress: Address
   slug: string
 }) => {
@@ -31,14 +33,16 @@ export const VaultMetrics = ({
     <div className="grid grid-cols-4 gap-32 p-6">
       <Metric
         label="TVL"
-        amount={vaultBalances?.filter(({ vault }) => vault === slug)[0].tvl || 0}
+        amount={
+          vaultBalances?.filter(({ vault }) => vault === slug)[0].tvl || 0
+        }
         unit="USD"
         size="sm"
       />
       <Metric
-        label={'aPT-' + vaultName + ' Balance'}
+        label={vaultSymbol + ' Balance'}
         amount={formatNumber(fromBigNumber(balance))}
-        unit={'aPT-' + vaultName}
+        unit={vaultSymbol}
         size="sm"
       />
       <Metric
@@ -51,12 +55,7 @@ export const VaultMetrics = ({
         unit="%"
         size="sm"
       />
-      <Metric
-        label="Rewards Earned"
-        amount="0"
-        unit={'aPT-' + vaultName}
-        size="sm"
-      />
+      <Metric label="Rewards Earned" amount="0" unit={vaultSymbol} size="sm" />
     </div>
   )
 }
