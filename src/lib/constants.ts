@@ -13,6 +13,7 @@ import {
   sDyadVaultAddress,
   sUsDeAddress,
   usDeAddress,
+  usDeKarakVaultAddress,
 } from '@/codegen'
 
 export const twitterUrl = 'https://x.com/Adapter_fi'
@@ -139,7 +140,7 @@ export const vaultMap: Record<SupportedVaults, VaultInfo> = {
   'USDe (Karak)-1': {
     depositAddress: '0xbe3ca34d0e877a1fc889bd5231d65477779aff4e',
     migrationAddress: '0x791c1e9d38029092e8ad1e252d0bb97261809a2c',
-    vaultAddress: eEthKarakVaultAddress[mainnet.id],
+    vaultAddress: usDeKarakVaultAddress[mainnet.id],
     pendleMarketAddress: '0x1bcbdb8c8652345a5acf04e6e74f70086c68fefc',
     chain: mainnet,
     logoURI:
