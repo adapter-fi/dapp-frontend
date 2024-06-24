@@ -38,7 +38,9 @@ export function DataTable<TData, TValue>({
   data,
   vaultTable,
 }: DataTableProps<TData, TValue>) {
-  const [sorting, setSorting] = useState<SortingState>([])
+  const [sorting, setSorting] = useState<SortingState>(
+    vaultTable ? [{ id: 'deposits', desc: true }] : []
+  )
 
   const table = useReactTable({
     data,
@@ -91,7 +93,9 @@ export function DataTable<TData, TValue>({
                               protocolURI: string
                               logoURI: string
                             }
-                          ).name.replace(' (', '(').toLocaleLowerCase()}`
+                          ).name
+                            .replace(' (', '(')
+                            .toLocaleLowerCase()}`
                         )
                     : () => null
                 }
