@@ -15,9 +15,10 @@ export type Vault = {
     type: string
     protocolURI: string
     logoURI: string
+    deprecated?: boolean
   }
-  underlyingAPR: number
-  autocompoundedAPY: number
+  underlyingAPR: string
+  autocompoundedAPY: string
   holdings?: any
   deposits: any
   network: string
@@ -51,7 +52,11 @@ export const columns: ColumnDef<Vault>[] = [
       const vaultData: Vault['data'] = row.getValue('data')
       return (
         <div className="flex gap-1 relative">
-          <img src={vaultData.logoURI} alt="logo" className='h-[48px] w-[48px]' />
+          <img
+            src={vaultData.logoURI}
+            alt="logo"
+            className="h-[48px] w-[48px] rounded-full"
+          />
           <Image
             src="/brand/logo.svg"
             height={16}
@@ -65,14 +70,18 @@ export const columns: ColumnDef<Vault>[] = [
               <p className="px-1 rounded-[4px] bg-[#F9F9F2] text-[#125AFA]">
                 {vaultData.type}
               </p>
-              <p className="px-1 rounded-[4px] bg-[#20CD7A] text-[#060606] ml-1">
-                BOOSTED
-              </p>
+              {!vaultData.deprecated && (
+                <p className="px-1 rounded-[4px] bg-[#20CD7A] text-[#060606] ml-1">
+                  BOOSTED
+                </p>
+              )}
               <img
                 src={vaultData.protocolURI}
-                height={24}
-                width={24}
                 alt="protocol"
+                className={cn(
+                  'rounded-full h-[24px] w-[24px]',
+                  vaultData.name.includes('DYAD') && 'h-[16px] w-[16px] ml-1'
+                )}
               />
             </div>
           </div>
@@ -127,7 +136,6 @@ export const columns: ColumnDef<Vault>[] = [
         </button>
       )
     },
-    cell: ({ row }) => formatPercentage(row.getValue('underlyingAPR')),
   },
   {
     accessorKey: 'autocompoundedAPY',
@@ -152,7 +160,6 @@ export const columns: ColumnDef<Vault>[] = [
         </button>
       )
     },
-    cell: ({ row }) => formatPercentage(row.getValue('autocompoundedAPY')),
   },
   // {
   //   accessorKey: 'points',

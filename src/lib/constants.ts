@@ -10,6 +10,7 @@ import {
   rsEthVaultAddress,
   rsEthVaultDeprecatedAddress,
   rsWethVaultAddress,
+  sDyadVaultAddress,
   sUsDeAddress,
   usDeAddress,
 } from '@/codegen'
@@ -35,11 +36,12 @@ export type SupportedVaults =
   | 'ezETH (Deprecated)-42161'
   | 'rsETH (Deprecated)-42161'
   | 'eETH (Deprecated)-42161'
+  | 'sDYAD-1'
 
 interface VaultInfo {
   depositAddress: Address
   vaultAddress: Address
-  migrationAddress: Address
+  migrationAddress?: Address
   pendleMarketAddress?: Address
   logoURI: string
   protocolURI: string
@@ -220,5 +222,15 @@ export const vaultMap: Record<SupportedVaults, VaultInfo> = {
       'https://www.pendle.finance/uploads/wp-content/uploads/2022/brandguide/logos/light-png/blue.png',
     type: 'LRT',
     deprecated: true,
+  },
+  'sDYAD-1': {
+    vaultAddress: sDyadVaultAddress[mainnet.id],
+    chain: mainnet,
+    logoURI:
+      'https://pbs.twimg.com/profile_images/1715367809843175424/LCqtLCJn_400x400.jpg',
+    protocolURI:
+      'https://pbs.twimg.com/profile_images/1715367809843175424/LCqtLCJn_400x400.jpg',
+    type: 'Stable',
+    depositAddress: '0xFd03723a9A3AbE0562451496a9a394D2C4bad4ab',
   },
 }

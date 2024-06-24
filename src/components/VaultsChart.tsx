@@ -10,6 +10,7 @@ import { getPendleMarketData } from '@/lib/queries/get-pendle-market-data'
 
 import { columns } from '@/app/(dapp)/vaults/columns'
 import { DataTable } from '@/app/(dapp)/vaults/data-table'
+import { formatPercentage } from '@/lib/utils'
 
 export const VaultsChart = () => {
   const { data: pendleData } = useQuery({
@@ -21,7 +22,7 @@ export const VaultsChart = () => {
 
   const chartData = pendleData?.map(
     (
-      { logoURI, protocolURI, name, underlyingApy, impliedApy, type, chain },
+      { logoURI, protocolURI, name, underlyingApy, impliedApy, type, chain, deprecated },
       i
     ) => ({
       data: {
@@ -29,9 +30,10 @@ export const VaultsChart = () => {
         logoURI,
         protocolURI,
         type,
+        deprecated,
       },
-      underlyingAPR: underlyingApy * 100,
-      autocompoundedAPY: impliedApy * 100,
+      underlyingAPR: underlyingApy ? formatPercentage(underlyingApy * 100) : 'TBD',
+      autocompoundedAPY: impliedApy ? formatPercentage(impliedApy * 100) : 'TBD',
       deposits: vaultBalances?.at(i)?.tvl || 0,
       holdings: vaultBalances?.at(i)?.balance || 0,
       network: chain.name,

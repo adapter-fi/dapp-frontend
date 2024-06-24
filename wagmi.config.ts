@@ -105,6 +105,13 @@ export default defineConfig({
       },
     },
     {
+      name: 'sDYADVault',
+      abi: adapterVaultAbi,
+      address: {
+        [mainnet.id]: '0xBe687E1f0fa123B3068fA96E33F5AfEa04B8ae29',
+      },
+    },
+    {
       name: 'sUSDe',
       abi: adapterVaultAbi,
       address: {

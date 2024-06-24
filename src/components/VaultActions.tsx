@@ -49,7 +49,7 @@ import { Tooltip, TooltipContent, TooltipTrigger } from './ui/tooltip'
 
 export const VaultActions = ({ slug }: { slug: keyof typeof vaultMap }) => {
   const [state, setState] = useState<'deposit' | 'withdraw' | 'migrate'>(
-    'migrate'
+    'deposit'
   )
   const { amount, setAmount } = useStateStore()
   const { address: walletAddress } = useAccount()
@@ -182,20 +182,28 @@ export const VaultActions = ({ slug }: { slug: keyof typeof vaultMap }) => {
     setAmount('')
   }, [state])
 
+  useEffect(() => {
+    if (migrationAddress) {
+      setState('migrate')
+    }
+  }, [migrationAddress])
+
   return (
     <div className="flex flex-col gap-6 py-6 items-center">
       <div className="flex gap-4 w-full justify-center">
-        <button
-          className={cn(
-            'font-thin tracking-[1.6px] px-4',
-            state === 'migrate'
-              ? 'border-b-2 border-[#F9F9F2]'
-              : 'text-gray hover:text-[#F9F9F2]'
-          )}
-          onClick={() => setState('migrate')}
-        >
-          MIGRATE
-        </button>
+        {migrationAddress && (
+          <button
+            className={cn(
+              'font-thin tracking-[1.6px] px-4',
+              state === 'migrate'
+                ? 'border-b-2 border-[#F9F9F2]'
+                : 'text-gray hover:text-[#F9F9F2]'
+            )}
+            onClick={() => setState('migrate')}
+          >
+            MIGRATE
+          </button>
+        )}
         <button
           className={cn(
             'font-thin tracking-[1.6px] px-4',
@@ -349,7 +357,13 @@ export const VaultActions = ({ slug }: { slug: keyof typeof vaultMap }) => {
               <div className="flex flex-col font-light min-w-[128px]">
                 <p className="text-gray">You pay</p>
                 <div className="border border-[#3B3B39] rounded-[4px] py-2 px-3 flex items-center gap-2">
-                  <img src={logoURI} alt={name} height={20} width={20} />
+                  <img
+                    src={logoURI}
+                    alt={name}
+                    height={20}
+                    width={20}
+                    className="rounded-full"
+                  />
                   <p>{state === 'deposit' ? name : 'aPT-' + name}</p>
                 </div>
               </div>
@@ -420,7 +434,13 @@ export const VaultActions = ({ slug }: { slug: keyof typeof vaultMap }) => {
               <div className="flex flex-col font-light w-[128px]">
                 <p className="text-gray">You receive</p>
                 <div className="border border-[#3B3B39] rounded-[4px] py-2 px-3 flex items-center gap-2">
-                  <img src={logoURI} alt={name} height={20} width={20} />
+                  <img
+                    src={logoURI}
+                    alt={name}
+                    height={20}
+                    width={20}
+                    className="rounded-full"
+                  />
                   <p>{state === 'deposit' ? 'aPT-' + name : name}</p>
                 </div>
               </div>
@@ -488,7 +508,7 @@ export const VaultActions = ({ slug }: { slug: keyof typeof vaultMap }) => {
           <TransactionButton
             config={{
               abi: erc20Abi,
-
+              // @ts-ignore
               address: state === 'migrate' ? migrationAddress : depositAddress,
               functionName: 'approve',
               args: [
