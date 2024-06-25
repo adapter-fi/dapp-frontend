@@ -62,7 +62,7 @@ export const VaultsChart = () => {
   return (
     <div className="p-12">
       {chartData ? (
-        <DataTable columns={columns} data={filteredChartData!} vaultTable />
+        <DataTable columns={columns} data={filteredChartData!} />
       ) : (
         <Skeleton className="w-full h-[300px]" />
       )}

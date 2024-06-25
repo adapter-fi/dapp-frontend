@@ -88,6 +88,10 @@ export const columns: ColumnDef<Vault>[] = [
         </div>
       )
     },
+    filterFn: (row, columnId, filterValue) =>
+      (row.getValue('data') as Vault['data']).name
+        .toLowerCase()
+        .includes(filterValue.toLowerCase()),
   },
   {
     accessorKey: 'network',
@@ -112,6 +116,7 @@ export const columns: ColumnDef<Vault>[] = [
         </button>
       )
     },
+    filterFn: 'arrIncludesSome',
   },
   {
     accessorKey: 'underlyingAPR',
