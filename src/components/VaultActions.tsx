@@ -426,11 +426,11 @@ export const VaultActions = ({ slug }: { slug: keyof typeof vaultMap }) => {
           <div className="bg-[#1F1F1D] border border-[#3B3B39] rounded-[4px] p-4 flex flex-col w-[467px] gap-3">
             <div className="flex justify-between items-center w-full">
               <p className="text-[42px] font-bold truncate max-w-[251px]">
-                {formatNumber(
+                ~{formatNumber(
                   fromBigNumber(
                     state === 'deposit' ? previewDeposit : previewRedeem
                   ),
-                  0
+                  2
                 )}
               </p>
               <div className="flex flex-col font-light min-w-[128px]">
