@@ -466,7 +466,7 @@ export const VaultActions = ({ slug }: { slug: keyof typeof vaultMap }) => {
             Vault deposits and migrations disabled for deprecated vaults
           </TooltipContent>
         </Tooltip>
-      ) : isApproved ? (
+      ) : isApproved || state === 'withdraw' ? (
         <NetworkGate supportedChain={chain}>
           <TransactionButton
             disabled={!amount || BigInt(amount) === 0n}
