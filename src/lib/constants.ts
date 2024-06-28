@@ -59,7 +59,7 @@ export const vaultMap: Record<SupportedVaults, VaultInfo> = {
     migrationAddress: '0xc69ad9bab1dee23f4605a82b3354f8e40d1e5966',
     vaultAddress: eEthVaultAddress[mainnet.id],
     vaultSymbol: 'aPT-eETH',
-    pendleMarketAddress: '0xf32e58f92e60f4b0a37a69b95d642a471365eae8',
+    pendleMarketAddress: '0xc8edd52d0502aa8b4d5c77361d4b3d300e8fc81c',
     chain: mainnet,
     logoURI:
       'https://assets.coingecko.com/coins/images/33049/standard/ether.fi_eETH.png?1700473063',
@@ -85,7 +85,7 @@ export const vaultMap: Record<SupportedVaults, VaultInfo> = {
     migrationAddress: '0xb05cabcd99cf9a73b19805edefc5f67ca5d1895e',
     vaultAddress: rsEthVaultAddress[mainnet.id],
     vaultSymbol: 'aPT-rsETH',
-    pendleMarketAddress: '0x4f43c77872db6ba177c270986cd30c3381af37ee',
+    pendleMarketAddress: '0x6b4740722e46048874d84306b2877600abcea3ae',
     chain: mainnet,
     logoURI:
       'https://assets.coingecko.com/coins/images/33800/standard/Icon___Dark.png?1702991855',
@@ -98,7 +98,7 @@ export const vaultMap: Record<SupportedVaults, VaultInfo> = {
     migrationAddress: '0x5cb12d56f5346a016dbba8ca90635d82e6d1bcea',
     vaultAddress: rsWethVaultAddress[mainnet.id],
     vaultSymbol: 'aPT-rswETH',
-    pendleMarketAddress: '0xa9355a5d306c67027c54de0e5a72df76befa5694',
+    pendleMarketAddress: '0x1e0c2e41f3165ff6b8a660092f63e10bc0eebe26',
     chain: mainnet,
     logoURI:
       'https://assets.coingecko.com/coins/images/34489/standard/rswETH_Icon.png?1706865484',
@@ -163,7 +163,7 @@ export const vaultMap: Record<SupportedVaults, VaultInfo> = {
     migrationAddress: '0x8ea5040d423410f1fdc363379af88e1db5ea1c34',
     vaultAddress: ezEthVaultAddress[arbitrum.id],
     vaultSymbol: 'aPT-ezETH',
-    pendleMarketAddress: '0x5e03c94fc5fb2e21882000a96df0b63d2c4312e2',
+    pendleMarketAddress: '0x35f3db08a6e9cb4391348b0b404f493e7ae264c0',
     chain: arbitrum,
     logoURI:
       'https://assets.coingecko.com/coins/images/34753/standard/Ezeth_logo_circle.png?1713496404',
@@ -176,7 +176,7 @@ export const vaultMap: Record<SupportedVaults, VaultInfo> = {
     migrationAddress: '0xafd22f824d51fb7eed4778d303d4388ac644b026',
     vaultAddress: rsEthVaultAddress[arbitrum.id],
     vaultSymbol: 'aPT-rsETH',
-    pendleMarketAddress: '0x6ae79089b2cf4be441480801bb741a531d94312b',
+    pendleMarketAddress: '0xed99fc8bdb8e9e7b8240f62f69609a125a0fbf14',
     chain: arbitrum,
     logoURI:
       'https://assets.coingecko.com/coins/images/33800/standard/Icon___Dark.png?1702991855',
@@ -189,7 +189,7 @@ export const vaultMap: Record<SupportedVaults, VaultInfo> = {
     migrationAddress: '0x1c27ad8a19ba026adabd615f6bc77158130cfbe4',
     vaultAddress: eEthVaultAddress[arbitrum.id],
     vaultSymbol: 'aPT-eETH',
-    pendleMarketAddress: '0x952083cde7aaa11ab8449057f7de23a970aa8472',
+    pendleMarketAddress: '0xf9f9779d8ff604732eba9ad345e6a27ef5c2a9d6',
     chain: arbitrum,
     logoURI:
       'https://assets.coingecko.com/coins/images/33049/standard/ether.fi_eETH.png?1700473063',
