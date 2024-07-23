@@ -95,7 +95,7 @@ export const vaultMap: Record<SupportedVaults, VaultInfo> = {
   },
   'rswETH-1': {
     depositAddress: '0xfae103dc9cf190ed75350761e95403b7b8afa6c0',
-    migrationAddress: '0x5cb12d56f5346a016dbba8ca90635d82e6d1bcea',
+    migrationAddress: '0x0a0e172511114456ec63a85ff32e45c5e0e27d63',
     vaultAddress: rsWethVaultAddress[mainnet.id],
     vaultSymbol: 'aPT-rswETH',
     pendleMarketAddress: '0x1e0c2e41f3165ff6b8a660092f63e10bc0eebe26',

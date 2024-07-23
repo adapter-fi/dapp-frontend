@@ -10,6 +10,7 @@ import { Footer } from '@/components/Footer'
 import { Navbar } from '@/components/Navbar'
 import { PartnerLogo } from '@/components/PartnerLogo'
 import { Partners } from '@/components/Partners'
+import { YieldCard } from '@/components/YieldCard'
 import { Button } from '@/components/ui/button'
 
 import { useIsMobile } from '@/hooks/use-is-mobile'
@@ -26,7 +27,10 @@ export default function Home() {
     queryKey: ['pendleData'],
     queryFn: () => getPendleMarketData(),
   })
-  const highestApy = (pendleData?.map(({ impliedApy }) => impliedApy).sort((a, b) => b - a)[0] || 0) * 100
+
+  const highestApy =
+    (pendleData?.map(({ impliedApy }) => impliedApy).sort((a, b) => b - a)[0] ||
+      0) * 100
 
   if (mobile) {
     return (
@@ -35,13 +39,22 @@ export default function Home() {
           <img
             src="/brand/logo-landing.svg"
             alt="hero"
-            className="object-cover h-[500px] w-full"
+            className="object-cover h-[385px] w-full"
           />
           <div className="flex flex-col p-4 gap-4">
             <div className="flex flex-col text-5xl font-bold leading-[0.8]">
               <p>YIELDS</p>
               <p className="text-[#125AFA]">MAXIMIZED</p>
             </div>
+            <YieldCard
+              src="/partner/swell-eth.svg"
+              title="rswETH"
+              amount={
+                (pendleData?.filter(({ name }) => name === 'rswETH-1')[0]
+                  ?.impliedApy || 0) * 100
+              }
+              link="/vaults/rsweth-1"
+            />
             <div className="grid grid-cols-2 gap-2">
               <Link href="/vaults">
                 <Button className="w-full" variant="inverted">
@@ -117,7 +130,9 @@ export default function Home() {
             </div>
             <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2  text-[#FBFDFD] flex flex-col">
               <div className="flex items-end gap-1">
-                <p className="font-bold text-[82px] leading-[0.8]">{formatNumber(highestApy)}</p>
+                <p className="font-bold text-[82px] leading-[0.8]">
+                  {formatNumber(highestApy)}
+                </p>
                 <p className="text-gray font-bold">%</p>
               </div>
               <p className="text-gray font-light text-sm text-center">
@@ -159,7 +174,7 @@ export default function Home() {
             />
             <PartnerLogo
               title="Renzo"
-              src="https://pbs.twimg.com/profile_images/1802973846485471232/vbDX8MdB_400x400.jpg"
+              src="https://s2.coinmarketcap.com/static/img/coins/200x200/30843.png"
             />
           </div>
         </div>
@@ -181,6 +196,15 @@ export default function Home() {
             />
           </div>
           <div className="flex flex-col justify-end py-12 px-3 gap-4 col-span-3 h-screen">
+            <YieldCard
+              src="/partner/swell-eth.svg"
+              title="rswETH"
+              amount={
+                (pendleData?.filter(({ name }) => name === 'rswETH-1')[0]
+                  ?.impliedApy || 0) * 100
+              }
+              link="/vaults/rsweth-1"
+            />
             <div className="flex flex-col text-[88px] font-bold leading-[0.8]">
               <p>YIELDS</p>
               <p className="text-[#125AFA]">MAXIMIZED</p>
@@ -268,7 +292,9 @@ export default function Home() {
             </div>
             <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2  text-[#FBFDFD] flex flex-col">
               <div className="flex items-end gap-1">
-                <p className="font-bold text-[82px] leading-[0.8]">{formatNumber(highestApy)}</p>
+                <p className="font-bold text-[82px] leading-[0.8]">
+                  {formatNumber(highestApy)}
+                </p>
                 <p className="text-gray font-bold">%</p>
               </div>
               <p className="text-gray font-light text-sm text-center">
