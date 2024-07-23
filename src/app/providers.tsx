@@ -9,6 +9,7 @@ import { State, WagmiProvider } from 'wagmi'
 import { mainnet } from 'wagmi/chains'
 
 import { Confetti } from '@/components/Confetti'
+import { SwellPopup } from '@/components/SwellPopup'
 import { Toaster } from '@/components/ui/sonner'
 import { TooltipProvider } from '@/components/ui/tooltip'
 
@@ -38,7 +39,12 @@ export default function Providers({
     <WagmiProvider config={config} initialState={initialState}>
       <QueryClientProvider client={queryClient}>
         <TooltipProvider delayDuration={0}>
-          {mounted && children}
+          {mounted && (
+            <>
+              {children}
+              <SwellPopup />
+            </>
+          )}
           <Toaster richColors toastOptions={{ duration: 7000 }} />
           <Confetti />
           <Analytics />
