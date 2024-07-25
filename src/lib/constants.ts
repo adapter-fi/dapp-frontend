@@ -98,7 +98,7 @@ export const vaultMap: Record<SupportedVaults, VaultInfo> = {
     migrationAddress: '0x0a0e172511114456ec63a85ff32e45c5e0e27d63',
     vaultAddress: rsWethVaultAddress[mainnet.id],
     vaultSymbol: 'aPT-rswETH',
-    pendleMarketAddress: '0x1e0c2e41f3165ff6b8a660092f63e10bc0eebe26',
+    pendleMarketAddress: '0x038c1b03dab3b891afbca4371ec807edaa3e6eb6',
     chain: mainnet,
     logoURI:
       'https://assets.coingecko.com/coins/images/34489/standard/rswETH_Icon.png?1706865484',
