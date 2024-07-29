@@ -121,10 +121,10 @@ export const vaultMap: Record<SupportedVaults, VaultInfo> = {
   },
   'USDe-1': {
     depositAddress: '0x4c9edd5852cd905f086c759e8383e09bff1e68b3',
-    migrationAddress: '0xa0021ef8970104c2d008f38d92f115ad56a9b8e1',
+    migrationAddress: '0x9468b647b36a23af2e48dab81a178596a6af95d9',
     vaultAddress: usDeAddress[mainnet.id],
     vaultSymbol: 'aPT-USDe',
-    pendleMarketAddress: '0x19588f29f9402bb508007feadd415c875ee3f19f',
+    pendleMarketAddress: '0x3d1e7312de9b8fc246dded971ee7547b0a80592a',
     chain: mainnet,
     logoURI:
       'https://storage.googleapis.com/prod-pendle-bucket-a/images/uploads/787d0128-9d3a-498d-a5b3-a6941fc5c1d3.svg',
