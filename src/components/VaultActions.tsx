@@ -66,6 +66,7 @@ export const VaultActions = ({ slug }: { slug: keyof typeof vaultMap }) => {
     pendleMarketAddress,
     deprecated,
     vaultSymbol,
+    decimals
   } = vaultMap[slug]
   const name = slug.slice(0, slug.indexOf('-'))
 
@@ -237,6 +238,7 @@ export const VaultActions = ({ slug }: { slug: keyof typeof vaultMap }) => {
                 value={amount}
                 onChange={(value) => setAmount(value)}
                 placeholder="0.00"
+                decimals={decimals}
                 className="max-w-[250px]"
               />
               <div className="flex flex-col font-light min-w-[128px]">
@@ -354,6 +356,7 @@ export const VaultActions = ({ slug }: { slug: keyof typeof vaultMap }) => {
                 value={amount}
                 onChange={(value) => setAmount(value)}
                 placeholder="0.00"
+                decimals={decimals}
                 className="max-w-[250px]"
               />
               <div className="flex flex-col font-light min-w-[128px]">

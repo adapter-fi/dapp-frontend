@@ -132,6 +132,13 @@ export default defineConfig({
         [mainnet.id]: '0x61F6A5687983D4a61283c65006c36DCdEC67853D',
       },
     },
+    {
+      name: 'gUSDCVault',
+      abi: adapterVaultAbi,
+      address: {
+        [arbitrum.id]: '0x3af0B7d4691c4bCF2e3f9DAf8EA5A24960Fc30EB',
+      },
+    },
   ],
   plugins: [react()],
 })

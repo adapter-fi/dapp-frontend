@@ -2,15 +2,16 @@ import { Address, Chain } from 'viem'
 import { arbitrum, mainnet } from 'viem/chains'
 
 import {
+  dyadVaultAddress,
   eEthKarakVaultAddress,
   eEthVaultAddress,
   eEthVaultDeprecatedAddress,
   ezEthVaultAddress,
   ezEthVaultDeprecatedAddress,
+  gUsdcVaultAddress,
   rsEthVaultAddress,
   rsEthVaultDeprecatedAddress,
   rsWethVaultAddress,
-  dyadVaultAddress,
   sUsDeAddress,
   usDeAddress,
   usDeKarakVaultAddress,
@@ -38,6 +39,7 @@ export type SupportedVaults =
   | 'rsETH (Deprecated)-42161'
   | 'eETH (Deprecated)-42161'
   | 'DYAD-1'
+  | 'gUSDC-42161'
 
 interface VaultInfo {
   depositAddress: Address
@@ -50,6 +52,7 @@ interface VaultInfo {
   chain: Chain
   type: string
   deprecated?: boolean
+  decimals?: number
 }
 
 // For Pendle migrationAddress is PT and depositAddress is underlying
@@ -249,5 +252,19 @@ export const vaultMap: Record<SupportedVaults, VaultInfo> = {
       'https://pbs.twimg.com/profile_images/1715367809843175424/LCqtLCJn_400x400.jpg',
     type: 'Stable',
     depositAddress: '0xFd03723a9A3AbE0562451496a9a394D2C4bad4ab',
+  },
+  'gUSDC-42161': {
+    vaultAddress: gUsdcVaultAddress[arbitrum.id],
+    chain: arbitrum,
+    vaultSymbol: 'aPT-gUSDC',
+    logoURI:
+      'https://assets.coingecko.com/coins/images/39042/standard/logo_gUSDC.png?1720066451',
+    protocolURI:
+      'https://www.pendle.finance/uploads/wp-content/uploads/2022/brandguide/logos/light-png/blue.png',
+    type: 'Stable',
+    depositAddress: '0xd3443ee1e91af28e5fb858fbd0d72a63ba8046e0',
+    pendleMarketAddress: '0xa877a0e177b54a37066c1786f91a1dab68f094af',
+    migrationAddress: '0x2be6fab4d1408e7ad6ad91ce7b77fa2a7670782f',
+    decimals: 6,
   },
 }

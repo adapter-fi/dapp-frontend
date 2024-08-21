@@ -17,7 +17,7 @@ export const useVaultBalances = () => {
     queryFn: () =>
       Promise.all(
         Object.values(vaultMap).map(
-          async ({ vaultAddress, chain, depositAddress }, i) => {
+          async ({ vaultAddress, chain, depositAddress, decimals }, i) => {
             const underlyingPrice = await getSpotPrice(
               depositAddress,
               chain.id as any
@@ -42,7 +42,7 @@ export const useVaultBalances = () => {
                     )
                     .then(
                       (underlyingBalance) =>
-                        fromBigNumber(underlyingBalance) * underlyingPrice
+                        fromBigNumber(underlyingBalance, decimals) * underlyingPrice
                     )
                 : 0,
               tvl: await readContract(config as any, {
@@ -50,7 +50,7 @@ export const useVaultBalances = () => {
                 abi: vaultBaseAbi,
                 functionName: 'totalAssets',
                 chainId: chain.id,
-              }).then((tvl) => fromBigNumber(tvl) * underlyingPrice),
+              }).then((tvl) => fromBigNumber(tvl, decimals) * underlyingPrice),
               vault: Object.keys(vaultMap)[i],
             }
           }
