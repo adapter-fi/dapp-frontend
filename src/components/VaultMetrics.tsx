@@ -10,6 +10,7 @@ import { useVaultBalances } from '@/hooks/use-vault-balances'
 
 import { getPendleMarketData } from '@/lib/queries/get-pendle-market-data'
 import { formatNumber, fromBigNumber } from '@/lib/utils'
+import { SupportedVaults, vaultMap } from '@/lib/constants'
 
 export const VaultMetrics = ({
   vaultName,
@@ -29,6 +30,10 @@ export const VaultMetrics = ({
     queryFn: () => getPendleMarketData(),
   })
 
+  const {
+    decimals
+  } = vaultMap[slug as SupportedVaults]
+
   return (
     <div className="grid grid-cols-4 gap-32 p-6">
       <Metric
@@ -41,7 +46,7 @@ export const VaultMetrics = ({
       />
       <Metric
         label={vaultSymbol + ' Balance'}
-        amount={formatNumber(fromBigNumber(balance))}
+        amount={formatNumber(fromBigNumber(balance, decimals))}
         unit={vaultSymbol}
         size="sm"
       />
