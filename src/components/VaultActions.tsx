@@ -253,7 +253,7 @@ export const VaultActions = ({ slug }: { slug: keyof typeof vaultMap }) => {
               <div className="text-sm flex items-center gap-1 font-light">
                 <p className="text-gray">Balance: </p>
                 <p>
-                  {formatNumber(fromBigNumber(inputBalance))} {'PT-' + name}
+                  {formatNumber(fromBigNumber(inputBalance, decimals))} {'PT-' + name}
                 </p>
               </div>
               <div className="flex gap-0.5 text-sm font-light">
@@ -325,7 +325,7 @@ export const VaultActions = ({ slug }: { slug: keyof typeof vaultMap }) => {
                 <Skeleton className="h-[24px] w-[49px]" />
               ) : (
                 <p className="text-[#FBFDFD]">
-                  {formatNumber(fromBigNumber(migrateEstimatedOut), 4)}
+                  {formatNumber(fromBigNumber(migrateEstimatedOut, decimals), 4)}
                 </p>
               )}
             </div>
@@ -335,7 +335,7 @@ export const VaultActions = ({ slug }: { slug: keyof typeof vaultMap }) => {
                 <Skeleton className="h-[24px] w-[49px]" />
               ) : (
                 <p className="text-[#FBFDFD]">
-                  {formatNumber(fromBigNumber(migrateMinOut), 4)}
+                  {formatNumber(fromBigNumber(migrateMinOut, decimals), 4)}
                 </p>
               )}
             </div>
@@ -377,7 +377,7 @@ export const VaultActions = ({ slug }: { slug: keyof typeof vaultMap }) => {
               <div className="text-sm flex items-center gap-1 font-light">
                 <p className="text-gray">Balance: </p>
                 <p>
-                  {formatNumber(fromBigNumber(inputBalance))}{' '}
+                  {formatNumber(fromBigNumber(inputBalance, decimals))}{' '}
                   {state === 'deposit' ? name : vaultSymbol}
                 </p>
                 <p className="text-gray">
@@ -385,8 +385,8 @@ export const VaultActions = ({ slug }: { slug: keyof typeof vaultMap }) => {
                   {formatCurrency(
                     depositTokenPrice *
                       (state === 'deposit'
-                        ? fromBigNumber(depositBalance)
-                        : fromBigNumber(totalRedeem))
+                        ? fromBigNumber(depositBalance, decimals)
+                        : fromBigNumber(totalRedeem, decimals))
                   )}
                 </p>
               </div>
@@ -431,7 +431,7 @@ export const VaultActions = ({ slug }: { slug: keyof typeof vaultMap }) => {
               <p className="text-[42px] font-bold truncate max-w-[251px]">
                 ~{formatNumber(
                   fromBigNumber(
-                    state === 'deposit' ? previewDeposit : previewRedeem
+                    state === 'deposit' ? previewDeposit : previewRedeem, decimals
                   ),
                   2
                 )}
