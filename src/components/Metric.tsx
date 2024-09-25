@@ -5,11 +5,13 @@ export const Metric = ({
   amount,
   unit,
   size = 'lg',
+  decimals = 2,
 }: {
   label: string
   amount: number | string
   unit?: string
   size?: 'sm' | 'lg'
+  decimals?: number
 }) => {
   return (
     <div className="flex flex-col">
@@ -20,7 +22,7 @@ export const Metric = ({
             size === 'lg' ? 'text-[42px] h-[52px]' : 'text-2xl'
           )}
         >
-          {formatNumber(amount)}
+          {formatNumber(amount, decimals)}
         </p>
         {unit && <p className={cn('text-gray font-bold')}>{unit}</p>}
       </div>

@@ -4,9 +4,9 @@ import { Metric } from '@/components/Metric'
 
 import { columns } from '@/app/(dapp)/leaderboard/columns'
 import { DataTable } from '@/app/(dapp)/leaderboard/data-table'
+import { WalletPoints } from '@/components/WalletPoints'
 
-
-export default async function LeaderboardPage() {
+const Leaderboard = async () => {
   const leaderboard = await fetch(
     'https://adapterfi.index.biggestlab.io/leaderboard/',
     {
@@ -31,7 +31,10 @@ export default async function LeaderboardPage() {
         }) => ({ points, name: address, rank })
       )
     )
+  return <DataTable columns={columns} data={leaderboard} />
+}
 
+export default async function LeaderboardPage() {
   return (
     <div className="flex flex-col">
       <div className="bg-[#125AFA] border border-[#0E47C5] px-12 pt-12 pb-4 flex flex-col justify-between">
@@ -41,21 +44,12 @@ export default async function LeaderboardPage() {
             Use Adapter and earn points
           </p>
         </div>
-        {/* <div className="grid grid-cols-4 w-full">
-          <Metric label="Your Points" amount={420} />
-          <Metric label="Your Rank" amount={420} />
-          <Metric label="Loyalty Boost" amount={'4.1X'} />
-          <Metric label="Total Points" amount={'100M'} />
-        </div> */}
+        <WalletPoints />
       </div>
-      <p className="px-12 pt-12 text-[69px] font-bold">COMING SOON</p>
-      <p className="px-12">
-        Your points are accumulated and tracked from Day 1, leaderboard coming
-        soon.
-      </p>
+
       <div className="p-12">
         <Suspense>
-          <DataTable columns={columns} data={leaderboard} />
+          <Leaderboard />
         </Suspense>
       </div>
     </div>
