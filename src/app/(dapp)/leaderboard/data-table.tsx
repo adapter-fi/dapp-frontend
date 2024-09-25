@@ -80,21 +80,6 @@ export function DataTable<TData, TValue>({
               <TableRow
                 key={row.id}
                 data-state={row.getIsSelected() && 'selected'}
-                onClick={() =>
-                  router.push(
-                    `/vaults/${(
-                      row.getValue('data') as {
-                        name: string
-                        type: string
-                        protocolURI: string
-                        logoURI: string
-                      }
-                    ).name
-                      .replace(' (', '(')
-                      .toLocaleLowerCase()}`
-                  )
-                }
-                className="cursor-pointer hover:bg-[#3B3B39]"
               >
                 {row.getVisibleCells().map((cell) => (
                   <TableCell key={cell.id}>
